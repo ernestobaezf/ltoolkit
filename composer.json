@@ -1,0 +1,30 @@
+{
+    "name": "ernestobaezf/l5-core-toolbox",
+    "description": "Package to easy start a new project by using repository and other patterns for laravel 5",
+    "keywords": ["repository patterns", "easy start", "boilerplate"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ernesto Baez",
+            "homepage": "https://github.com/ernestobaezf"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ErnestoBaezF\\L5CoreToolbox\\": "src/"
+        },
+        "files": [
+            "src/globals.php"
+        ]
+    },
+    "require": {
+        "php": "~7.1",
+        "prettus/l5-repository": "^2.6"
+    },
+    "require-dev": {
+        "nunomaduro/larastan": "^0.3.16",
+        "dg/bypass-finals": "^1.1",
+        "phpunit/phpunit": "~8.1"
+    }
+}
