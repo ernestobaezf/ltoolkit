@@ -43,6 +43,19 @@ And then configure the namespace for this directory in the composer.json file as
 
 Of course, is not mandatory to structure the project as explained. You can do use it as you want.
 
+## Installation
+
+Install via composer:
+
+    composer require ernestobaezf/l5-core-toolbox
+    
+Then in your `config/app.php` add the following provider to the list:
+    
+    'providers' => [
+         ...
+         ErnestoBaezF\L5CoreToolbox\ServiceProvider::class,
+    ]
+
 ## Service provider
 
 The [service provider](https://laravel.com/docs/5.8/providers) is the entry point to connect packages with Laravel main
@@ -231,3 +244,16 @@ To create a simple API is as easy as:
     Route::resource('sample', 'SampleAPIController');
 
 And that's it. You have and api with a fully functional CRUD.
+
+## Localization
+
+Is possible to get the api messages in english and spanish by using the route middleware `Localization` and sending
+to the backend the current language in the headers `'X-localization'`. If no language is specified then the one from user 
+preference (if specified) or english is used as default.
+
+To set the middleware, in the file `app\Http\Kernel.php` set:
+
+    protected $routeMiddleware = [
+        ...
+        'l18n' => \ErnestoBaezF\L5CoreToolbox\Http\Middleware\Localization::class,
+    ];
