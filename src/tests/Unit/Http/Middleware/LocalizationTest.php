@@ -79,7 +79,7 @@ class LocalizationTest extends TestCase
 
         $user->setLocale("");
 
-        Auth::shouldReceive("user")->andReturn(new User());
+        Auth::shouldReceive("user")->andReturn($user);
 
         $request = new Request();
         $object = $this->getMockBuilder(Localization::class)->getMock();
