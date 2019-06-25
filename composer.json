@@ -20,6 +20,8 @@
     },
     "require": {
         "php": "~7.1",
+        "psr/http-client": "^1.0",
+        "guzzlehttp/guzzle": "^6.3",
         "prettus/l5-repository": "^2.6"
     },
     "require-dev": {

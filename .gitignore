@@ -1,0 +1,10 @@
+.idea
+.idea/*
+.env
+build
+build/*
+.vscode
+public/*
+phpunit
+.phpunit.result.cache
+coverage.xml
