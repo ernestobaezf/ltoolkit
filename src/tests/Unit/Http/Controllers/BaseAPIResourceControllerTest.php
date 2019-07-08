@@ -64,7 +64,7 @@ class BaseAPIResourceControllerTest extends TestCase
         $response = $method->invokeArgs($object, [$request]);
 
         $this->assertTrue($response->getData()->data[0] == "all");
-        $this->assertTrue($response->getData()->message== "L5CoreToolbox::messages.entity.retrieved");
+        $this->assertTrue($response->getData()->message== "l5coretoolbox::messages.entity.retrieved");
     }
 
     /**
@@ -115,7 +115,7 @@ class BaseAPIResourceControllerTest extends TestCase
         $response = $method->invokeArgs($object, [$request]);
 
         $this->assertTrue($response->getData()->data[0] == "paginate");
-        $this->assertTrue($response->getData()->message== "L5CoreToolbox::messages.entity.retrieved");
+        $this->assertTrue($response->getData()->message== "l5coretoolbox::messages.entity.retrieved");
     }
 
     /**
@@ -146,7 +146,7 @@ class BaseAPIResourceControllerTest extends TestCase
         $response = $method->invokeArgs($object, [$params]);
 
         $this->assertTrue($response->getData()->data == 1);
-        $this->assertTrue($response->getData()->message == "L5CoreToolbox::messages.entity.retrieved");
+        $this->assertTrue($response->getData()->message == "l5coretoolbox::messages.entity.retrieved");
         $this->assertTrue($response->getStatusCode() == 200);
     }
 
@@ -177,8 +177,44 @@ class BaseAPIResourceControllerTest extends TestCase
         $method   = self::getMethod('show', BaseAPIResourceController::class);
         $response = $method->invokeArgs($object, [$params]);
 
-        $this->assertTrue($response->getData()->message == "L5CoreToolbox::messages.entity.not_found");
+        $this->assertTrue($response->getData()->message == "l5coretoolbox::messages.entity.not_found");
         $this->assertTrue($response->getStatusCode() == 404);
+    }
+
+    /**
+     * Test for retrieving the data with relations.
+     * Context: Entity found
+     */
+    public function test_show_3()
+    {
+        $entityClass = "ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\Mock";
+        $params      = 1;
+        $object      = $this->getMockBuilder(BaseAPIResourceController::class)
+            ->disableOriginalClone()
+            ->disableArgumentCloning()
+            ->disallowMockingUnknownTypes()
+            ->setMethods(['getEntity', 'getRepository'])
+            ->setConstructorArgs(
+                [
+                    'unitOfWork'          => app(IUnitOfWork::class),
+                    'validatorCollection' => app(IValidatorResolver::class),
+                    'criteria'            => app(ICriteriaIterator::class)]
+            )
+            ->getMock();
+
+        $object->method('getEntity')->willReturn($entityClass);
+        $object->method('getRepository')->willReturn(new MockRepository(app(IUnitOfWork::class)));
+
+        $method   = self::getMethod('show', BaseAPIResourceController::class);
+
+        $this->app->bind("request", function () {
+            return new Request(["with" => "relation1"]);
+        });
+        $response = $method->invokeArgs($object, [$params]);
+
+        $this->assertTrue($response->getData()->data == 1);
+        $this->assertTrue($response->getData()->message == "l5coretoolbox::messages.entity.retrieved");
+        $this->assertTrue($response->getStatusCode() == 200);
     }
 
     /**
@@ -209,7 +245,7 @@ class BaseAPIResourceControllerTest extends TestCase
         $response = $method->invokeArgs($object, [$params, ["relation1"]]);
 
         $this->assertTrue($response->getData()->data == 1);
-        $this->assertTrue($response->getData()->message == "L5CoreToolbox::messages.entity.retrieved");
+        $this->assertTrue($response->getData()->message == "l5coretoolbox::messages.entity.retrieved");
         $this->assertTrue($response->getStatusCode() == 200);
     }
 
@@ -240,7 +276,7 @@ class BaseAPIResourceControllerTest extends TestCase
         $method   = self::getMethod('showWithRelationList', BaseAPIResourceController::class);
         $response = $method->invokeArgs($object, [$params, ["relation1"]]);
 
-        $this->assertTrue($response->getData()->message == "L5CoreToolbox::messages.entity.not_found");
+        $this->assertTrue($response->getData()->message == "l5coretoolbox::messages.entity.not_found");
         $this->assertTrue($response->getStatusCode() == 404);
     }
 
@@ -274,7 +310,7 @@ class BaseAPIResourceControllerTest extends TestCase
 
         $this->assertIsObject($response->getData()->data);
         $this->assertTrue($response->getData()->data->test == 1);
-        $this->assertTrue($response->getData()->message == "L5CoreToolbox::messages.entity.saved");
+        $this->assertTrue($response->getData()->message == "l5coretoolbox::messages.entity.saved");
         $this->assertTrue($response->getStatusCode() == 200);
     }
 
@@ -392,7 +428,7 @@ class BaseAPIResourceControllerTest extends TestCase
         $response = $method->invokeArgs($object, [0, $request]);
 
         $this->assertTrue($response->getData()->data == null);
-        $this->assertTrue($response->getData()->message == "L5CoreToolbox::messages.entity.not_found");
+        $this->assertTrue($response->getData()->message == "l5coretoolbox::messages.entity.not_found");
         $this->assertTrue($response->getStatusCode() == 404);
     }
 
@@ -475,7 +511,7 @@ class BaseAPIResourceControllerTest extends TestCase
         $response = $method->invokeArgs($object, [1]);
 
         $this->assertTrue($response->getData()->data == 1);
-        $this->assertTrue($response->getData()->message == "L5CoreToolbox::messages.entity.deleted");
+        $this->assertTrue($response->getData()->message == "l5coretoolbox::messages.entity.deleted");
         $this->assertTrue($response->getStatusCode() == 200);
     }
 
@@ -505,7 +541,7 @@ class BaseAPIResourceControllerTest extends TestCase
         $response = $method->invokeArgs($object, [0]);
 
         $this->assertTrue($response->getData()->data == null);
-        $this->assertTrue($response->getData()->message == "L5CoreToolbox::messages.entity.not_found");
+        $this->assertTrue($response->getData()->message == "l5coretoolbox::messages.entity.not_found");
         $this->assertTrue($response->getStatusCode() == 404);
     }
 }

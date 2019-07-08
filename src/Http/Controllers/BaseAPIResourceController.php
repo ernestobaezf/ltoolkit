@@ -62,7 +62,7 @@ abstract class BaseAPIResourceController extends BaseAPIController implements IA
             $entities = $repository->all();
         }
 
-        return $this->respond($entities, trans_choice('L5CoreToolbox::messages.entity.retrieved', $entities->count()));
+        return $this->respond($entities, trans_choice('l5coretoolbox::messages.entity.retrieved', $entities->count()));
     }
 
     /**
@@ -70,17 +70,19 @@ abstract class BaseAPIResourceController extends BaseAPIController implements IA
      */
     public function show(int $id): JsonResponse
     {
-        $repository = $this->getRepository();
-        $entity = $repository->find($id);
+        $request = request();
+        $with = $request->query->get("with", "");
 
-        if (!$entity) {
-            return $this->respond(null, trans('L5CoreToolbox::messages.entity.not_found'), 404);
+        $relations = [];
+        if ($with) {
+            $relations = explode(';', $with);
         }
 
-        return $this->respond($entity, trans_choice('L5CoreToolbox::messages.entity.retrieved', 1));
+        return $this->showWithRelationList($id, $relations);
     }
 
     /**
+     * Get the entity detail with relations is requested
      *
      * @param int   $id
      * @param array $relations
@@ -93,10 +95,10 @@ abstract class BaseAPIResourceController extends BaseAPIController implements IA
         $entity = $repository->find($id, ['*', 'relations' => $relations]);
 
         if (!$entity) {
-            return $this->respond(null, trans('L5CoreToolbox::messages.entity.not_found'), 404);
+            return $this->respond(null, trans('l5coretoolbox::messages.entity.not_found'), 404);
         }
 
-        return $this->respond($entity, trans_choice('L5CoreToolbox::messages.entity.retrieved', 1));
+        return $this->respond($entity, trans_choice('l5coretoolbox::messages.entity.retrieved', 1));
     }
 
     /**
@@ -110,7 +112,7 @@ abstract class BaseAPIResourceController extends BaseAPIController implements IA
             $repository = $this->getRepository();
             $entity = $repository->create($input);
 
-            return $this->respond($entity, trans('L5CoreToolbox::messages.entity.saved'));
+            return $this->respond($entity, trans('l5coretoolbox::messages.entity.saved'));
         } catch (Exception $exception) {
             report($exception);
 
@@ -130,10 +132,10 @@ abstract class BaseAPIResourceController extends BaseAPIController implements IA
             $entity = $repository->update($id, $input);
 
             if (!$entity) {
-                return $this->respond(null, trans('L5CoreToolbox::messages.entity.not_found'), 404);
+                return $this->respond(null, trans('l5coretoolbox::messages.entity.not_found'), 404);
             }
 
-            return $this->respond($entity, trans('L5CoreToolbox::messages.entity.updated'));
+            return $this->respond($entity, trans('l5coretoolbox::messages.entity.updated'));
         } catch (Exception $exception) {
             report($exception);
 
@@ -149,9 +151,9 @@ abstract class BaseAPIResourceController extends BaseAPIController implements IA
         $deleted = $this->getRepository()->delete($id);
 
         if (!$deleted) {
-            return $this->respond(null, trans('L5CoreToolbox::messages.entity.not_found'), 404);
+            return $this->respond(null, trans('l5coretoolbox::messages.entity.not_found'), 404);
         }
 
-        return $this->respond($id, trans('L5CoreToolbox::messages.entity.deleted'));
+        return $this->respond($id, trans('l5coretoolbox::messages.entity.deleted'));
     }
 }

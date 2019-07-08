@@ -216,7 +216,38 @@ If you want to declare the validators yourself and not follow the convention, yo
 
 ## Logs
 
-The activity on every action from Controllers that extend BaseAPIController is logged. This is done by using a middleware.
+The activity on every action from Controllers that extend BaseAPIController is logged. This is done by using a middleware. 
+Also is recommended to use CustomLogFormatter to get an easy to parse log records (see an example configuration below).
+
+>
+    # config/logging.php
+    
+    'daily' => [
+                'driver' => 'daily',
+                'path' => storage_path('logs/laravel.log'),
+                'formatter' => \ErnestoBaezF\L5CoreToolbox\Formatters\CustomLogFormatter::class,
+                'formatter_with' => [
+                    "format" => "[%datetime%] %channel%.%level_name% %context% %extra% %message%\n",
+                    "dateFormat" => null,
+                    "allowInlineLineBreaks" => true,
+                    "ignoreEmptyContextAndExtra" => false
+                ],
+                'level' => 'debug',
+                'days' => 14,
+            ],
+
+## Localization
+
+Is possible to get the api messages in english and spanish by using the route middleware `Localization` and sending
+to the backend the current language in the headers `'X-localization'`. If no language is specified then the one from user 
+preference (if specified) or english is used as default.
+
+To set the middleware, in the file `app\Http\Kernel.php` set:
+
+    protected $routeMiddleware = [
+        ...
+        'l18n' => \ErnestoBaezF\L5CoreToolbox\Http\Middleware\Localization::class,
+    ];
 
 ## Use case
 
@@ -238,22 +269,40 @@ To create a simple API is as easy as:
 
 3. If you want to add validations. Create the validations as explained in section **Validations**
 
-4. Declare your routes to the api:
+4. Declare your routes for the api:
 
 >
-    Route::resource('sample', 'SampleAPIController');
+    Route::prefix("api/v1/")
+           ->namespace($this->getControllersNamespace())
+           ->group([middleware => 'api'], function () {
+                   Route::resource('sample', 'SampleAPIController')
+               });
 
 And that's it. You have and api with a fully functional CRUD.
 
-## Localization
+With th implementation above is possible to:
 
-Is possible to get the api messages in english and spanish by using the route middleware `Localization` and sending
-to the backend the current language in the headers `'X-localization'`. If no language is specified then the one from user 
-preference (if specified) or english is used as default.
+1. Get a paginated list of elements only by passing the parameter 'limit'. If this parameter is not sent then the default 
+result is the complete set of elements.
 
-To set the middleware, in the file `app\Http\Kernel.php` set:
+>
+    GET http://{{domain}}/api/v1/sample?limit=20&page=1
 
-    protected $routeMiddleware = [
-        ...
-        'l18n' => \ErnestoBaezF\L5CoreToolbox\Http\Middleware\Localization::class,
-    ];
+2. Filter elements by fields
+
+>
+    GET http://{{domain}}/api/v1/sample?search=element1&searchFields=name:like
+
+
+3. Get relations and its fields for the list of elements.
+
+>
+    GET http://{{domain}}/api/v1/users?search=element1&searchFields=name:like&with=roles:id
+    
+4. Get information from entities related the one being requested
+
+>
+    GET http://{{domain}}/api/v1/sample/<id>?with=<relation1>:<fields,...>;<relation2>:<fields,...>
+    
+    Example
+    GET http://{{domain}}/api/v1/users/20?with=roles:id,name 

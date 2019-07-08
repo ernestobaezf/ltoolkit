@@ -5,6 +5,7 @@ namespace ErnestoBaezF\L5CoreToolbox\Providers;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 abstract class BaseServiceProvider extends ServiceProvider
 {
@@ -87,7 +88,12 @@ abstract class BaseServiceProvider extends ServiceProvider
     {
         $basePath = "packages".DIRECTORY_SEPARATOR.$this->getPackageName();
 
-        $path = $basePath.($path ? DIRECTORY_SEPARATOR.$path : $path);
+        $glue = DIRECTORY_SEPARATOR;
+        if ($path && !Str::startsWith($path, $glue) && !Str::endsWith($basePath, $glue)) {
+            $path = $basePath.$glue.$path;
+        } else {
+            $path = $basePath.$path;
+        }
 
         return base_path($path);
     }

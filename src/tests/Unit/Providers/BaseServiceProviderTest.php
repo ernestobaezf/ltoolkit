@@ -74,4 +74,47 @@ class BaseServiceProviderTest extends TestCase
         $method->invoke($object);
     }
 
+    /**
+     * Register Gates
+     */
+    public function test_getPackageNamespace()
+    {
+        $object = $this->getMockBuilder(BaseServiceProvider::class)
+            ->disableOriginalConstructor()
+            ->disableArgumentCloning()
+            ->disableOriginalClone()
+            ->getMock();
+
+        $method = self::getMethod("getPackageNamespace", BaseServiceProvider::class);
+        $result = $method->invoke($object);
+
+        $method = self::getMethod("getPackageName", BaseServiceProvider::class);
+        $name = $method->invoke($object);
+
+        self::assertEquals("Packages\\$name", $result);
+    }
+
+    /**
+     * Register Gates
+     */
+    public function test_getPath()
+    {
+        $object = $this->getMockBuilder(BaseServiceProvider::class)
+            ->disableOriginalConstructor()
+            ->disableArgumentCloning()
+            ->disableOriginalClone()
+            ->getMock();
+
+        $method = self::getMethod("getPackageName", BaseServiceProvider::class);
+        $name = $method->invoke($object);
+
+        $method = self::getMethod("getPath", BaseServiceProvider::class);
+        $result = $method->invoke($object, "data");
+
+        self::assertEquals(base_path("packages".DIRECTORY_SEPARATOR.$name."/data"), $result);
+
+        $result = $method->invoke($object, "/data");
+        self::assertEquals(base_path("packages".DIRECTORY_SEPARATOR.$name."/data"), $result);
+    }
+
 }
