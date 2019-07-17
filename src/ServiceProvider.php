@@ -88,7 +88,8 @@ class ServiceProvider extends BaseServiceProvider
 
         $this->publishes(
             [
-                $this->getPath("Config".DIRECTORY_SEPARATOR."l5tb.php") => config_path("packages".DIRECTORY_SEPARATOR."$packageName.php"),
+                $this->getPath("Config".DIRECTORY_SEPARATOR."$packageName.php") =>
+                    config_path("packages".DIRECTORY_SEPARATOR."$packageName.php"),
             ], 'config'
         );
     }
