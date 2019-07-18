@@ -1,17 +1,18 @@
 <?php
 /**
- * @author Ernesto Baez 
+ * @author Ernesto Baez
  */
 
 namespace ErnestoBaezF\L5CoreToolbox\Helpers;
 
 
 use Closure;
+use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Validation\ValidationException;
 use ErnestoBaezF\L5CoreToolbox\Interfaces\IEvaluator;
+use Illuminate\Support\Facades\Response as ResponseFacade;
 
 final class Evaluator implements IEvaluator
 {
@@ -68,15 +69,29 @@ final class Evaluator implements IEvaluator
 
             if ($this->logInfo) {
                 $message = "";
-                $content = $result ? $result->getContent() : $result;
+                $level = 'info';
 
-                if ($content && strlen($content) > 400) {
-                    $content = json_decode($content);
-                    $message = $content->message ?? "";
-                    $message = "{\"data\":\"truncated message...\",\"message\":\"$message\"}";
+                if ($result && ($result instanceof Response || $result instanceof JsonResponse)) {
+                    $content = $result->getContent();
+
+                    if ($content && strlen($content) > 400) {
+                        $content = json_decode($content);
+                        $message = $content->message ?? "";
+                        $message = "{\"data\":\"truncated message...\",\"message\":\"$message\"}";
+                    }
+
+                    if ($result->getStatusCode() != 200) {
+                        $level = 'warning';
+                    }
+
+                    if ($result->getStatusCode() >= 500) {
+                        $level = 'error';
+                    }
+                } else {
+                    $message = json_encode($result);
                 }
 
-                Log::info("End execution", ["response" => $message]);
+                Log::log($level, "End execution", ["response" => $message]);
             }
 
             return $result;
@@ -135,7 +150,7 @@ final class Evaluator implements IEvaluator
 
                 Log::error("Pre-condition failed", ["response" => $message]);
 
-                return Response::json(
+                return ResponseFacade::json(
                     [
                         'message' => trans('validation.error.generic_message'),
                         'error' => $message,
@@ -155,7 +170,7 @@ final class Evaluator implements IEvaluator
 
                 Log::error("Post-condition failed", ["response" => $message]);
 
-                return Response::json(
+                return ResponseFacade::json(
                     [
                         'message' => trans('validation.error.generic_message'),
                         'error' => $message,

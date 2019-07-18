@@ -22,7 +22,7 @@ class CustomLogFormatter extends LineFormatter
 {
     const SIMPLE_FORMAT = "[%datetime%] %channel%.%level_name% %context% %extra% %message%\n";
 
-    private const KEY = 'L5CoreToolbox:.log.scrubber';
+    private const KEY = 'L5CoreToolbox.log.scrubber';
     private $scrub = [];
 
     /**
@@ -64,9 +64,8 @@ class CustomLogFormatter extends LineFormatter
             $request = request()->all();
             $payload = $request ?: '';
             $vars['context']['payload'] = json_encode($payload);
-        } elseif (!is_string($vars['context']['payload'])) {
-            $vars['context']['payload'] = json_encode($vars['context']['payload']);
         }
+        $vars['context']['payload'] = $this->normalize($vars['context']['payload']);
 
         if ($logId) {
             $vars['context']['logId'] = $logId;
@@ -134,6 +133,10 @@ class CustomLogFormatter extends LineFormatter
                 }
             }
 
+            if (is_string($data)) {
+                $data = $this->scrubFromString($data);
+            }
+
             return $data;
         }
 
@@ -175,11 +178,7 @@ class CustomLogFormatter extends LineFormatter
                 $value = $this->toJson($data, true);
             }
 
-            $list = implode("|", $this->getScrubList());
-
-            $pattern = '/("('.$list.')"):"([^"]*)"/i';
-            $replacement = '$1:"[scrubbed value] ***"';
-            $value = preg_replace($pattern, $replacement, $value);
+            $value = $this->scrubFromString($value);
 
             return sprintf("[object] (%s: %s)", $this::getClass($data), $value);
         }
@@ -203,8 +202,9 @@ class CustomLogFormatter extends LineFormatter
         if (!$this->scrub) {
             // store for a week
             $ttl = 7 * 24 * 3600;
-            $this->scrub = Cache::remember(
-                self::KEY, $ttl, function () {
+            $this->scrub = Cache::remember(self::KEY, $ttl,
+                function ()
+                {
                     return $this->generateScrubList();
                 }
             );
@@ -254,5 +254,22 @@ class CustomLogFormatter extends LineFormatter
         }
 
         return array_keys($result);
+    }
+
+    /**
+     * Scrub data from string
+     *
+     * @param string $value
+     * @return string|string[]|null
+     */
+    private function scrubFromString(string $value)
+    {
+        $list = implode("|", $this->getScrubList());
+
+        $pattern = '/("(' . $list . ')"):"([^"]*)"/i';
+        $replacement = '$1:"[scrubbed value] ***"';
+        $value = preg_replace($pattern, $replacement, $value);
+
+        return $value;
     }
 }
