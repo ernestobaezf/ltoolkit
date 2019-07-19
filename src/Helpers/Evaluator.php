@@ -7,9 +7,9 @@ namespace ErnestoBaezF\L5CoreToolbox\Helpers;
 
 
 use Closure;
-use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
 use ErnestoBaezF\L5CoreToolbox\Interfaces\IEvaluator;
 use Illuminate\Support\Facades\Response as ResponseFacade;
@@ -71,7 +71,7 @@ final class Evaluator implements IEvaluator
                 $message = "";
                 $level = 'info';
 
-                if ($result && ($result instanceof Response || $result instanceof JsonResponse)) {
+                if ($result && $result instanceof Response) {
                     $content = $result->getContent();
 
                     if ($content && strlen($content) > 400) {

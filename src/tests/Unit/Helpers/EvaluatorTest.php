@@ -7,14 +7,14 @@ namespace ErnestoBaezF\L5CoreToolbox\tests\Unit\Helpers;
 
 
 use Closure;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use ErnestoBaezF\L5CoreToolbox\Helpers\Evaluator;
-use ErnestoBaezF\L5CoreToolbox\Http\Validators\BasicUpdateValidator;
 use ErnestoBaezF\L5CoreToolbox\Interfaces\IEvaluator;
 use ErnestoBaezF\L5CoreToolbox\Test\Environment\TestCase;
+use ErnestoBaezF\L5CoreToolbox\Http\Validators\BasicUpdateValidator;
 
 class EvaluatorTest extends TestCase
 {
@@ -135,7 +135,7 @@ Process finished with exit code 0", 500);
 
     /**
      * Set method to be executed on evaluate call
-     * Context: The response length is smaller than 400 characters and the status is 505
+     * Context: The response length is smaller than 400 characters, the status is 200 and is  JsonResponse
      */
     public function test_method_3()
     {
