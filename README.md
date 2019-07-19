@@ -1,6 +1,6 @@
 # L5 Core Toolbox
 
-The main goal for this package is to save time by implementing a lot of common action when creating (mainly) and API 
+This is a laravel package to save time by implementing a lot of common action when creating (mainly) and API 
 oriented application following different design patterns. Here you can find the basics for:
 
 * Service providers 
@@ -9,7 +9,9 @@ oriented application following different design patterns. Here you can find the 
 
 * Api controllers
 
-* Validations and more
+* Validations
+ 
+* Logs and more
 
 With this package is possible to structure a project in pseudo-packages. This means you can divide the logic of your 
 project in a directory called packages and separate the business of your project in logic units. In this case the 
@@ -235,6 +237,59 @@ Also is recommended to use CustomLogFormatter to get an easy to parse log record
                 'level' => 'debug',
                 'days' => 14,
             ],
+            
+There are 2 ways to log the activity in a function:
+
+### Pro-actively:
+>
+    Class SomeCLass
+    {
+        use TLogAction;  
+        
+        ...
+        
+        public function all($columns = ['*']): Collection
+        {
+            return $this->evaluate(
+                function () use ($columns) {
+                    return $this->getInternalRepository()->all($columns);
+                }, __FUNCTION__
+            );
+        }
+    }
+    
+Then once the method is called `(new SomeClass())->all()` it will automatically log the method activity when it starts 
+the execution and when is finished.
+
+To enable these logs is required to set the environment variable `LOG_ACTIONS=true`.
+
+### Re-actively:
+>
+    /**
+     * @method logAll($columns = ['*']): Collection
+     */
+    Class SomeCLass
+    {
+        use TLoggable;  
+        
+        ...
+        
+        public function all($columns = ['*']): Collection
+        {
+            return $this->getInternalRepository()->all($columns);
+        }
+    }
+
+Then the method can be executed:
+ 
+ 1. `(new SomeClass())->log(all, ['column1', 'column2'])` or 
+ 
+ 2. `(new SomeClass())->logAll(['column1', 'column2'])`
+ 
+It will automatically log the method activity when it starts the execution and when is finished.
+
+Is possible to configure the level with the environment variable `LOGGABLE_LOG_LEVEL=<log_level>`, by default is
+`debug` which means that to see these logs the level must be configured to debug on `config/logging.php`.
 
 ## Localization
 

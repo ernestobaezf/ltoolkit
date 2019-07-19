@@ -20,7 +20,7 @@ trait TLogAction
      */
     protected function logAction(string $functionName): bool
     {
-        return true;
+        return env('LOG_ACTIONS', false);
     }
 
     /**

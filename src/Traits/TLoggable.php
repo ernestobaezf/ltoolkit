@@ -22,6 +22,11 @@ use Illuminate\Support\Facades\Log;
  */
 trait TLoggable
 {
+    private function logLevel()
+    {
+        return env('LOGGABLE_LOG_LEVEL', 'debug');
+    }
+
     /**
      * Allow to automatically log you function by calling it the prefix log
      * (Example: $object->logFunctionName(...$params)
@@ -66,7 +71,7 @@ trait TLoggable
             $reflection = new ReflectionMethod($this, $method);
 
             if ($reflection->isPublic()) {
-                Log::info("Start execution",
+                Log::log($this->logLevel(), "Start execution",
                     [
                         "class" => static::class,
                         "method" => $method,
@@ -76,7 +81,7 @@ trait TLoggable
 
                 $response = call_user_func_array([$this, $method], $arguments);
 
-                Log::info("End execution",
+                Log::log($this->logLevel(), "End execution",
                     [
                         "class" => static::class,
                         "method" => $method,
