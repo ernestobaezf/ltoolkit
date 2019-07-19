@@ -82,6 +82,8 @@ class CustomLogFormatter extends LineFormatter
             }
 
             $vars['context']['response'] = $response;
+
+            $vars['context']['response'] = $this->normalize($vars['context']['response']);
         }
 
         foreach ($vars['context'] as $var => $val) {
