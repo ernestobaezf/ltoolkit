@@ -7,12 +7,13 @@ namespace ErnestoBaezF\L5CoreToolbox\Traits;
 
 
 use Closure;
+use Exception;
 use Illuminate\Support\Facades\Log;
 
 trait TLogAction
 {
     /**
-     * Determines id the logs should be stored or not for the given function
+     * Determines whether the logs should be stored or not for the given function
      *
      * @param  string $functionName
      * @return bool
@@ -27,7 +28,7 @@ trait TLogAction
      * @param  string   $functionName
      * @param  mixed    $payload
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     protected final function evaluate(Closure $closure, string $functionName, $payload="")
     {
@@ -48,7 +49,7 @@ trait TLogAction
             }
 
             return $result;
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             Log::error($exception->getMessage());
 
             throw $exception;
