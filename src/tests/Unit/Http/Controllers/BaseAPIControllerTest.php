@@ -1,21 +1,21 @@
 <?php
 
-namespace ErnestoBaezF\L5CoreToolbox\Test\Environment\Unit\Connectors;
+namespace ErnestoBaezF\L5CoreToolbox\test\Unit\Http\Controllers;
 
+use ReflectionException;
 use Illuminate\Support\Facades\Route;
+use ErnestoBaezF\L5CoreToolbox\Interfaces\IUnitOfWork;
+use ErnestoBaezF\L5CoreToolbox\Test\Environment\TestCase;
 use ErnestoBaezF\L5CoreToolbox\Connectors\ValidatorResolver;
+use ErnestoBaezF\L5CoreToolbox\Interfaces\IGenericRepository;
+use ErnestoBaezF\L5CoreToolbox\Interfaces\IValidatorResolver;
+use ErnestoBaezF\L5CoreToolbox\Test\Environment\DynamicClass;
+use ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\MockModel;
 use ErnestoBaezF\L5CoreToolbox\Http\Controllers\BaseAPIController;
 use ErnestoBaezF\L5CoreToolbox\Http\Validators\BasicUpdateValidator;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IGenericRepository;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IUnitOfWork;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IValidatorResolver;
-use ReflectionException;
 use ErnestoBaezF\L5CoreToolbox\Test\Environment\Connectors\MockUnitOfWork;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\DynamicClass;
 use ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\MockEloquentModel;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\MockModel;
 use ErnestoBaezF\L5CoreToolbox\Test\Environment\Serializer\MockSerializer;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\TestCase;
 
 class BaseAPIControllerTest extends TestCase
 {

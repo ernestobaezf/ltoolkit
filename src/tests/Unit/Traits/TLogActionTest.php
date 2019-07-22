@@ -3,17 +3,20 @@
  * @author Ernesto Baez 
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\Traits;
+namespace ErnestoBaezF\L5CoreToolbox\tests\Unit\Traits;
 
 
 use Exception;
+use ReflectionObject;
+use ReflectionException;
 use Illuminate\Support\Facades\Log;
+use ErnestoBaezF\L5CoreToolbox\Traits\TLogAction;
 use ErnestoBaezF\L5CoreToolbox\Test\Environment\TestCase;
 
 class TLogActionTest extends TestCase
 {
     /**
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function test_logAction()
     {
@@ -26,18 +29,19 @@ class TLogActionTest extends TestCase
             true
         );
 
-        $class = new \ReflectionObject($object);
+        $class = new ReflectionObject($object);
         $method = $class->getMethod("logAction");
         $method->setAccessible(true);
         $response = $method->invokeArgs($object, [""]);
-        self::assertTrue($response);
+
+        self::assertFalse($response);
     }
 
     /**
      * Test evaluate function
      * Context: Configured to no log the actions and no exception thrown
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function test_evaluate_1()
     {
@@ -64,7 +68,7 @@ class TLogActionTest extends TestCase
         );
         $object->method("logAction")->willReturn(false);
 
-        $class = new \ReflectionObject($object);
+        $class = new ReflectionObject($object);
         $method = $class->getMethod("evaluate");
         $method->setAccessible(true);
         $response = $method->invokeArgs($object, [$closure, $functionName, $payload]);
@@ -77,7 +81,7 @@ class TLogActionTest extends TestCase
      * Test evaluate function
      * Context: Configured to log the actions and no exception thrown
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function test_evaluate_2()
     {
@@ -106,7 +110,7 @@ class TLogActionTest extends TestCase
 
         Log::shouldReceive("info")->once();
 
-        $class = new \ReflectionObject($object);
+        $class = new ReflectionObject($object);
         $method = $class->getMethod("evaluate");
         $method->setAccessible(true);
         $response = $method->invokeArgs($object, [$closure, $functionName, $payload]);
@@ -119,7 +123,7 @@ class TLogActionTest extends TestCase
      * Test evaluate function
      * Context: Configured to log the actions and exception thrown
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function test_evaluate_3()
     {
@@ -149,7 +153,7 @@ class TLogActionTest extends TestCase
         $this->expectException(Exception::class);
         Log::shouldReceive("error")->once();
 
-        $class = new \ReflectionObject($object);
+        $class = new ReflectionObject($object);
         $method = $class->getMethod("evaluate");
         $method->setAccessible(true);
         $method->invokeArgs($object, [$closure, $functionName, $payload]);

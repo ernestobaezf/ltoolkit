@@ -1,18 +1,18 @@
 <?php
 
-namespace ErnestoBaezF\L5CoreToolbox\Test\Environment\Unit\Connectors;
+namespace ErnestoBaezF\L5CoreToolbox\test\Unit\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
-use ErnestoBaezF\L5CoreToolbox\Http\Controllers\BaseAPIResourceController;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\ICriteriaIterator;
 use ErnestoBaezF\L5CoreToolbox\Interfaces\IUnitOfWork;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IValidatorResolver;
-use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\MockExceptionHandler;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\Repositories\MockRepository;
 use ErnestoBaezF\L5CoreToolbox\Test\Environment\TestCase;
+use ErnestoBaezF\L5CoreToolbox\Interfaces\ICriteriaIterator;
+use ErnestoBaezF\L5CoreToolbox\Interfaces\IValidatorResolver;
+use ErnestoBaezF\L5CoreToolbox\Test\Environment\MockExceptionHandler;
+use ErnestoBaezF\L5CoreToolbox\Http\Controllers\BaseAPIResourceController;
+use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
+use ErnestoBaezF\L5CoreToolbox\Test\Environment\Repositories\MockRepository;
 
 class BaseAPIResourceControllerTest extends TestCase
 {

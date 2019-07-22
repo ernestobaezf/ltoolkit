@@ -1,6 +1,6 @@
 <?php
 
-namespace ErnestoBaezF\L5CoreToolbox\Test\Environment\Unit\Connectors;
+namespace ErnestoBaezF\L5CoreToolbox\test\Unit\Connectors;
 
 use Closure;
 use Exception;

@@ -6,7 +6,6 @@
 namespace ErnestoBaezF\L5CoreToolbox\tests\Unit\Providers;
 
 
-use Illuminate\Support\Facades\Gate;
 use ErnestoBaezF\L5CoreToolbox\Providers\BaseServiceProvider;
 use ErnestoBaezF\L5CoreToolbox\Test\Environment\TestCase;
 

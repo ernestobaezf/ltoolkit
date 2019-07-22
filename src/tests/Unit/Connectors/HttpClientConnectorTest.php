@@ -3,7 +3,7 @@
  * @author Ernesto Baez 
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\Test\Environment\Unit\Connectors;
+namespace ErnestoBaezF\L5CoreToolbox\test\Unit\Connectors;
 
 
 use GuzzleHttp\Client;

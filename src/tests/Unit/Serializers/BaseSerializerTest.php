@@ -3,7 +3,7 @@
  * @author Ernesto Baez 
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\tests\Unit;
+namespace ErnestoBaezF\L5CoreToolbox\tests\Unit\Serializers;
 
 
 use ErnestoBaezF\L5CoreToolbox\Serializers\BaseSerializer;
@@ -13,8 +13,6 @@ class BaseSerializerTest extends TestCase
 {
     /**
      * Serialize a collection
-     *
-     * @throws \ReflectionException
      */
     public function test_collection()
     {
@@ -36,8 +34,6 @@ class BaseSerializerTest extends TestCase
 
     /**
      * Serialize an item
-     *
-     * @throws \ReflectionException
      */
     public function test_item()
     {
@@ -59,8 +55,6 @@ class BaseSerializerTest extends TestCase
 
     /**
      * Serialize a collection
-     *
-     * @throws \ReflectionException
      */
     public function test_serialize()
     {
@@ -82,8 +76,6 @@ class BaseSerializerTest extends TestCase
 
     /**
      * Serialize an item
-     *
-     * @throws \ReflectionException
      */
     public function test_serialize_2()
     {

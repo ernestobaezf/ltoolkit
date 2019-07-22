@@ -9,9 +9,9 @@ namespace ErnestoBaezF\L5CoreToolbox\tests\Unit\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use ErnestoBaezF\L5CoreToolbox\Http\Middleware\Localization;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\TestCase;
 use Illuminate\Support\Facades\Config;
+use ErnestoBaezF\L5CoreToolbox\Test\Environment\TestCase;
+use ErnestoBaezF\L5CoreToolbox\Http\Middleware\Localization;
 
 class LocalizationTest extends TestCase
 {

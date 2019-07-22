@@ -6,8 +6,8 @@
 namespace ErnestoBaezF\L5CoreToolbox\tests\Unit\Models;
 
 
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IEntity;
 use ErnestoBaezF\L5CoreToolbox\Models\BaseModel;
+use ErnestoBaezF\L5CoreToolbox\Interfaces\IEntity;
 use ErnestoBaezF\L5CoreToolbox\Test\Environment\TestCase;
 
 class BaseModelTest extends TestCase
