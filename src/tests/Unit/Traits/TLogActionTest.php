@@ -16,6 +16,8 @@ use ErnestoBaezF\L5CoreToolbox\Test\Environment\TestCase;
 class TLogActionTest extends TestCase
 {
     /**
+     * Test function to define if the data should be logged
+     *
      * @throws ReflectionException
      */
     public function test_logAction()

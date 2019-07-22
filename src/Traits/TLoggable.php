@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Log;
  */
 trait TLoggable
 {
-    private function logLevel()
+    protected function logLevel()
     {
         return env('LOGGABLE_LOG_LEVEL', 'debug');
     }
