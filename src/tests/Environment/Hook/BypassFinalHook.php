@@ -1,6 +1,6 @@
 <?php
 
-namespace ErnestoBaezF\L5CoreToolbox\Test\Environment\Hook;
+namespace l5toolkit\Test\Environment\Hook;
 
 use DG\BypassFinals;
 use PHPUnit\Runner\BeforeTestHook;

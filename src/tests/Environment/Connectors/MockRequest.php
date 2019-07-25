@@ -3,7 +3,7 @@
  * @author Ernesto Baez 
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\Test\Environment\Connectors;
+namespace l5toolkit\Test\Environment\Connectors;
 
 
 use Psr\Http\Message\RequestInterface;

@@ -1,18 +1,18 @@
 <?php
 
-namespace ErnestoBaezF\L5CoreToolbox\test\Unit\Http\Controllers;
+namespace l5toolkit\test\Unit\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IUnitOfWork;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\TestCase;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\ICriteriaIterator;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IValidatorResolver;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\MockExceptionHandler;
-use ErnestoBaezF\L5CoreToolbox\Http\Controllers\BaseAPIResourceController;
+use l5toolkit\Interfaces\IUnitOfWork;
+use l5toolkit\Test\Environment\TestCase;
+use l5toolkit\Interfaces\ICriteriaIterator;
+use l5toolkit\Interfaces\IValidatorResolver;
+use l5toolkit\Test\Environment\MockExceptionHandler;
+use l5toolkit\Http\Controllers\BaseAPIResourceController;
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\Repositories\MockRepository;
+use l5toolkit\Test\Environment\Repositories\MockRepository;
 
 class BaseAPIResourceControllerTest extends TestCase
 {
@@ -24,7 +24,7 @@ class BaseAPIResourceControllerTest extends TestCase
     public function test_index_1()
     {
         $request     = Request::create('www.test.com', 'GET', ['test' => 1]);
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\Mock";
+        $entityClass = "l5toolkit\Test\Environment\Models\Mock";
         $object      = $this->getMockBuilder(BaseAPIResourceController::class)
             ->disableOriginalClone()
             ->disableArgumentCloning()
@@ -64,7 +64,7 @@ class BaseAPIResourceControllerTest extends TestCase
         $response = $method->invokeArgs($object, [$request]);
 
         $this->assertTrue($response->getData()->data[0] == "all");
-        $this->assertTrue($response->getData()->message== "l5coretoolbox::messages.entity.retrieved");
+        $this->assertTrue($response->getData()->message== "l5toolkit::messages.entity.retrieved");
     }
 
     /**
@@ -75,7 +75,7 @@ class BaseAPIResourceControllerTest extends TestCase
     public function test_index_2()
     {
         $request     = Request::create('www.test.com', 'GET', ['test' => 1, 'limit' => 1]);
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\Mock";
+        $entityClass = "l5toolkit\Test\Environment\Models\Mock";
         $object      = $this->getMockBuilder(BaseAPIResourceController::class)
             ->disableOriginalClone()
             ->disableArgumentCloning()
@@ -115,7 +115,7 @@ class BaseAPIResourceControllerTest extends TestCase
         $response = $method->invokeArgs($object, [$request]);
 
         $this->assertTrue($response->getData()->data[0] == "paginate");
-        $this->assertTrue($response->getData()->message== "l5coretoolbox::messages.entity.retrieved");
+        $this->assertTrue($response->getData()->message== "l5toolkit::messages.entity.retrieved");
     }
 
     /**
@@ -124,7 +124,7 @@ class BaseAPIResourceControllerTest extends TestCase
      */
     public function test_show_1()
     {
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\Mock";
+        $entityClass = "l5toolkit\Test\Environment\Models\Mock";
         $params      = 1;
         $object      = $this->getMockBuilder(BaseAPIResourceController::class)
             ->disableOriginalClone()
@@ -146,7 +146,7 @@ class BaseAPIResourceControllerTest extends TestCase
         $response = $method->invokeArgs($object, [$params]);
 
         $this->assertTrue($response->getData()->data == 1);
-        $this->assertTrue($response->getData()->message == "l5coretoolbox::messages.entity.retrieved");
+        $this->assertTrue($response->getData()->message == "l5toolkit::messages.entity.retrieved");
         $this->assertTrue($response->getStatusCode() == 200);
     }
 
@@ -156,7 +156,7 @@ class BaseAPIResourceControllerTest extends TestCase
      */
     public function test_show_2()
     {
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\Mock";
+        $entityClass = "l5toolkit\Test\Environment\Models\Mock";
         $params      = 0;
         $object      = $this->getMockBuilder(BaseAPIResourceController::class)
             ->disableOriginalClone()
@@ -177,7 +177,7 @@ class BaseAPIResourceControllerTest extends TestCase
         $method   = self::getMethod('show', BaseAPIResourceController::class);
         $response = $method->invokeArgs($object, [$params]);
 
-        $this->assertTrue($response->getData()->message == "l5coretoolbox::messages.entity.not_found");
+        $this->assertTrue($response->getData()->message == "l5toolkit::messages.entity.not_found");
         $this->assertTrue($response->getStatusCode() == 404);
     }
 
@@ -187,7 +187,7 @@ class BaseAPIResourceControllerTest extends TestCase
      */
     public function test_show_3()
     {
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\Mock";
+        $entityClass = "l5toolkit\Test\Environment\Models\Mock";
         $params      = 1;
         $object      = $this->getMockBuilder(BaseAPIResourceController::class)
             ->disableOriginalClone()
@@ -213,7 +213,7 @@ class BaseAPIResourceControllerTest extends TestCase
         $response = $method->invokeArgs($object, [$params]);
 
         $this->assertTrue($response->getData()->data == 1);
-        $this->assertTrue($response->getData()->message == "l5coretoolbox::messages.entity.retrieved");
+        $this->assertTrue($response->getData()->message == "l5toolkit::messages.entity.retrieved");
         $this->assertTrue($response->getStatusCode() == 200);
     }
 
@@ -223,7 +223,7 @@ class BaseAPIResourceControllerTest extends TestCase
      */
     public function test_showWithRelationList_1()
     {
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\Mock";
+        $entityClass = "l5toolkit\Test\Environment\Models\Mock";
         $params      = 1;
         $object      = $this->getMockBuilder(BaseAPIResourceController::class)
             ->disableOriginalClone()
@@ -245,7 +245,7 @@ class BaseAPIResourceControllerTest extends TestCase
         $response = $method->invokeArgs($object, [$params, ["relation1"]]);
 
         $this->assertTrue($response->getData()->data == 1);
-        $this->assertTrue($response->getData()->message == "l5coretoolbox::messages.entity.retrieved");
+        $this->assertTrue($response->getData()->message == "l5toolkit::messages.entity.retrieved");
         $this->assertTrue($response->getStatusCode() == 200);
     }
 
@@ -255,7 +255,7 @@ class BaseAPIResourceControllerTest extends TestCase
      */
     public function test_showWithRelationList_2()
     {
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\Mock";
+        $entityClass = "l5toolkit\Test\Environment\Models\Mock";
         $params      = 0;
         $object      = $this->getMockBuilder(BaseAPIResourceController::class)
             ->disableOriginalClone()
@@ -276,7 +276,7 @@ class BaseAPIResourceControllerTest extends TestCase
         $method   = self::getMethod('showWithRelationList', BaseAPIResourceController::class);
         $response = $method->invokeArgs($object, [$params, ["relation1"]]);
 
-        $this->assertTrue($response->getData()->message == "l5coretoolbox::messages.entity.not_found");
+        $this->assertTrue($response->getData()->message == "l5toolkit::messages.entity.not_found");
         $this->assertTrue($response->getStatusCode() == 404);
     }
 
@@ -286,7 +286,7 @@ class BaseAPIResourceControllerTest extends TestCase
      */
     public function test_store_1()
     {
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\Mock";
+        $entityClass = "l5toolkit\Test\Environment\Models\Mock";
         $object      = $this->getMockBuilder(BaseAPIResourceController::class)
             ->disableOriginalClone()
             ->disableArgumentCloning()
@@ -310,7 +310,7 @@ class BaseAPIResourceControllerTest extends TestCase
 
         $this->assertIsObject($response->getData()->data);
         $this->assertTrue($response->getData()->data->test == 1);
-        $this->assertTrue($response->getData()->message == "l5coretoolbox::messages.entity.saved");
+        $this->assertTrue($response->getData()->message == "l5toolkit::messages.entity.saved");
         $this->assertTrue($response->getStatusCode() == 200);
     }
 
@@ -337,7 +337,7 @@ class BaseAPIResourceControllerTest extends TestCase
 
         $this->app->instance(ExceptionHandlerContract::class, $object);
 
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\Mock";
+        $entityClass = "l5toolkit\Test\Environment\Models\Mock";
         $object      = $this->getMockBuilder(BaseAPIResourceController::class)
             ->disableOriginalClone()
             ->disableArgumentCloning()
@@ -372,7 +372,7 @@ class BaseAPIResourceControllerTest extends TestCase
      */
     public function test_update_1()
     {
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\Mock";
+        $entityClass = "l5toolkit\Test\Environment\Models\Mock";
         $object = $this->getMockBuilder(BaseAPIResourceController::class)
             ->disableOriginalClone()
             ->disableArgumentCloning()
@@ -405,7 +405,7 @@ class BaseAPIResourceControllerTest extends TestCase
      */
     public function test_update_2()
     {
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\Mock";
+        $entityClass = "l5toolkit\Test\Environment\Models\Mock";
         $object = $this->getMockBuilder(BaseAPIResourceController::class)
             ->disableOriginalClone()
             ->disableArgumentCloning()
@@ -428,7 +428,7 @@ class BaseAPIResourceControllerTest extends TestCase
         $response = $method->invokeArgs($object, [0, $request]);
 
         $this->assertTrue($response->getData()->data == null);
-        $this->assertTrue($response->getData()->message == "l5coretoolbox::messages.entity.not_found");
+        $this->assertTrue($response->getData()->message == "l5toolkit::messages.entity.not_found");
         $this->assertTrue($response->getStatusCode() == 404);
     }
 
@@ -455,7 +455,7 @@ class BaseAPIResourceControllerTest extends TestCase
 
         $this->app->instance(ExceptionHandlerContract::class, $object);
 
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\Mock";
+        $entityClass = "l5toolkit\Test\Environment\Models\Mock";
         $object      = $this->getMockBuilder(BaseAPIResourceController::class)
             ->disableOriginalClone()
             ->disableArgumentCloning()
@@ -490,7 +490,7 @@ class BaseAPIResourceControllerTest extends TestCase
      */
     public function test_destroy_1()
     {
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\Mock";
+        $entityClass = "l5toolkit\Test\Environment\Models\Mock";
         $object = $this->getMockBuilder(BaseAPIResourceController::class)
             ->disableOriginalClone()
             ->disableArgumentCloning()
@@ -511,7 +511,7 @@ class BaseAPIResourceControllerTest extends TestCase
         $response = $method->invokeArgs($object, [1]);
 
         $this->assertTrue($response->getData()->data == 1);
-        $this->assertTrue($response->getData()->message == "l5coretoolbox::messages.entity.deleted");
+        $this->assertTrue($response->getData()->message == "l5toolkit::messages.entity.deleted");
         $this->assertTrue($response->getStatusCode() == 200);
     }
 
@@ -520,7 +520,7 @@ class BaseAPIResourceControllerTest extends TestCase
      */
     public function test_destroy_2()
     {
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\Mock";
+        $entityClass = "l5toolkit\Test\Environment\Models\Mock";
         $object = $this->getMockBuilder(BaseAPIResourceController::class)
             ->disableOriginalClone()
             ->disableArgumentCloning()
@@ -541,7 +541,7 @@ class BaseAPIResourceControllerTest extends TestCase
         $response = $method->invokeArgs($object, [0]);
 
         $this->assertTrue($response->getData()->data == null);
-        $this->assertTrue($response->getData()->message == "l5coretoolbox::messages.entity.not_found");
+        $this->assertTrue($response->getData()->message == "l5toolkit::messages.entity.not_found");
         $this->assertTrue($response->getStatusCode() == 404);
     }
 }

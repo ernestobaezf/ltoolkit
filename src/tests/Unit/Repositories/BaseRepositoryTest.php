@@ -3,21 +3,21 @@
  * @author Ernesto Baez 
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\tests\Unit\Repositories;
+namespace l5toolkit\tests\Unit\Repositories;
 
 
 use Exception;
 use Illuminate\Support\Facades\Log;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IEntity;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IRepositoryConnector;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IUnitOfWork;
-use ErnestoBaezF\L5CoreToolbox\Repositories\BaseRepository;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\Connectors\MockRepositoryConnector;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\Connectors\MockUnitOfWork;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\DynamicClass;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\MockModel;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\MockModelNoRelations;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\TestCase;
+use l5toolkit\Interfaces\IEntity;
+use l5toolkit\Interfaces\IRepositoryConnector;
+use l5toolkit\Interfaces\IUnitOfWork;
+use l5toolkit\Repositories\BaseRepository;
+use l5toolkit\Test\Environment\Connectors\MockRepositoryConnector;
+use l5toolkit\Test\Environment\Connectors\MockUnitOfWork;
+use l5toolkit\Test\Environment\DynamicClass;
+use l5toolkit\Test\Environment\Models\MockModel;
+use l5toolkit\Test\Environment\Models\MockModelNoRelations;
+use l5toolkit\Test\Environment\TestCase;
 
 class BaseRepositoryTest extends TestCase
 {

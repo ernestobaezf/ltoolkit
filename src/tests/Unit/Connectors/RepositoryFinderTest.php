@@ -1,19 +1,19 @@
 <?php
 
-namespace ErnestoBaezF\L5CoreToolbox\test\Unit\Connectors;
+namespace l5toolkit\test\Unit\Connectors;
 
 use Closure;
 use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
-use ErnestoBaezF\L5CoreToolbox\Connectors\RepositoryFinder;
-use ErnestoBaezF\L5CoreToolbox\Connectors\UnitOfWork;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IGenericRepository;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IRemoteRepository;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\Repositories\GenericMockRepository;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\Repositories\MockRemoteRepository;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\Repositories\MockRepository;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\TestCase;
+use l5toolkit\Connectors\RepositoryFinder;
+use l5toolkit\Connectors\UnitOfWork;
+use l5toolkit\Interfaces\IGenericRepository;
+use l5toolkit\Interfaces\IRemoteRepository;
+use l5toolkit\Test\Environment\Repositories\GenericMockRepository;
+use l5toolkit\Test\Environment\Repositories\MockRemoteRepository;
+use l5toolkit\Test\Environment\Repositories\MockRepository;
+use l5toolkit\Test\Environment\TestCase;
 use ReflectionException;
 
 class RepositoryFinderTest extends TestCase
@@ -25,7 +25,7 @@ class RepositoryFinderTest extends TestCase
      */
     public function test_findRepositoryClass_1()
     {
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Models\Mock".time();
+        $entityClass = "l5toolkit\Models\Mock".time();
 
         $finder = new RepositoryFinder(new UnitOfWork(false));
 
@@ -43,14 +43,14 @@ class RepositoryFinderTest extends TestCase
      */
     public function test_findRepositoryClass_2()
     {
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Models\Mock";
+        $entityClass = "l5toolkit\Models\Mock";
 
         $finder = $this->mockClass(RepositoryFinder::class, 'classExists', true);
 
         $method = self::getMethod("findRepositoryClass", RepositoryFinder::class);
         $repository =  $method->invokeArgs($finder, ["entityClass" => $entityClass]);
 
-        $this->assertTrue($repository == 'ErnestoBaezF\L5CoreToolbox\Repositories\MockRepository');
+        $this->assertTrue($repository == 'l5toolkit\Repositories\MockRepository');
     }
 
     /**
@@ -61,9 +61,9 @@ class RepositoryFinderTest extends TestCase
      */
     public function test_findRepositoryClass_3()
     {
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Models\Mock";
+        $entityClass = "l5toolkit\Models\Mock";
 
-        Config::set('L5CoreToolbox.repository_map', [$entityClass => 'MockRepository']);
+        Config::set('l5toolkit.repository_map', [$entityClass => 'MockRepository']);
 
         $finder = $this->mockClass(RepositoryFinder::class, 'classExists', true);
 
@@ -81,9 +81,9 @@ class RepositoryFinderTest extends TestCase
      */
     public function test_findRepositoryClass_4()
     {
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Models\Mock";
+        $entityClass = "l5toolkit\Models\Mock";
 
-        Config::set('L5CoreToolbox.repository_map', [$entityClass => 'MockRepository']);
+        Config::set('l5toolkit.repository_map', [$entityClass => 'MockRepository']);
 
         $finder = $this->mockClass(RepositoryFinder::class, 'classExists', false);
 
@@ -108,9 +108,9 @@ class RepositoryFinderTest extends TestCase
      */
     public function test_findRepositoryClass_5()
     {
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Models\Mock";
+        $entityClass = "l5toolkit\Models\Mock";
 
-        Config::set('L5CoreToolbox.repository_map', ['ErnestoBaezF\L5CoreToolbox\Models' => 'Packages\Custom\RepositoryPath']);
+        Config::set('l5toolkit.repository_map', ['l5toolkit\Models' => 'Packages\Custom\RepositoryPath']);
 
         $finder = $this->mockClass(RepositoryFinder::class, 'classExists', true);
 
@@ -128,9 +128,9 @@ class RepositoryFinderTest extends TestCase
      */
     public function test_findRepositoryClass_6()
     {
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Models\Mock";
+        $entityClass = "l5toolkit\Models\Mock";
 
-        Config::set('L5CoreToolbox.repository_map', ['ErnestoBaezF\L5CoreToolbox\Models' => 'Packages\Custom\RepositoryPath']);
+        Config::set('l5toolkit.repository_map', ['l5toolkit\Models' => 'Packages\Custom\RepositoryPath']);
 
         $finder = $this->mockClass(RepositoryFinder::class, 'classExists', false);
 
@@ -146,7 +146,7 @@ class RepositoryFinderTest extends TestCase
      */
     public function test_getRepository_1()
     {
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\Mock";
+        $entityClass = "l5toolkit\Test\Environment\Models\Mock";
 
         Cache::shouldReceive('rememberForever')
             ->once()
@@ -170,7 +170,7 @@ class RepositoryFinderTest extends TestCase
      */
     public function test_getRepository_2()
     {
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\Mock";
+        $entityClass = "l5toolkit\Test\Environment\Models\Mock";
 
         $finder = new RepositoryFinder(new UnitOfWork(false));
 
@@ -187,7 +187,7 @@ class RepositoryFinderTest extends TestCase
      */
     public function test_getRepository_3()
     {
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\Mock";
+        $entityClass = "l5toolkit\Test\Environment\Models\Mock";
 
         Cache::shouldReceive("rememberForever")->andReturn(MockRemoteRepository::class);
         $finder = new RepositoryFinder(new UnitOfWork(false));

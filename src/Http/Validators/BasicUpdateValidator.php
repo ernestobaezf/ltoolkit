@@ -4,10 +4,10 @@
  * @author Ernesto Baez  26/04/19 9:37 AM
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\Http\Validators;
+namespace l5toolkit\Http\Validators;
 
 
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IUpdateValidator;
+use l5toolkit\Interfaces\IUpdateValidator;
 
 /**
  * Class BasicUpdateValidator

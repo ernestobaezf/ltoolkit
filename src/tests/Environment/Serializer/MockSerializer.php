@@ -1,10 +1,10 @@
 <?php
 
 
-namespace ErnestoBaezF\L5CoreToolbox\Test\Environment\Serializer;
+namespace l5toolkit\Test\Environment\Serializer;
 
 
-use ErnestoBaezF\L5CoreToolbox\Interfaces\ISerializer;
+use l5toolkit\Interfaces\ISerializer;
 
 class MockSerializer implements ISerializer
 {

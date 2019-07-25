@@ -1,11 +1,11 @@
 <?php
-namespace ErnestoBaezF\L5CoreToolbox\Interfaces;
+namespace l5toolkit\Interfaces;
 
 
 /**
  * Interface IBaseRepository
  *
- * @package ErnestoBaezF\L5CoreToolbox\Interfaces
+ * @package l5toolkit\Interfaces
  */
 interface IBaseRepository extends IRepository, IRepositoryCriteria
 {

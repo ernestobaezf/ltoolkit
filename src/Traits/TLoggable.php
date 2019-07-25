@@ -3,7 +3,7 @@
  * @author Ernesto Baez
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\Traits;
+namespace l5toolkit\Traits;
 
 use Exception;
 use ReflectionMethod;

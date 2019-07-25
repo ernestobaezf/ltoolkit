@@ -3,14 +3,14 @@
  * @author Ernesto Baez 
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\Connectors;
+namespace l5toolkit\Connectors;
 
 
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IHttpClient;
+use l5toolkit\Interfaces\IHttpClient;
 
 final class HttpClientConnector implements IHttpClient
 {

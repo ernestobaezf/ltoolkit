@@ -3,11 +3,11 @@
  * @author Ernesto Baez 
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\Test\Environment\Models;
+namespace l5toolkit\Test\Environment\Models;
 
 
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IEntity;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\DynamicClass;
+use l5toolkit\Interfaces\IEntity;
+use l5toolkit\Test\Environment\DynamicClass;
 
 class MockModel implements IEntity
 {

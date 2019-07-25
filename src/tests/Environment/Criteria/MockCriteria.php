@@ -1,10 +1,10 @@
 <?php
 
 
-namespace ErnestoBaezF\L5CoreToolbox\Test\Environment\Criteria;
+namespace l5toolkit\Test\Environment\Criteria;
 
 
-use ErnestoBaezF\L5CoreToolbox\Interfaces\ICriteriaIterator;
+use l5toolkit\Interfaces\ICriteriaIterator;
 
 
 class MockCriteria implements ICriteriaIterator

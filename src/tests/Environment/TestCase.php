@@ -1,6 +1,6 @@
 <?php
 
-namespace ErnestoBaezF\L5CoreToolbox\Test\Environment;
+namespace l5toolkit\Test\Environment;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 

@@ -3,10 +3,10 @@
  * @author Ernesto Baez 
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\Test\Environment\Http\Validators\Mock;
+namespace l5toolkit\Test\Environment\Http\Validators\Mock;
 
 
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IValidator;
+use l5toolkit\Interfaces\IValidator;
 
 class TestValidator implements IValidator
 {

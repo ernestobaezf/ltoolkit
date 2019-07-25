@@ -3,11 +3,11 @@
  * @author Ernesto Baez
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\Serializers;
+namespace l5toolkit\Serializers;
 
 
 use Illuminate\Support\Collection;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\ISerializer;
+use l5toolkit\Interfaces\ISerializer;
 
 abstract class BaseSerializer implements ISerializer
 {

@@ -3,15 +3,15 @@
  * @author Ernesto Baez 
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\test\Unit\Connectors;
+namespace l5toolkit\test\Unit\Connectors;
 
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use ErnestoBaezF\L5CoreToolbox\Connectors\HttpClientConnector;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\Connectors\MockRequest;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\Connectors\MockResponse;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\TestCase;
+use l5toolkit\Test\Environment\TestCase;
+use l5toolkit\Connectors\HttpClientConnector;
+use l5toolkit\Test\Environment\Connectors\MockRequest;
+use l5toolkit\Test\Environment\Connectors\MockResponse;
 
 class HttpClientConnectorTest extends TestCase
 {

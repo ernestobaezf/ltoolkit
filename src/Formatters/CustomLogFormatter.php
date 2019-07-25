@@ -3,7 +3,7 @@
  * @author Ernesto Baez
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\Formatters;
+namespace l5toolkit\Formatters;
 
 
 use DateTime;
@@ -22,7 +22,7 @@ class CustomLogFormatter extends LineFormatter
 {
     const SIMPLE_FORMAT = "[%datetime%] %channel%.%level_name% %context% %extra% %message%\n";
 
-    private const KEY = 'L5CoreToolbox.log.scrubber';
+    private const KEY = 'l5toolkit.log.scrubber';
     private $scrub = [];
 
     /**

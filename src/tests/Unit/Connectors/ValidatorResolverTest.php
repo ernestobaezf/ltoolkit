@@ -3,16 +3,16 @@
  * @author Ernesto Baez 
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\tests\Unit\Connectors;
+namespace l5toolkit\tests\Unit\Connectors;
 
 
-use ErnestoBaezF\L5CoreToolbox\Connectors\ValidatorResolver;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IStoreValidator;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IUpdateValidator;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IValidatorResolver;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\Http\Controllers\MockAPIController;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\Http\Validators\Mock\TestValidator;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\TestCase;
+use l5toolkit\Connectors\ValidatorResolver;
+use l5toolkit\Interfaces\IStoreValidator;
+use l5toolkit\Interfaces\IUpdateValidator;
+use l5toolkit\Interfaces\IValidatorResolver;
+use l5toolkit\Test\Environment\Http\Controllers\MockAPIController;
+use l5toolkit\Test\Environment\Http\Validators\Mock\TestValidator;
+use l5toolkit\Test\Environment\TestCase;
 
 class ValidatorResolverTest extends TestCase
 {

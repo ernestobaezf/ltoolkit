@@ -1,7 +1,7 @@
 <?php
 
 
-namespace ErnestoBaezF\L5CoreToolbox\Test\Environment\Main;
+namespace l5toolkit\Test\Environment\Main;
 
 
 use Illuminate\Contracts\Translation\Translator;

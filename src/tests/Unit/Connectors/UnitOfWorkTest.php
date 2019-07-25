@@ -1,14 +1,14 @@
 <?php
 
-namespace ErnestoBaezF\L5CoreToolbox\test\Unit\Connectors;
+namespace l5toolkit\test\Unit\Connectors;
 
 use Illuminate\Support\Facades\DB;
-use ErnestoBaezF\L5CoreToolbox\Connectors\UnitOfWork;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IRepositoryFinder;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IUnitOfWork;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\Repositories\MockRepository;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\Connectors\MockRepositoryFinder;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\TestCase;
+use l5toolkit\Connectors\UnitOfWork;
+use l5toolkit\Interfaces\IRepositoryFinder;
+use l5toolkit\Interfaces\IUnitOfWork;
+use l5toolkit\Test\Environment\Repositories\MockRepository;
+use l5toolkit\Test\Environment\Connectors\MockRepositoryFinder;
+use l5toolkit\Test\Environment\TestCase;
 
 class UnitOfWorkTest extends TestCase
 {
@@ -210,7 +210,7 @@ class UnitOfWorkTest extends TestCase
      */
     public function test_getRepository()
     {
-        $entityClass = "ErnestoBaezF\L5CoreToolbox\Test\Environment\Models\Mock";
+        $entityClass = "l5toolkit\Test\Environment\Models\Mock";
 
         app()->bind(IRepositoryFinder::class, MockRepositoryFinder::class);
 

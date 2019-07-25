@@ -3,7 +3,7 @@
  * @author Ernesto Baez
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\Helpers;
+namespace l5toolkit\Helpers;
 
 
 use Closure;
@@ -11,7 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IEvaluator;
+use l5toolkit\Interfaces\IEvaluator;
 use Illuminate\Support\Facades\Response as ResponseFacade;
 
 final class Evaluator implements IEvaluator
@@ -68,7 +68,6 @@ final class Evaluator implements IEvaluator
             $result = $closure();
 
             if ($this->logInfo) {
-                $message = "";
                 $level = 'info';
 
                 if ($result && $result instanceof Response) {
@@ -78,6 +77,8 @@ final class Evaluator implements IEvaluator
                         $content = json_decode($content);
                         $message = $content->message ?? "";
                         $message = "{\"data\":\"truncated message...\",\"message\":\"$message\"}";
+                    } else {
+                        $message = json_decode($content);
                     }
 
                     if ($result->getStatusCode() != 200) {

@@ -4,7 +4,7 @@
  * @author Ernesto Baez  04/05/19 2:44 PM
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\Http\Middleware;
+namespace l5toolkit\Http\Middleware;
 
 
 use Closure;

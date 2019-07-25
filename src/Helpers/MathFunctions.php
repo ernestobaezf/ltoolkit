@@ -3,14 +3,14 @@
  * @author Ernesto Baez 
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\Helpers;
+namespace l5toolkit\Helpers;
 
 use DivisionByZeroError;
 
 /**
  * Class MathFunctions
  *
- * @package ErnestoBaezF\L5CoreToolbox\Helpers
+ * @package l5toolkit\Helpers
  */
 class MathFunctions
 {

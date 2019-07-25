@@ -3,11 +3,11 @@
  * @author Ernesto Baez 
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\Test\Environment\Repositories;
+namespace l5toolkit\Test\Environment\Repositories;
 
 
 use Illuminate\Support\Collection;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IUnitOfWork;
+use l5toolkit\Interfaces\IUnitOfWork;
 
 class MockRepository
 {

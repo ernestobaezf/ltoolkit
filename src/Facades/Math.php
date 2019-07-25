@@ -3,18 +3,18 @@
  * @author Ernesto Baez 
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\Facades;
+namespace l5toolkit\Facades;
 
 
 use Illuminate\Support\Facades\Facade;
 
 /**
  * Class Math
- * @package ErnestoBaezF\L5CoreToolbox\Facades
+ * @package l5toolkit\Facades
  *
  * @method static float percentage(float $total, float $amount)
  *
- * @see ErnestoBaezF\L5CoreToolbox\Helpers\MathFunctions
+ * @see l5toolkit\Helpers\MathFunctions
  */
 class Math extends Facade
 {

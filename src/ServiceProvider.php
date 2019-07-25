@@ -3,34 +3,34 @@
  * @author Ernesto Baez
  */
 
-namespace ErnestoBaezF\L5CoreToolbox;
+namespace l5toolkit;
 
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use l5toolkit\Helpers\Evaluator;
+use l5toolkit\Connectors\UnitOfWork;
+use l5toolkit\Helpers\MathFunctions;
+use l5toolkit\Interfaces\IEvaluator;
+use l5toolkit\Interfaces\IHttpClient;
+use l5toolkit\Interfaces\IUnitOfWork;
+use l5toolkit\Interfaces\IStoreValidator;
+use l5toolkit\Connectors\CriteriaIterator;
+use l5toolkit\Connectors\RepositoryFinder;
+use l5toolkit\Interfaces\IUpdateValidator;
+use l5toolkit\Connectors\ValidatorResolver;
+use l5toolkit\Interfaces\ICriteriaIterator;
+use l5toolkit\Interfaces\IRepositoryFinder;
+use l5toolkit\Interfaces\IGenericRepository;
+use l5toolkit\Interfaces\IValidatorResolver;
+use l5toolkit\Providers\BaseServiceProvider;
+use l5toolkit\Connectors\HttpClientConnector;
+use l5toolkit\Repositories\GenericRepository;
+use l5toolkit\Interfaces\IRepositoryConnector;
 use Prettus\Repository\Criteria\RequestCriteria;
-use ErnestoBaezF\L5CoreToolbox\Helpers\Evaluator;
-use ErnestoBaezF\L5CoreToolbox\Connectors\UnitOfWork;
-use ErnestoBaezF\L5CoreToolbox\Helpers\MathFunctions;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IEvaluator;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IHttpClient;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IUnitOfWork;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IStoreValidator;
-use ErnestoBaezF\L5CoreToolbox\Connectors\CriteriaIterator;
-use ErnestoBaezF\L5CoreToolbox\Connectors\RepositoryFinder;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IUpdateValidator;
-use ErnestoBaezF\L5CoreToolbox\Connectors\ValidatorResolver;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\ICriteriaIterator;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IRepositoryFinder;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IGenericRepository;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IValidatorResolver;
-use ErnestoBaezF\L5CoreToolbox\Providers\BaseServiceProvider;
-use ErnestoBaezF\L5CoreToolbox\Connectors\HttpClientConnector;
-use ErnestoBaezF\L5CoreToolbox\Repositories\GenericRepository;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IRepositoryConnector;
-use ErnestoBaezF\L5CoreToolbox\Http\Validators\BasicStoreValidator;
-use ErnestoBaezF\L5CoreToolbox\Http\Validators\BasicUpdateValidator;
-use ErnestoBaezF\L5CoreToolbox\Connectors\BasePrettusConnectorRepository;
+use l5toolkit\Http\Validators\BasicStoreValidator;
+use l5toolkit\Http\Validators\BasicUpdateValidator;
+use l5toolkit\Connectors\BasePrettusConnectorRepository;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -52,7 +52,7 @@ class ServiceProvider extends BaseServiceProvider
      */
     protected function getPackageName(): string
     {
-        return "L5CoreToolbox";
+        return "l5toolkit";
     }
 
     /**
@@ -60,7 +60,7 @@ class ServiceProvider extends BaseServiceProvider
      */
     protected function getPackageNamespace(): string
     {
-        return 'ErnestoBaezF\L5CoreToolbox';
+        return 'l5toolkit';
     }
 
     /**

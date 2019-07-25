@@ -3,7 +3,7 @@
  * @author Ernesto Baez
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\tests\Unit\Helpers;
+namespace l5toolkit\tests\Unit\Helpers;
 
 
 use Closure;
@@ -11,10 +11,10 @@ use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
-use ErnestoBaezF\L5CoreToolbox\Helpers\Evaluator;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IEvaluator;
-use ErnestoBaezF\L5CoreToolbox\Test\Environment\TestCase;
-use ErnestoBaezF\L5CoreToolbox\Http\Validators\BasicUpdateValidator;
+use l5toolkit\Helpers\Evaluator;
+use l5toolkit\Interfaces\IEvaluator;
+use l5toolkit\Test\Environment\TestCase;
+use l5toolkit\Http\Validators\BasicUpdateValidator;
 
 class EvaluatorTest extends TestCase
 {

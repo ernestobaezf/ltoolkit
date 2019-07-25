@@ -3,13 +3,13 @@
  * @author Ernesto Baez
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\Traits;
+namespace l5toolkit\Traits;
 
 /**
- * Use this interface to mark classes extending ErnestoBaezF\L5CoreToolbox\Traits\TLoggable trait
+ * Use this interface to mark classes extending l5toolkit\Traits\TLoggable trait
  *
  * Interface ILoggable
- * @package ErnestoBaezF\L5CoreToolbox\Traits;
+ * @package l5toolkit\Traits;
  */
 interface ILoggable
 {

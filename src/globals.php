@@ -4,7 +4,7 @@
  */
 
 
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IEvaluator;
+use l5toolkit\Interfaces\IEvaluator;
 
 if (! function_exists('evaluator')) {
     function evaluator(bool $saveLogs = true): IEvaluator

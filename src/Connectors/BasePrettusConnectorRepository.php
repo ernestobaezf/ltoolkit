@@ -3,11 +3,11 @@
  * @author Ernesto Baez 
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\Connectors;
+namespace l5toolkit\Connectors;
 
 use Illuminate\Container\Container as Application;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IRepositoryConnector;
+use l5toolkit\Interfaces\IRepositoryConnector;
 use Prettus\Repository\Eloquent\BaseRepository as PrettusRepositoryEloquent;
 use Prettus\Repository\Events\RepositoryEntityDeleted;
 use Prettus\Repository\Exceptions\RepositoryException;

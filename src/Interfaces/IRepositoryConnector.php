@@ -1,5 +1,5 @@
 <?php
-namespace ErnestoBaezF\L5CoreToolbox\Interfaces;
+namespace l5toolkit\Interfaces;
 
 
 use Closure;
@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 /**
  * Interface IRepositoryConnector
  *
- * @package ErnestoBaezF\L5CoreToolbox\Interfaces
+ * @package l5toolkit\Interfaces
  */
 interface IRepositoryConnector
 {

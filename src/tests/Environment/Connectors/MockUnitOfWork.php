@@ -3,11 +3,11 @@
  * @author Ernesto Baez 
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\Test\Environment\Connectors;
+namespace l5toolkit\Test\Environment\Connectors;
 
 
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IBaseRepository;
-use ErnestoBaezF\L5CoreToolbox\Interfaces\IUnitOfWork;
+use l5toolkit\Interfaces\IBaseRepository;
+use l5toolkit\Interfaces\IUnitOfWork;
 
 class MockUnitOfWork implements IUnitOfWork
 {

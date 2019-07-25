@@ -3,7 +3,7 @@
  * @author Ernesto Baez 
  */
 
-namespace ErnestoBaezF\L5CoreToolbox\Test\Environment;
+namespace l5toolkit\Test\Environment;
 
 
 class DynamicClass

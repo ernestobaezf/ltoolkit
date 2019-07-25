@@ -1,5 +1,5 @@
 {
-    "name": "ernestobaezf/l5-core-toolbox",
+    "name": "ernestobaezf/l5toolkit",
     "description": "Package to easy start a new project by using repository and other patterns for laravel 5",
     "keywords": ["repository patterns", "easy start", "boilerplate"],
     "type": "library",
@@ -12,7 +12,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "ErnestoBaezF\\L5CoreToolbox\\": "src/"
+            "l5toolkit\\": "src/"
         },
         "files": [
             "src/globals.php"

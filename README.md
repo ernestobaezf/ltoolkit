@@ -1,4 +1,4 @@
-# L5 Core Toolbox
+# L5 Toolkit
 
 This is a laravel package to save time by implementing a lot of common action when creating (mainly) and API 
 oriented application following different design patterns. Here you can find the basics for:
@@ -49,13 +49,13 @@ Of course, is not mandatory to structure the project as explained. You can do us
 
 Install via composer:
 
-    composer require ernestobaezf/l5-core-toolbox
+    composer require ernestobaezf/l5toolkit
     
 Then in your `config/app.php` add the following provider to the list:
     
     'providers' => [
          ...
-         ErnestoBaezF\L5CoreToolbox\ServiceProvider::class,
+         l5toolkit\ServiceProvider::class,
     ]
 
 ## Service provider
@@ -227,7 +227,7 @@ Also is recommended to use CustomLogFormatter to get an easy to parse log record
     'daily' => [
                 'driver' => 'daily',
                 'path' => storage_path('logs/laravel.log'),
-                'formatter' => \ErnestoBaezF\L5CoreToolbox\Formatters\CustomLogFormatter::class,
+                'formatter' => \l5toolkit\Formatters\CustomLogFormatter::class,
                 'formatter_with' => [
                     "format" => "[%datetime%] %channel%.%level_name% %context% %extra% %message%\n",
                     "dateFormat" => null,
@@ -301,7 +301,7 @@ To set the middleware, in the file `app\Http\Kernel.php` set:
 
     protected $routeMiddleware = [
         ...
-        'l18n' => \ErnestoBaezF\L5CoreToolbox\Http\Middleware\Localization::class,
+        'l18n' => \l5toolkit\Http\Middleware\Localization::class,
     ];
 
 ## Use case

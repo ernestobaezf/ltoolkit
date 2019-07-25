@@ -1,11 +1,11 @@
 <?php
 
-namespace ErnestoBaezF\L5CoreToolbox\Providers;
+namespace l5toolkit\Providers;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 
 abstract class BaseServiceProvider extends ServiceProvider
 {
