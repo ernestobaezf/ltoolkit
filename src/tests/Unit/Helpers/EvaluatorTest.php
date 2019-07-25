@@ -3,7 +3,7 @@
  * @author Ernesto Baez
  */
 
-namespace l5toolkit\tests\Unit\Helpers;
+namespace l5toolkit\Test\Unit\Helpers;
 
 
 use Closure;

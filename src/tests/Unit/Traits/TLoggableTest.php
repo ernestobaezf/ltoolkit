@@ -3,7 +3,7 @@
  * @author Ernesto Baez
  */
 
-namespace l5toolkit\tests\Unit\Traits;
+namespace l5toolkit\Test\Unit\Traits;
 
 use Exception;
 use ReflectionObject;

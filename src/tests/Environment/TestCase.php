@@ -2,6 +2,8 @@
 
 namespace l5toolkit\Test\Environment;
 
+use ReflectionClass;
+use PHPUnit\Framework\MockObject\MockObject;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
@@ -9,14 +11,14 @@ abstract class TestCase extends BaseTestCase
     use CreatesApplication;
 
     protected static function getMethod($name, $class) {
-        $class = new \ReflectionClass($class);
+        $class = new ReflectionClass($class);
         $method = $class->getMethod($name);
         $method->setAccessible(true);
         return $method;
     }
 
     protected static function getProperty($name, $class) {
-        $class = new \ReflectionClass($class);
+        $class = new ReflectionClass($class);
         return $class->getProperty($name);
     }
 
@@ -24,8 +26,7 @@ abstract class TestCase extends BaseTestCase
      * @param string $class
      * @param string $method
      * @param mixed $result
-     * @return \PHPUnit\Framework\MockObject\MockObject
-     * @throws \ReflectionException
+     * @return MockObject
      */
     protected function mockClass($class, $method=null, $result=null)
     {

@@ -3,7 +3,7 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\tests\Unit\Repositories;
+namespace l5toolkit\Test\Unit\Repositories;
 
 
 use Exception;

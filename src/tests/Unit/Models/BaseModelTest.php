@@ -3,7 +3,7 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\tests\Unit\Models;
+namespace l5toolkit\Test\Unit\Models;
 
 
 use l5toolkit\Models\BaseModel;

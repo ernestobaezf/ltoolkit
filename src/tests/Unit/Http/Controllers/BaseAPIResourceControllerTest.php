@@ -1,6 +1,6 @@
 <?php
 
-namespace l5toolkit\test\Unit\Http\Controllers;
+namespace l5toolkit\Test\Unit\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;

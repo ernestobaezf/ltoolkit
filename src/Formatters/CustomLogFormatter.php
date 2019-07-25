@@ -57,7 +57,7 @@ class CustomLogFormatter extends LineFormatter
 
         $user = Auth::user();
         $_user = $user->username ?? null;
-        $vars['context']['user'] = $_user ? $_user."(".$user->id.")" : "unknown";
+        $vars['context']['user'] = $_user ? "(".$user->id.") ".$_user : "unknown";
 
         if (!isset($vars['context']['payload'])) {
             /** @var array $request */

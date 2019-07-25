@@ -4,7 +4,7 @@
  * @author Ernesto Baez  05/06/19 9:29 AM
  */
 
-namespace l5toolkit\tests\Unit\Http\Middleware;
+namespace l5toolkit\Test\Unit\Http\Middleware;
 
 
 use Illuminate\Http\Request;

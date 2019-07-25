@@ -3,7 +3,7 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\tests\Unit\Providers;
+namespace l5toolkit\Test\Unit\Providers;
 
 
 use l5toolkit\Providers\BaseServiceProvider;

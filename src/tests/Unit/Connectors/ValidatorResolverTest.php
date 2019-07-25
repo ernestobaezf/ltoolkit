@@ -3,23 +3,24 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\tests\Unit\Connectors;
+namespace l5toolkit\Test\Unit\Connectors;
 
 
-use l5toolkit\Connectors\ValidatorResolver;
+use ReflectionException;
+use l5toolkit\Test\Environment\TestCase;
 use l5toolkit\Interfaces\IStoreValidator;
 use l5toolkit\Interfaces\IUpdateValidator;
+use l5toolkit\Connectors\ValidatorResolver;
 use l5toolkit\Interfaces\IValidatorResolver;
 use l5toolkit\Test\Environment\Http\Controllers\MockAPIController;
 use l5toolkit\Test\Environment\Http\Validators\Mock\TestValidator;
-use l5toolkit\Test\Environment\TestCase;
 
 class ValidatorResolverTest extends TestCase
 {
     /**
      * Add a validator to the list inside the ValidatorResolver
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function test_add()
     {
@@ -52,8 +53,6 @@ class ValidatorResolverTest extends TestCase
 
     /**
      * Retrieve a validator listed inside the ValidatorResolver
-     *
-     * @throws \ReflectionException
      */
     public function test_get()
     {
@@ -72,8 +71,6 @@ class ValidatorResolverTest extends TestCase
 
     /**
      * Resolve a validator listed inside the ValidatorResolver
-     *
-     * @throws \ReflectionException
      */
     public function test_get_resolve()
     {
@@ -92,8 +89,6 @@ class ValidatorResolverTest extends TestCase
 
     /**
      * Resolve default store validator listed inside the ValidatorResolver
-     *
-     * @throws \ReflectionException
      */
     public function test_get_resolve_default_store()
     {
@@ -111,8 +106,6 @@ class ValidatorResolverTest extends TestCase
 
     /**
      * Resolve default update validator listed inside the ValidatorResolver
-     *
-     * @throws \ReflectionException
      */
     public function test_get_resolve_default_update()
     {

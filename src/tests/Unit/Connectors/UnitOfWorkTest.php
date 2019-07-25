@@ -1,6 +1,6 @@
 <?php
 
-namespace l5toolkit\test\Unit\Connectors;
+namespace l5toolkit\Test\Unit\Connectors;
 
 use Illuminate\Support\Facades\DB;
 use l5toolkit\Connectors\UnitOfWork;
