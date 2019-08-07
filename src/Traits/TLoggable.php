@@ -28,7 +28,7 @@ trait TLoggable
     }
 
     /**
-     * Allow to automatically log you function by calling it the prefix log
+     * Allow to automatically log a function by calling it with the prefix log
      * (Example: $object->logFunctionName(...$params)
      *
      * @param string $method

@@ -242,7 +242,7 @@ There are 2 ways to log the activity in a function:
 
 ### Pro-actively:
 >
-    Class SomeCLass
+    Class SomeLoggableClass
     {
         use TLogAction;  
         
@@ -268,7 +268,7 @@ To enable these logs is required to set the environment variable `LOG_ACTIONS=tr
     /**
      * @method logAll($columns = ['*']): Collection
      */
-    Class SomeCLass
+    Class SomeLoggableClass implements ILoggable
     {
         use TLoggable;  
         

@@ -63,9 +63,15 @@ class CustomLogFormatter extends LineFormatter
             /** @var array $request */
             $request = request()->all();
             $payload = $request ?: '';
-            $vars['context']['payload'] = json_encode($payload);
+            $vars['context']['payload'] = $payload;
         }
-        $vars['context']['payload'] = $this->normalize($vars['context']['payload']);
+
+        $payload = $vars['context']['payload'];
+        if (!is_string($payload)) {
+            $payload = json_encode($payload);
+        }
+
+        $vars['context']['payload'] = $this->normalize($payload);
 
         if ($logId) {
             $vars['context']['logId'] = $logId;
@@ -77,7 +83,7 @@ class CustomLogFormatter extends LineFormatter
                 $response = json_encode($response);
             }
 
-            if (strlen($response) > 1000) {
+            if (strlen($response) > 700) {
                 $response = "{\"data\":\"truncated message...\"}";
             }
 

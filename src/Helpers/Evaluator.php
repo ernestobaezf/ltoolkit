@@ -140,7 +140,8 @@ final class Evaluator implements IEvaluator
     public function evaluate()
     {
         global $logId;
-        $logId = time();
+        $time = explode(' ', microtime());
+        $logId = sprintf('%d-%06d', $time[1], $time[0] * 1000000);
 
         $preCondition = $this->getPreCondition();
         if ($preCondition) {
