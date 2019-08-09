@@ -29,7 +29,6 @@
                 <file>./src/Console/Commands/ExampleCommand.php</file>
                 <file>./src/Connectors/BasePrettusConnectorRepository.php</file>
                 <directory suffix=".php">./app/Http/Controllers/Auth/</directory>
-                <directory suffix=".php">./src/Formatters/</directory>
                 <directory suffix=".php">./src/Http/Validators/</directory>
                 <directory suffix=".php">./src/Interfaces/</directory>
                 <directory suffix=".php">./src/Routes/</directory>

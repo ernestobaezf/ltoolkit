@@ -71,7 +71,7 @@ class CustomLogFormatter extends LineFormatter
             $payload = json_encode($payload);
         }
 
-        $vars['context']['payload'] = $this->normalize($payload);
+        $vars['context']['payload'] = $payload;
 
         if ($logId) {
             $vars['context']['logId'] = $logId;
@@ -88,8 +88,6 @@ class CustomLogFormatter extends LineFormatter
             }
 
             $vars['context']['response'] = $response;
-
-            $vars['context']['response'] = $this->normalize($vars['context']['response']);
         }
 
         foreach ($vars['context'] as $var => $val) {
@@ -172,7 +170,7 @@ class CustomLogFormatter extends LineFormatter
             return $data->format($this->dateFormat);
         }
 
-        if (is_object($data)) {
+        if ($this->isObject($data)) {
             // TODO 2.0 only check for Throwable
             if ($data instanceof Exception || (PHP_VERSION_ID > 70000 && $data instanceof Throwable)) {
                 return $this->normalizeException($data);
@@ -200,9 +198,14 @@ class CustomLogFormatter extends LineFormatter
 
     private static function getClass($object)
     {
-        $class = \get_class($object);
+        $class = get_class($object);
 
         return 'c' === $class[0] && 0 === strpos($class, "class@anonymous\0") ? get_parent_class($class).'@anonymous' : $class;
+    }
+
+    protected function isObject($object)
+    {
+        return is_object($object);
     }
 
     private function getScrubList(): array

@@ -446,7 +446,7 @@ class MathFunctions
      *
      * @return float
      */
-    public function log(float $arg, float $base = null): float
+    public function log(float $arg, float $base = 10): float
     {
         return log($arg, $base);
     }
@@ -625,7 +625,7 @@ class MathFunctions
      *
      * @return float
      */
-    public function hypot(float $x, float $y)
+    public function hypot(float $x, float $y): float
     {
         return hypot($x, $y);
     }
