@@ -4,14 +4,18 @@
  */
 
 
-use Illuminate\Support\Facades\Config;
 use l5toolkit\Facades\Math;
-use l5toolkit\Test\Environment\DynamicClass;
+use Illuminate\Support\Facades\Config;
 use l5toolkit\Test\Environment\TestCase;
 use l5toolkit\Formatters\CustomLogFormatter;
+use l5toolkit\Test\Environment\DynamicClass;
+use l5toolkit\Test\Environment\StringSerializableClass;
 
 class CustomLogFormatterTest extends TestCase
 {
+    /**
+     * @throws Exception
+     */
     public function test_format()
     {
         global $logId;
@@ -63,6 +67,9 @@ class CustomLogFormatterTest extends TestCase
         self::assertIsString($result);
     }
 
+    /**
+     * @throws Exception
+     */
     public function test_format_1()
     {
         global $logId;
@@ -114,6 +121,9 @@ class CustomLogFormatterTest extends TestCase
         self::assertIsString($result);
     }
 
+    /**
+     * @throws Exception
+     */
     public function test_normalize()
     {
         $SIMPLE_DATE = "Y-m-d H:i:s";
@@ -127,6 +137,7 @@ class CustomLogFormatterTest extends TestCase
                 "resource" => $file,
                 "infinite" => Math::log(0),
                 "nan" => Math::acos(8),
+                "stringObject" => new StringSerializableClass(),
                 "float" => 0.1,
                 "date" => $date,
                 "int" => 100000,
@@ -157,12 +168,13 @@ class CustomLogFormatterTest extends TestCase
         self::assertEquals([
             'message' => 'Start execution',
             'context' => [
-                'exception' => '[object] (Exception(code: 0):  at /home/ernesto/Projects/core-package/vendor/ernestobaezf/l5toolkit/src/tests/Unit/Formatters/CustomLogFormatterTest.php:126)',
+                'exception' => '[object] (Exception(code: 0):  at /home/ernesto/Projects/core-package/vendor/ernestobaezf/l5toolkit/src/tests/Unit/Formatters/CustomLogFormatterTest.php:136)',
                 'date' => $date->format($SIMPLE_DATE),
                 'int' => 100000,
                 'array' => ["number_string" => "350"],
                 'infinite' => '-INF',
                 'nan' => 'NaN',
+                'stringObject' => '[object] (l5toolkit\Test\Environment\StringSerializableClass: l5toolkit\Test\Environment\StringSerializableClass)',
                 'float' => 0.1,
                 'resource' => '[resource] (stream)',
                 'object' => '[object] (l5toolkit\Test\Environment\DynamicClass: {})'],
@@ -173,6 +185,9 @@ class CustomLogFormatterTest extends TestCase
             'extra' => []], $result);
     }
 
+    /**
+     *
+     */
     public function test_normalize_1()
     {
         $SIMPLE_DATE = "Y-m-d H:i:s";
@@ -184,9 +199,15 @@ class CustomLogFormatterTest extends TestCase
             $level = &$level["level$i"];
         }
 
+        $overflow = [];
+        for($i=0; $i <= 1001; $i++) {
+            $overflow["item$i"] = $i;
+        }
+
         $record = [
             "message" => "Start execution",
             "levels" => $level9,
+            "overflow" => $overflow,
             "level_name" => 'INFO',
         ];
 
@@ -198,6 +219,13 @@ class CustomLogFormatterTest extends TestCase
 
         $method = self::getMethod("normalize", CustomLogFormatter::class);
         $result = $method->invokeArgs($object, [$record]);
+
+        $overflow = [];
+        for($i=0; $i <= 999; $i++) {
+            $overflow["item$i"] = $i;
+        }
+
+        $overflow["..."] = "Over 1000 items (1002 total), aborting normalization";
 
         self::assertEquals([
             'message' => 'Start execution',
@@ -220,9 +248,13 @@ class CustomLogFormatterTest extends TestCase
                     ]
                 ]
             ],
+            'overflow' => $overflow,
             'level_name' => 'INFO'], $result);
     }
 
+    /**
+     *
+     */
     public function test_normalize_2()
     {
         $SIMPLE_DATE = "Y-m-d H:i:s";
@@ -251,6 +283,9 @@ class CustomLogFormatterTest extends TestCase
             'level_name' => 'INFO'], $result);
     }
 
+    /**
+     *
+     */
     public function test_generateScrubList()
     {
         $config = [
