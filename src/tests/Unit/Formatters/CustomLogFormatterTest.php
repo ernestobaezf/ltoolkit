@@ -3,7 +3,10 @@
  * @author Ernesto Baez
  */
 
+namespace l5toolkit\Test\Unit\Formatters;
 
+use DateTime;
+use Exception;
 use l5toolkit\Facades\Math;
 use Illuminate\Support\Facades\Config;
 use l5toolkit\Test\Environment\TestCase;
@@ -230,7 +233,7 @@ class CustomLogFormatterTest extends TestCase
         self::assertEquals([
             'message' => 'Start execution',
             'context' => [
-                'exception' => '[object] (Exception(code: 0):  at /home/ernesto/Projects/core-package/vendor/ernestobaezf/l5toolkit/src/tests/Unit/Formatters/CustomLogFormatterTest.php:198)',
+                'exception' => '[object] (Exception(code: 0):  at /home/ernesto/Projects/core-package/vendor/ernestobaezf/l5toolkit/src/tests/Unit/Formatters/CustomLogFormatterTest.php:201)',
                 'date' => $date->format($SIMPLE_DATE),
                 'int' => 100000,
                 'array' => ["number_string" => "350"],

@@ -141,7 +141,7 @@ final class Evaluator implements IEvaluator
     {
         global $logId;
         $time = explode(' ', microtime());
-        $logId = sprintf('%d-%06d', $time[1], $time[0] * 1000000);
+        $logId = sprintf('%d-%06d', $time[1], (float)$time[0] * 1000000);
 
         $preCondition = $this->getPreCondition();
         if ($preCondition) {

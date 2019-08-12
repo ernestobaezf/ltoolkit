@@ -441,12 +441,12 @@ class MathFunctions
     /**
      * Natural logarithm
      *
-     * @param float      $arg
-     * @param float|null $base
+     * @param float $arg
+     * @param float $base
      *
      * @return float
      */
-    public function log(float $arg, float $base = 10): float
+    public function log(float $arg, float $base = 10.0): float
     {
         return log($arg, $base);
     }

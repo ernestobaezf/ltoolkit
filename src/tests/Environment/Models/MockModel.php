@@ -90,7 +90,7 @@ class MockModel implements IEntity
      */
     public function toArray()
     {
-        return [];
+        return json_decode(json_encode($this), true);
     }
 
     /**

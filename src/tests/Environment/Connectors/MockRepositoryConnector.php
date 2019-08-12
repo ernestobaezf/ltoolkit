@@ -8,8 +8,8 @@ namespace l5toolkit\Test\Environment\Connectors;
 
 use Closure;
 use Exception;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Application;
+use Illuminate\Database\Eloquent\Collection;
 use l5toolkit\Interfaces\IRepositoryConnector;
 
 class MockRepositoryConnector implements IRepositoryConnector
@@ -28,7 +28,7 @@ class MockRepositoryConnector implements IRepositoryConnector
      */
     public function all($columns = ['*'])
     {
-        return collect();
+        return new Collection();
     }
 
     /**

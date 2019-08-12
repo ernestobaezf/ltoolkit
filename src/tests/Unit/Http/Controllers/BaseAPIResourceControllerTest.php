@@ -4,15 +4,16 @@ namespace l5toolkit\Test\Unit\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 use l5toolkit\Interfaces\IUnitOfWork;
+use Illuminate\Support\Facades\Response;
 use l5toolkit\Test\Environment\TestCase;
 use l5toolkit\Interfaces\ICriteriaIterator;
 use l5toolkit\Interfaces\IValidatorResolver;
+use Illuminate\Http\Response as HttpReponse;
 use l5toolkit\Test\Environment\MockExceptionHandler;
 use l5toolkit\Http\Controllers\BaseAPIResourceController;
-use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 use l5toolkit\Test\Environment\Repositories\MockRepository;
+use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
 
 class BaseAPIResourceControllerTest extends TestCase
 {
@@ -63,8 +64,8 @@ class BaseAPIResourceControllerTest extends TestCase
         $method   = self::getMethod('index', BaseAPIResourceController::class);
         $response = $method->invokeArgs($object, [$request]);
 
-        $this->assertTrue($response->getData()->data[0] == "all");
-        $this->assertTrue($response->getData()->message== "l5toolkit::messages.entity.retrieved");
+        $this->assertEquals("all", $response->getData()->data[0]);
+        $this->assertEquals("l5toolkit::messages.entity.retrieved", $response->getData()->message);
     }
 
     /**
@@ -114,8 +115,8 @@ class BaseAPIResourceControllerTest extends TestCase
         $method   = self::getMethod('index', BaseAPIResourceController::class);
         $response = $method->invokeArgs($object, [$request]);
 
-        $this->assertTrue($response->getData()->data[0] == "paginate");
-        $this->assertTrue($response->getData()->message== "l5toolkit::messages.entity.retrieved");
+        $this->assertEquals("paginate", $response->getData()->data[0]);
+        $this->assertEquals("l5toolkit::messages.entity.retrieved", $response->getData()->message);
     }
 
     /**
@@ -145,9 +146,9 @@ class BaseAPIResourceControllerTest extends TestCase
         $method   = self::getMethod('show', BaseAPIResourceController::class);
         $response = $method->invokeArgs($object, [$params]);
 
-        $this->assertTrue($response->getData()->data == 1);
-        $this->assertTrue($response->getData()->message == "l5toolkit::messages.entity.retrieved");
-        $this->assertTrue($response->getStatusCode() == 200);
+        $this->assertEquals(1, $response->getData()->data->id);
+        $this->assertEquals("l5toolkit::messages.entity.retrieved", $response->getData()->message);
+        $this->assertEquals(HttpReponse::HTTP_OK, $response->getStatusCode());
     }
 
     /**
@@ -177,8 +178,8 @@ class BaseAPIResourceControllerTest extends TestCase
         $method   = self::getMethod('show', BaseAPIResourceController::class);
         $response = $method->invokeArgs($object, [$params]);
 
-        $this->assertTrue($response->getData()->message == "l5toolkit::messages.entity.not_found");
-        $this->assertTrue($response->getStatusCode() == 404);
+        $this->assertEquals("l5toolkit::messages.entity.not_found", $response->getData()->message);
+        $this->assertEquals(HttpReponse::HTTP_NOT_FOUND, $response->getStatusCode());
     }
 
     /**
@@ -212,9 +213,9 @@ class BaseAPIResourceControllerTest extends TestCase
         });
         $response = $method->invokeArgs($object, [$params]);
 
-        $this->assertTrue($response->getData()->data == 1);
-        $this->assertTrue($response->getData()->message == "l5toolkit::messages.entity.retrieved");
-        $this->assertTrue($response->getStatusCode() == 200);
+        $this->assertEquals(1, $response->getData()->data->id);
+        $this->assertEquals("l5toolkit::messages.entity.retrieved", $response->getData()->message);
+        $this->assertEquals(HttpReponse::HTTP_OK, $response->getStatusCode());
     }
 
     /**
@@ -244,9 +245,9 @@ class BaseAPIResourceControllerTest extends TestCase
         $method   = self::getMethod('showWithRelationList', BaseAPIResourceController::class);
         $response = $method->invokeArgs($object, [$params, ["relation1"]]);
 
-        $this->assertTrue($response->getData()->data == 1);
-        $this->assertTrue($response->getData()->message == "l5toolkit::messages.entity.retrieved");
-        $this->assertTrue($response->getStatusCode() == 200);
+        $this->assertEquals(1, $response->getData()->data->id);
+        $this->assertEquals("l5toolkit::messages.entity.retrieved", $response->getData()->message);
+        $this->assertEquals(HttpReponse::HTTP_OK, $response->getStatusCode());
     }
 
     /**
@@ -276,8 +277,8 @@ class BaseAPIResourceControllerTest extends TestCase
         $method   = self::getMethod('showWithRelationList', BaseAPIResourceController::class);
         $response = $method->invokeArgs($object, [$params, ["relation1"]]);
 
-        $this->assertTrue($response->getData()->message == "l5toolkit::messages.entity.not_found");
-        $this->assertTrue($response->getStatusCode() == 404);
+        $this->assertEquals("l5toolkit::messages.entity.not_found", $response->getData()->message);
+        $this->assertEquals(HttpReponse::HTTP_NOT_FOUND, $response->getStatusCode());
     }
 
     /**
@@ -309,9 +310,9 @@ class BaseAPIResourceControllerTest extends TestCase
         $response = $method->invokeArgs($object, [$request]);
 
         $this->assertIsObject($response->getData()->data);
-        $this->assertTrue($response->getData()->data->test == 1);
-        $this->assertTrue($response->getData()->message == "l5toolkit::messages.entity.saved");
-        $this->assertTrue($response->getStatusCode() == 200);
+        $this->assertEquals(1, $response->getData()->data->test);
+        $this->assertEquals("l5toolkit::messages.entity.saved", $response->getData()->message);
+        $this->assertEquals(HttpReponse::HTTP_OK, $response->getStatusCode());
     }
 
     /**
@@ -362,9 +363,9 @@ class BaseAPIResourceControllerTest extends TestCase
         $response = $method->invokeArgs($object, [$request]);
 
         $this->assertTrue($errorReported);
-        $this->assertTrue(is_null($response->getData()->data));
-        $this->assertTrue($response->getData()->message == $message);
-        $this->assertTrue($response->getStatusCode() == 400);
+        $this->assertNull($response->getData()->data);
+        $this->assertEquals($message, $response->getData()->message);
+        $this->assertEquals(HttpReponse::HTTP_BAD_REQUEST, $response->getStatusCode());
     }
 
     /**
@@ -395,8 +396,8 @@ class BaseAPIResourceControllerTest extends TestCase
         $response = $method->invokeArgs($object, [1, $request]);
 
         $this->assertIsObject($response->getData()->data);
-        $this->assertTrue($response->getData()->data->test == 1);
-        $this->assertTrue($response->getStatusCode() == 200);
+        $this->assertEquals(1, $response->getData()->data->test);
+        $this->assertEquals(HttpReponse::HTTP_OK, $response->getStatusCode());
     }
 
     /**
@@ -427,9 +428,9 @@ class BaseAPIResourceControllerTest extends TestCase
         $method   = self::getMethod('update', BaseAPIResourceController::class);
         $response = $method->invokeArgs($object, [0, $request]);
 
-        $this->assertTrue($response->getData()->data == null);
-        $this->assertTrue($response->getData()->message == "l5toolkit::messages.entity.not_found");
-        $this->assertTrue($response->getStatusCode() == 404);
+        $this->assertNull($response->getData()->data);
+        $this->assertEquals("l5toolkit::messages.entity.not_found", $response->getData()->message);
+        $this->assertEquals(HttpReponse::HTTP_NOT_FOUND, $response->getStatusCode());
     }
 
     /**
@@ -480,9 +481,9 @@ class BaseAPIResourceControllerTest extends TestCase
         $response = $method->invokeArgs($object, [0, $request]);
 
         $this->assertTrue($errorReported);
-        $this->assertTrue(is_null($response->getData()->data));
-        $this->assertTrue($response->getData()->message == $message);
-        $this->assertTrue($response->getStatusCode() == 400);
+        $this->assertNull($response->getData()->data);
+        $this->assertEquals($message, $response->getData()->message);
+        $this->assertEquals(HttpReponse::HTTP_BAD_REQUEST, $response->getStatusCode());
     }
 
     /**
@@ -510,9 +511,9 @@ class BaseAPIResourceControllerTest extends TestCase
         $method   = self::getMethod('destroy', BaseAPIResourceController::class);
         $response = $method->invokeArgs($object, [1]);
 
-        $this->assertTrue($response->getData()->data == 1);
-        $this->assertTrue($response->getData()->message == "l5toolkit::messages.entity.deleted");
-        $this->assertTrue($response->getStatusCode() == 200);
+        $this->assertEquals(1, $response->getData()->data);
+        $this->assertEquals("l5toolkit::messages.entity.deleted", $response->getData()->message);
+        $this->assertEquals(HttpReponse::HTTP_OK, $response->getStatusCode());
     }
 
     /**
@@ -540,8 +541,8 @@ class BaseAPIResourceControllerTest extends TestCase
         $method   = self::getMethod('destroy', BaseAPIResourceController::class);
         $response = $method->invokeArgs($object, [0]);
 
-        $this->assertTrue($response->getData()->data == null);
-        $this->assertTrue($response->getData()->message == "l5toolkit::messages.entity.not_found");
-        $this->assertTrue($response->getStatusCode() == 404);
+        $this->assertNull($response->getData()->data);
+        $this->assertEquals("l5toolkit::messages.entity.not_found", $response->getData()->message);
+        $this->assertEquals(HttpReponse::HTTP_NOT_FOUND, $response->getStatusCode());
     }
 }

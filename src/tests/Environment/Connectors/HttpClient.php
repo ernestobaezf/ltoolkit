@@ -7,11 +7,11 @@ namespace l5toolkit\Test\Environment\Connectors;
 
 
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\Promise\PromiseInterface;
+use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\UriInterface;
+use GuzzleHttp\Promise\PromiseInterface;
+use GuzzleHttp\Exception\GuzzleException;
 
 class HttpClient implements ClientInterface
 {
@@ -22,9 +22,6 @@ class HttpClient implements ClientInterface
      * @param RequestInterface $request Request to send
      * @param array $options Request options to apply to the given
      *                                  request and to the transfer.
-     *
-     * @return ResponseInterface
-     * @throws GuzzleException
      */
     public function send(RequestInterface $request, array $options = [])
     {
@@ -37,8 +34,6 @@ class HttpClient implements ClientInterface
      * @param RequestInterface $request Request to send
      * @param array $options Request options to apply to the given
      *                                  request and to the transfer.
-     *
-     * @return PromiseInterface
      */
     public function sendAsync(RequestInterface $request, array $options = [])
     {
@@ -55,9 +50,6 @@ class HttpClient implements ClientInterface
      * @param string $method HTTP method.
      * @param string|UriInterface $uri URI object or string.
      * @param array $options Request options to apply.
-     *
-     * @return ResponseInterface
-     * @throws GuzzleException
      */
     public function request($method, $uri, array $options = [])
     {
@@ -75,8 +67,6 @@ class HttpClient implements ClientInterface
      * @param string $method HTTP method
      * @param string|UriInterface $uri URI object or string.
      * @param array $options Request options to apply.
-     *
-     * @return PromiseInterface
      */
     public function requestAsync($method, $uri, array $options = [])
     {

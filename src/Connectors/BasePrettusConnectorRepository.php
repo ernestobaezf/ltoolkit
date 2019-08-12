@@ -9,7 +9,6 @@ use l5toolkit\Interfaces\IRepositoryConnector;
 use Illuminate\Container\Container as Application;
 use Prettus\Repository\Events\RepositoryEntityDeleted;
 use Prettus\Repository\Exceptions\RepositoryException;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Prettus\Repository\Eloquent\BaseRepository as PrettusRepositoryEloquent;
 
 class BasePrettusConnectorRepository extends PrettusRepositoryEloquent implements IRepositoryConnector
@@ -30,33 +29,6 @@ class BasePrettusConnectorRepository extends PrettusRepositoryEloquent implement
     public function model(): string
     {
         return $this->modelClass;
-    }
-
-    public function find($id, $columns = ['*'])
-    {
-        try {
-            return parent::find($id, $columns);
-        } catch (ModelNotFoundException $exception) {
-            return null;
-        }
-    }
-
-    public function update(array $attributes, $id)
-    {
-        try {
-            return parent::update($attributes, $id);
-        } catch (ModelNotFoundException $exception) {
-            return null;
-        }
-    }
-
-    public function findByField($field, $value=null, $columns = ['*'])
-    {
-        try {
-            return parent::findByField($field, $value, $columns);
-        } catch (ModelNotFoundException $exception) {
-            return null;
-        }
     }
 
     public function getFieldsSearchable()
