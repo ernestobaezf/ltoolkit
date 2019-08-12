@@ -7,6 +7,7 @@ namespace l5toolkit\Formatters;
 
 
 use DateTime;
+use Countable;
 use Exception;
 use Throwable;
 use JsonSerializable;
@@ -40,11 +41,13 @@ class CustomLogFormatter extends LineFormatter
             if (false !== strpos($output, '%extra.'.$var.'%')) {
                 $output = str_replace('%extra.'.$var.'%', $this->stringify($val), $output);
                 unset($vars['extra'][$var]);
+            } elseif (is_array($val) || $val instanceof Countable) {
+                $vars['extra'][$var] = json_encode($val);
             }
         }
 
+        $currentRoute = Route::current();
         if (!isset($vars['context']['controller'])) {
-            $currentRoute = Route::current();
             $actionName = $currentRoute ? $currentRoute->getActionName() : "";
             $path = explode("@", $actionName ?: "@");
 
@@ -62,8 +65,10 @@ class CustomLogFormatter extends LineFormatter
         if (!isset($vars['context']['payload'])) {
             /** @var array $request */
             $request = request()->all();
-            $payload = $request ?: '';
-            $vars['context']['payload'] = $payload;
+            $payload = $request ?: [];
+
+            $parameters = $currentRoute ? $currentRoute->originalParameters() : [];
+            $vars['context']['payload'] = array_merge($payload, $parameters);
         }
 
         $payload = $vars['context']['payload'];
@@ -94,6 +99,8 @@ class CustomLogFormatter extends LineFormatter
             if (false !== strpos($output, '%context.'.$var.'%')) {
                 $output = str_replace('%context.'.$var.'%', $this->stringify($val), $output);
                 unset($vars['context'][$var]);
+            } elseif (is_array($val) || $val instanceof Countable) {
+                $vars['context'][$var] = json_encode($val);
             }
         }
 

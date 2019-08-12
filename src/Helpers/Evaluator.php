@@ -9,9 +9,9 @@ namespace l5toolkit\Helpers;
 use Closure;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Validation\ValidationException;
 use l5toolkit\Interfaces\IEvaluator;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Response as ResponseFacade;
 
 final class Evaluator implements IEvaluator
@@ -81,11 +81,11 @@ final class Evaluator implements IEvaluator
                         $message = json_decode($content);
                     }
 
-                    if ($result->getStatusCode() != 200) {
+                    if ($result->getStatusCode() >= Response::HTTP_BAD_REQUEST) {
                         $level = 'warning';
                     }
 
-                    if ($result->getStatusCode() >= 500) {
+                    if ($result->getStatusCode() >= Response::HTTP_INTERNAL_SERVER_ERROR) {
                         $level = 'error';
                     }
                 } else {

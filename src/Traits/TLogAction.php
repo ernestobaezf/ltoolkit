@@ -16,6 +16,7 @@ trait TLogAction
      * Determines whether the logs should be stored or not for the given function
      *
      * @param  string $functionName
+     *
      * @return bool
      */
     protected function logAction(string $functionName): bool
@@ -24,10 +25,12 @@ trait TLogAction
     }
 
     /**
-     * @param  Closure $closure
-     * @param  string   $functionName
-     * @param  mixed    $payload
+     * @param Closure $closure
+     * @param string  $functionName
+     * @param mixed   $payload
+     *
      * @return mixed
+     *
      * @throws Exception
      */
     protected final function evaluate(Closure $closure, string $functionName, $payload="")

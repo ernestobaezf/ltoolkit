@@ -14,13 +14,17 @@ use l5toolkit\Test\Environment\StringSerializableClass;
 class CustomLogFormatterTest extends TestCase
 {
     /**
+     * Format the log in one string line
+     *
      * @throws Exception
      */
     public function test_format()
     {
+        $SIMPLE_FORMAT = "[%datetime%] %channel%.%level_name% %context% %extra% %message%\n";
+        $SIMPLE_DATE = "Y-m-d H:i:s";
+
         global $logId;
-        $time = explode(' ', microtime());
-        $logId = sprintf('%d-%06d', $time[1], $time[0] * 1000000);
+        $logId = '1565630222-621879';
 
         $config = [
             "~credit_card",
@@ -28,7 +32,7 @@ class CustomLogFormatterTest extends TestCase
 
         Config::set("l5toolkit.log.scrubber", $config);
 
-        $date = new DateTime();
+        $date = DateTime::createFromFormat($SIMPLE_DATE, "2019-08-12 17:17:02");
 
         $data = [
             "date" => $date,
@@ -46,9 +50,9 @@ class CustomLogFormatterTest extends TestCase
             "context" => [
                 "class" => "",
                 "payload" => $data,
-                "controller" => "",
                 "response" => $data,
-                "type" => "action"
+                "type" => "action",
+                "array" => ["key" => "value"]
             ],
             "level"=> 200,
             "level_name" => "INFO",
@@ -57,24 +61,30 @@ class CustomLogFormatterTest extends TestCase
             "extra" => $data
         ];
 
-        $SIMPLE_DATE = "Y-m-d H:i:s";
-
-        $object = new CustomLogFormatter(null, $SIMPLE_DATE, false, true);
+        $object = new CustomLogFormatter($SIMPLE_FORMAT, $SIMPLE_DATE, false, true);
 
         $method = self::getMethod("format", CustomLogFormatter::class);
         $result = $method->invokeArgs($object, [$record]);
 
         self::assertIsString($result);
+        self::assertEquals('[2019-08-12 17:17:02] local-ernesto.INFO {"class":"","payload":"{\"date\":\"2019-08-12 17:17:02\",\"Credit_Card\":\"[scrubbed value] ***\",\"array\":{\"number_string\":\"350\"},\"object\":\"[object] (l5toolkit\\\\\\\Test\\\\\\\Environment\\\\\\\DynamicClass: {})\"}","response":"{\"date\":\"2019-08-12 17:17:02\",\"Credit_Card\":\"[scrubbed value] ***\",\"array\":{\"number_string\":\"350\"},\"object\":\"[object] (l5toolkit\\\\\\\Test\\\\\\\Environment\\\\\\\DynamicClass: {})\"}","type":"action","array":"{\"key\":\"value\"}","controller":"","action":"","referer":null,"ip":"127.0.0.1","user":"unknown","logId":"1565630222-621879"} {"date":"2019-08-12 17:17:02","Credit_Card":"[scrubbed value] ***","array":"{\"number_string\":\"350\"}","object":"[object] (l5toolkit\\\\Test\\\\Environment\\\\DynamicClass: {})"} Start execution
+',
+            $result);
     }
 
     /**
+     * Format the log in one string line
+     *
      * @throws Exception
      */
     public function test_format_1()
     {
+        $SIMPLE_FORMAT =
+            "[%datetime%] %channel%.%level_name% %context% %context.payload% %extra% %extra.date% %message%\n";
+        $SIMPLE_DATE = "Y-m-d H:i:s";
+
         global $logId;
-        $time = explode(' ', microtime());
-        $logId = sprintf('%d-%06d', $time[1], $time[0] * 1000000);
+        $logId = '1565630222-621879';
 
         $config = [
             "~credit_card",
@@ -82,7 +92,7 @@ class CustomLogFormatterTest extends TestCase
 
         Config::set("l5toolkit.log.scrubber", $config);
 
-        $date = new DateTime();
+        $date = DateTime::createFromFormat($SIMPLE_DATE, "2019-08-12 17:17:02");
 
         $data = [
             "date" => $date,
@@ -100,7 +110,6 @@ class CustomLogFormatterTest extends TestCase
             "context" => [
                 "class" => "",
                 "payload" => $data,
-                "controller" => "",
                 "response" => $data,
                 "type" => "action"
             ],
@@ -111,9 +120,60 @@ class CustomLogFormatterTest extends TestCase
             "extra" => $data
         ];
 
+        $object = new CustomLogFormatter($SIMPLE_FORMAT, $SIMPLE_DATE, false, true);
+
+        $method = self::getMethod("format", CustomLogFormatter::class);
+        $result = $method->invokeArgs($object, [$record]);
+
+        self::assertIsString($result);
+        self::assertEquals('[2019-08-12 17:17:02] local-ernesto.INFO {"class":"","response":"{\"date\":\"2019-08-12 17:17:02\",\"Credit_Card\":\"[scrubbed value] ***\",\"array\":{\"number_string\":\"350\"},\"object\":\"[object] (l5toolkit\\\\\\\Test\\\\\\\Environment\\\\\\\DynamicClass: {})\"}","type":"action","controller":"","action":"","referer":null,"ip":"127.0.0.1","user":"unknown","logId":"1565630222-621879"} {"date":"2019-08-12 17:17:02","Credit_Card":"[scrubbed value] ***","array":{"number_string":"350"},"object":"[object] (l5toolkit\\\Test\\\Environment\\\DynamicClass: {})"} {"Credit_Card":"[scrubbed value] ***","array":"{\"number_string\":\"350\"}","object":"[object] (l5toolkit\\\Test\\\Environment\\\DynamicClass: {})"} 2019-08-12 17:17:02 Start execution
+',
+            $result);
+    }
+
+    /**
+     * Format the log in one string line
+     *
+     * @throws Exception
+     */
+    public function test_format_2()
+    {
+        $SIMPLE_FORMAT =
+            "[%datetime%] %channel%.%level_name% %context% %context.leftover% %context.response% %context.action% 
+            %context.referer% %context.ip% %context.user% %context.logId% %context.leftover% %context.response% 
+            %context.payload% %context.controller% %extra% %extra.date% %extra.leftover% %message%\n";
         $SIMPLE_DATE = "Y-m-d H:i:s";
 
-        $object = new CustomLogFormatter(null, $SIMPLE_DATE, false, true);
+        global $logId;
+        $logId = '1565630222-621879';
+
+        $config = [
+            "~credit_card",
+        ];
+
+        Config::set("l5toolkit.log.scrubber", $config);
+
+        $date = DateTime::createFromFormat($SIMPLE_DATE, "2019-08-12 17:17:02");
+
+        $data = ["date" => $date];
+        $response = "";
+        for ($i=0; $i < 705; $i++) {
+            $response .= $i;
+        }
+
+        $record = [
+            "message" => "Start execution",
+            "context" => [
+                "response" => $response
+            ],
+            "level"=> 200,
+            "level_name" => "INFO",
+            "channel" => "local-ernesto",
+            "datetime" => $date,
+            "extra" => $data
+        ];
+
+        $object = new CustomLogFormatter($SIMPLE_FORMAT, $SIMPLE_DATE, false, true);
 
         $method = self::getMethod("format", CustomLogFormatter::class);
         $result = $method->invokeArgs($object, [$record]);
@@ -122,6 +182,8 @@ class CustomLogFormatterTest extends TestCase
     }
 
     /**
+     * Format the log in one string line
+     *
      * @throws Exception
      */
     public function test_normalize()
@@ -168,7 +230,7 @@ class CustomLogFormatterTest extends TestCase
         self::assertEquals([
             'message' => 'Start execution',
             'context' => [
-                'exception' => '[object] (Exception(code: 0):  at /home/ernesto/Projects/core-package/vendor/ernestobaezf/l5toolkit/src/tests/Unit/Formatters/CustomLogFormatterTest.php:136)',
+                'exception' => '[object] (Exception(code: 0):  at /home/ernesto/Projects/core-package/vendor/ernestobaezf/l5toolkit/src/tests/Unit/Formatters/CustomLogFormatterTest.php:198)',
                 'date' => $date->format($SIMPLE_DATE),
                 'int' => 100000,
                 'array' => ["number_string" => "350"],
@@ -186,7 +248,7 @@ class CustomLogFormatterTest extends TestCase
     }
 
     /**
-     *
+     * Normalized the record data to be formatted
      */
     public function test_normalize_1()
     {
@@ -253,7 +315,7 @@ class CustomLogFormatterTest extends TestCase
     }
 
     /**
-     *
+     * Normalized the record data to be formatted
      */
     public function test_normalize_2()
     {
@@ -284,7 +346,7 @@ class CustomLogFormatterTest extends TestCase
     }
 
     /**
-     *
+     * Get a list of variations of keys to be hidden in the log
      */
     public function test_generateScrubList()
     {

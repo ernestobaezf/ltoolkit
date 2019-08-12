@@ -5,12 +5,12 @@
 
 namespace l5toolkit\Connectors;
 
-use Illuminate\Container\Container as Application;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use l5toolkit\Interfaces\IRepositoryConnector;
-use Prettus\Repository\Eloquent\BaseRepository as PrettusRepositoryEloquent;
+use Illuminate\Container\Container as Application;
 use Prettus\Repository\Events\RepositoryEntityDeleted;
 use Prettus\Repository\Exceptions\RepositoryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Prettus\Repository\Eloquent\BaseRepository as PrettusRepositoryEloquent;
 
 class BasePrettusConnectorRepository extends PrettusRepositoryEloquent implements IRepositoryConnector
 {

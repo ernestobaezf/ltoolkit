@@ -69,7 +69,8 @@ abstract class BaseRepository implements IBaseRepository
         return $this->evaluate(
             function () use ($columns) {
                 return $this->getInternalRepository()->all($columns);
-            }, __FUNCTION__
+            },
+            __FUNCTION__
         );
     }
 
@@ -86,7 +87,9 @@ abstract class BaseRepository implements IBaseRepository
         return $this->evaluate(
             function () use ($limit, $columns) {
                 return $this->getInternalRepository()->paginate($limit, $columns);
-            }, __FUNCTION__, ["limit" => $limit]
+            },
+            __FUNCTION__,
+            ["limit" => $limit]
         );
     }
 
@@ -103,7 +106,9 @@ abstract class BaseRepository implements IBaseRepository
         return $this->evaluate(
             function () use ($limit, $columns) {
                 return $this->getInternalRepository()->simplePaginate($limit, $columns);
-            }, __FUNCTION__, ["limit" => $limit]
+            },
+            __FUNCTION__,
+            ["limit" => $limit]
         );
     }
 
@@ -122,7 +127,9 @@ abstract class BaseRepository implements IBaseRepository
                 $columns = $this->setScope($columns);
 
                 return $this->getInternalRepository()->find($id, $columns);
-            }, __FUNCTION__, ["id" => $id]
+            },
+            __FUNCTION__,
+            ["id" => $id]
         );
     }
 
@@ -142,7 +149,9 @@ abstract class BaseRepository implements IBaseRepository
                 $columns = $this->setScope($columns);
 
                 return $this->getInternalRepository()->findByField($field, $value, $columns);
-            }, __FUNCTION__, ["field" => $field, "value" => $value]
+            },
+            __FUNCTION__,
+            ["field" => $field, "value" => $value]
         );
     }
 
@@ -161,7 +170,9 @@ abstract class BaseRepository implements IBaseRepository
                 $this->getUnitOfWork()->beginTransaction();
 
                 return $this->execute('create', $attributes);
-            }, __FUNCTION__, ["attributes" => $attributes]
+            },
+            __FUNCTION__,
+            ["attributes" => $attributes]
         );
     }
 
@@ -181,7 +192,9 @@ abstract class BaseRepository implements IBaseRepository
                 $this->getUnitOfWork()->beginTransaction();
 
                 return $this->execute('update', $attributes, $id);
-            }, __FUNCTION__, ["attributes" => $attributes, "id" => $id]
+            },
+            __FUNCTION__,
+            ["attributes" => $attributes, "id" => $id]
         );
     }
 
@@ -201,7 +214,9 @@ abstract class BaseRepository implements IBaseRepository
                 $this->getUnitOfWork()->beginTransaction();
 
                 return $this->execute('updateOrCreate', $attributes, $values);
-            }, __FUNCTION__, ["attributes" => $attributes, "values" => $values]
+            },
+            __FUNCTION__,
+            ["attributes" => $attributes, "values" => $values]
         );
     }
 
@@ -220,7 +235,9 @@ abstract class BaseRepository implements IBaseRepository
                 $this->getUnitOfWork()->beginTransaction();
 
                 return $this->getInternalRepository()->delete($id);
-            }, __FUNCTION__, ["id" => $id]
+            },
+            __FUNCTION__,
+            ["id" => $id]
         );
     }
 
