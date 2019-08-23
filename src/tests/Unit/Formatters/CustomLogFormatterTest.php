@@ -13,6 +13,7 @@ use l5toolkit\Test\Environment\TestCase;
 use l5toolkit\Formatters\CustomLogFormatter;
 use l5toolkit\Test\Environment\DynamicClass;
 use l5toolkit\Test\Environment\StringSerializableClass;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CustomLogFormatterTest extends TestCase
 {
@@ -108,6 +109,7 @@ class CustomLogFormatterTest extends TestCase
             ])
         ];
 
+        Config::set("l5toolkit.log_text_length", 118);
         $record = [
             "message" => "Start execution",
             "context" => [
@@ -129,7 +131,7 @@ class CustomLogFormatterTest extends TestCase
         $result = $method->invokeArgs($object, [$record]);
 
         self::assertIsString($result);
-        self::assertEquals('[2019-08-12 17:17:02] local-ernesto.INFO {"class":"","response":"{\"date\":\"2019-08-12 17:17:02\",\"Credit_Card\":\"[scrubbed value] ***\",\"array\":{\"number_string\":\"350\"},\"object\":\"[object] (l5toolkit\\\\\\\Test\\\\\\\Environment\\\\\\\DynamicClass: {})\"}","type":"action","controller":"","action":"","referer":null,"ip":"127.0.0.1","user":"unknown","logId":"1565630222-621879"} {"date":"2019-08-12 17:17:02","Credit_Card":"[scrubbed value] ***","array":{"number_string":"350"},"object":"[object] (l5toolkit\\\Test\\\Environment\\\DynamicClass: {})"} {"Credit_Card":"[scrubbed value] ***","array":"{\"number_string\":\"350\"}","object":"[object] (l5toolkit\\\Test\\\Environment\\\DynamicClass: {})"} 2019-08-12 17:17:02 Start execution
+        self::assertEquals('[2019-08-12 17:17:02] local-ernesto.INFO {"class":"","response":"{\"date\":\"2019-08-12 17:17:02\",\"Credit_Card\":\"[scrubbed value] ***\",\"array\":{\"number_string\":\"350\"},\"object\":\"[object] truncated text...","type":"action","controller":"","action":"","referer":null,"ip":"127.0.0.1","user":"unknown","logId":"1565630222-621879"} {"date":"2019-08-12 17:17:02","Credit_Card":"[scrubbed value] ***","array":{"number_string":"350"},"object":"[object] (l5toolkit\\\Test\\\Environment\\\DynamicClass: {})"} {"Credit_Card":"[scrubbed value] ***","array":"{\"number_string\":\"350\"}","object":"[object] (l5toolkit\\\Test\\\Environment\\\DynamicClass: {})"} 2019-08-12 17:17:02 Start execution
 ',
             $result);
     }
@@ -198,7 +200,7 @@ class CustomLogFormatterTest extends TestCase
         $record = [
             "message" => "Start execution",
             "context" => [
-                'exception' => new Exception(),
+                'exception' => new ModelNotFoundException("Test Exception"),
                 "resource" => $file,
                 "infinite" => Math::log(0),
                 "nan" => Math::acos(8),
@@ -233,7 +235,7 @@ class CustomLogFormatterTest extends TestCase
         self::assertEquals([
             'message' => 'Start execution',
             'context' => [
-                'exception' => '[object] (Exception(code: 0):  at /home/ernesto/Projects/core-package/vendor/ernestobaezf/l5toolkit/src/tests/Unit/Formatters/CustomLogFormatterTest.php:201)',
+                'exception' => '[object] (Illuminate\Database\Eloquent\ModelNotFoundException(code: 0): Test Exception at /home/ernesto/Projects/core-package/vendor/ernestobaezf/l5toolkit/src/tests/Unit/Formatters/CustomLogFormatterTest.php:203)',
                 'date' => $date->format($SIMPLE_DATE),
                 'int' => 100000,
                 'array' => ["number_string" => "350"],

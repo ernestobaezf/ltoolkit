@@ -10,6 +10,7 @@ use Closure;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use l5toolkit\Interfaces\IEvaluator;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Response as ResponseFacade;
@@ -73,10 +74,12 @@ final class Evaluator implements IEvaluator
                 if ($result && $result instanceof Response) {
                     $content = $result->getContent();
 
-                    if ($content && strlen($content) > 400) {
+                    $logTextLength = Config::get("l5toolkit.log_text_length", 3000);
+                    if ($content && $logTextLength > 0 && strlen($content) > $logTextLength) {
                         $content = json_decode($content);
                         $message = $content->message ?? "";
-                        $message = "{\"data\":\"truncated message...\",\"message\":\"$message\"}";
+
+                        $message = substr($content, 0, $logTextLength)."\"truncated text...\",\"message\":\"$message\"}";
                     } else {
                         $message = json_decode($content);
                     }

@@ -10,6 +10,7 @@ use ReflectionMethod;
 use ReflectionException;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Trait TLoggable
@@ -24,7 +25,7 @@ trait TLoggable
 {
     protected function logLevel()
     {
-        return env('LOGGABLE_LOG_LEVEL', 'debug');
+        return Config::get('l5toolkit.loggable_log_level', 'debug');
     }
 
     /**

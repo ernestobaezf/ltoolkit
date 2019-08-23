@@ -8,12 +8,13 @@ namespace l5toolkit\Test\Unit\Helpers;
 
 use Closure;
 use Illuminate\Http\Response;
+use l5toolkit\Helpers\Evaluator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Validation\ValidationException;
-use l5toolkit\Helpers\Evaluator;
 use l5toolkit\Interfaces\IEvaluator;
+use Illuminate\Support\Facades\Config;
 use l5toolkit\Test\Environment\TestCase;
+use Illuminate\Validation\ValidationException;
 use l5toolkit\Http\Validators\BasicUpdateValidator;
 
 class EvaluatorTest extends TestCase
@@ -89,6 +90,7 @@ Process finished with exit code 0", 500);
             return $response;
         }]);
 
+        Config::set('l5toolkit.log_text_length', 400);
         $method = self::getMethod("getMethod", Evaluator::class);
         $method = $method->invoke($object);
 

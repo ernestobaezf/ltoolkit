@@ -88,8 +88,9 @@ class CustomLogFormatter extends LineFormatter
                 $response = json_encode($response);
             }
 
-            if (strlen($response) > 700) {
-                $response = "{\"data\":\"truncated message...\"}";
+            $logTextLength = Config::get("l5toolkit.log_text_length", 3000);
+            if ($logTextLength > 0 && strlen($response) > $logTextLength) {
+                $response = substr($response, 0, $logTextLength). "truncated text...";
             }
 
             $vars['context']['response'] = $response;
