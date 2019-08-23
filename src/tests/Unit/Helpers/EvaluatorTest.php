@@ -148,7 +148,7 @@ Process finished with exit code 0", 500);
             ->getMock();
 
         $method = self::getMethod("mainMethod", Evaluator::class);
-        $response = new JsonResponse("Testing started at 4:52 PM", 200);
+        $response = new JsonResponse('{"data":"Testing started at 4:52 PM', 200);
         $result = $method->invokeArgs($object, [function() use ($response) {
             return $response;
         }]);
@@ -161,6 +161,7 @@ Process finished with exit code 0", 500);
 
         Log::shouldReceive("log")->once();
         Log::shouldReceive("info")->once();
+        Config::set('l5toolkit.log_text_length', 15);
         $result = $method();
 
         self::assertEquals($response, $result);

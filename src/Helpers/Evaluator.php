@@ -72,16 +72,17 @@ final class Evaluator implements IEvaluator
                 $level = 'info';
 
                 if ($result && $result instanceof Response) {
-                    $content = $result->getContent();
+                    $message = $result->getContent();
 
                     $logTextLength = Config::get("l5toolkit.log_text_length", 3000);
-                    if ($content && $logTextLength > 0 && strlen($content) > $logTextLength) {
-                        $content = json_decode($content);
-                        $message = $content->message ?? "";
+                    if ($message && $logTextLength > 0 && strlen($message) > $logTextLength) {
+                        $content = json_decode($message);
+                        $_message = $content->message ?? "";
 
-                        $message = substr($content, 0, $logTextLength)."\"truncated text...\",\"message\":\"$message\"}";
-                    } else {
-                        $message = json_decode($content);
+                        if (!$content) {
+                            $content = $message;
+                        }
+                        $message = substr($content, 0, $logTextLength)."\"truncated text...\",\"message\":\"$_message\"}";
                     }
 
                     if ($result->getStatusCode() >= Response::HTTP_BAD_REQUEST) {
