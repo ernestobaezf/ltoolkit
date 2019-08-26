@@ -79,10 +79,8 @@ final class Evaluator implements IEvaluator
                         $content = json_decode($message);
                         $_message = $content->message ?? "";
 
-                        if (!$content) {
-                            $content = $message;
-                        }
-                        $message = substr($content, 0, $logTextLength)."\"truncated text...\",\"message\":\"$_message\"}";
+                        $message = $content->data ?? $message;
+                        $message = substr($message, 0, $logTextLength)."\"truncated text...\",\"message\":\"$_message\"}";
                     }
 
                     if ($result->getStatusCode() >= Response::HTTP_BAD_REQUEST) {
@@ -93,7 +91,11 @@ final class Evaluator implements IEvaluator
                         $level = 'error';
                     }
                 } else {
-                    $message = json_encode($result);
+                    if (!is_string($result)) {
+                        $message = json_encode($result);
+                    } else {
+                        $message = $result;
+                    }
                 }
 
                 Log::log($level, "End execution", ["response" => $message]);
