@@ -9,8 +9,8 @@ namespace l5toolkit\Test\Unit\Traits;
 use Exception;
 use ReflectionObject;
 use ReflectionException;
-use Illuminate\Support\Facades\Log;
 use l5toolkit\Traits\TLogAction;
+use Illuminate\Support\Facades\Log;
 use l5toolkit\Test\Environment\TestCase;
 
 class TLogActionTest extends TestCase
@@ -129,13 +129,11 @@ class TLogActionTest extends TestCase
      */
     public function test_evaluate_3()
     {
-        $result = "result";
-
         $called = false;
-        $closure = function () use (&$called, $result) {
+        $closure = function () use (&$called) {
             $called = true;
 
-            return $result;
+            new Exception("Exception");
         };
 
         $functionName = "";
@@ -150,7 +148,7 @@ class TLogActionTest extends TestCase
             true,
             ["logAction"]
         );
-        $object->method("logAction")->willThrowException(new Exception("Exception"));
+        $object->method("logAction")->willReturn(true);
 
         $this->expectException(Exception::class);
         Log::shouldReceive("error")->once();

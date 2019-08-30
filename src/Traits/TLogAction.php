@@ -10,6 +10,7 @@ use Closure;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Config;
+use l5toolkit\Formatters\CustomLogFormatter;
 
 trait TLogAction
 {
@@ -43,6 +44,7 @@ trait TLogAction
                 Log::info(
                     "Successful operation",
                     [
+                        "mode" => CustomLogFormatter::MODE_FULL,
                         "type" => "action",
                         "class" => static::class,
                         "method" => $functionName,
@@ -54,7 +56,18 @@ trait TLogAction
 
             return $result;
         } catch (Exception $exception) {
-            Log::error($exception->getMessage());
+            if ($this->logAction($functionName)) {
+                Log::error($exception->getMessage(),
+                    [
+                        "mode" => CustomLogFormatter::MODE_FULL,
+                        "type" => "action",
+                        "class" => static::class,
+                        "method" => $functionName,
+                        "payload" => $payload,
+                        "response" => "unknown due to an error"
+                    ]
+                );
+            }
 
             throw $exception;
         }

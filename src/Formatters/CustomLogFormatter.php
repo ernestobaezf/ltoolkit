@@ -21,6 +21,9 @@ use Illuminate\Support\Facades\Request;
 
 class CustomLogFormatter extends LineFormatter
 {
+    const MODE_SIMPLE = 0;
+    const MODE_FULL = 1;
+
     const SIMPLE_FORMAT = "[%datetime%] %channel%.%level_name% %context% %extra% %message%\n";
 
     private const KEY = 'l5toolkit.log.scrubber';
@@ -35,6 +38,9 @@ class CustomLogFormatter extends LineFormatter
 
         $vars = $this->normalize($record);
 
+        $mode = $vars['context']["mode"] ?? Config::get('l5toolkit.default_log_mode', static::MODE_SIMPLE);
+        unset($vars['context']["mode"]);
+
         $output = $this->format;
 
         foreach ($vars['extra'] as $var => $val) {
@@ -46,37 +52,41 @@ class CustomLogFormatter extends LineFormatter
             }
         }
 
-        $currentRoute = Route::current();
-        if (!isset($vars['context']['controller'])) {
-            $actionName = $currentRoute ? $currentRoute->getActionName() : "";
-            $path = explode("@", $actionName ?: "@");
+        if ($mode == static::MODE_FULL) {
+            $currentRoute = Route::current();
+            if (!isset($vars['context']['controller'])) {
+                $actionName = $currentRoute ? $currentRoute->getActionName() : "";
+                $path = explode("@", $actionName ?: "@");
 
-            $vars['context']['controller'] = $path[0] ?? "Unknown";
-            $vars['context']['action'] = $path[1] ?? "Unknown";
+                $vars['context']['controller'] = $path[0] ?? "Unknown";
+                $vars['context']['action'] = $path[1] ?? "Unknown";
+            }
+
+            $vars['context']['referer'] = Request::server('HTTP_REFERER');
+            $vars['context']['ip'] = Request::ip();
+
+            $user = Auth::user();
+            $_user = $user->username ?? null;
+            $vars['context']['user'] = $_user ? "(".$user->id.") ".$_user : "unknown";
+
+            if (!isset($vars['context']['payload'])) {
+                /** @var array $request */
+                $request = request()->all();
+                $payload = $request ?: [];
+
+                $parameters = $currentRoute ? $currentRoute->originalParameters() : [];
+                $vars['context']['payload'] = array_merge($payload, $parameters);
+            }
         }
 
-        $vars['context']['referer'] = Request::server('HTTP_REFERER');
-        $vars['context']['ip'] = Request::ip();
+        $payload = $vars['context']['payload'] ?? '';
+        if ($payload) {
+            if (!is_string($payload)) {
+                $payload = json_encode($payload);
+            }
 
-        $user = Auth::user();
-        $_user = $user->username ?? null;
-        $vars['context']['user'] = $_user ? "(".$user->id.") ".$_user : "unknown";
-
-        if (!isset($vars['context']['payload'])) {
-            /** @var array $request */
-            $request = request()->all();
-            $payload = $request ?: [];
-
-            $parameters = $currentRoute ? $currentRoute->originalParameters() : [];
-            $vars['context']['payload'] = array_merge($payload, $parameters);
+            $vars['context']['payload'] = $payload;
         }
-
-        $payload = $vars['context']['payload'];
-        if (!is_string($payload)) {
-            $payload = json_encode($payload);
-        }
-
-        $vars['context']['payload'] = $payload;
 
         if ($logId) {
             $vars['context']['logId'] = $logId;

@@ -11,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use l5toolkit\Interfaces\IEvaluator;
 use Illuminate\Support\Facades\Config;
+use l5toolkit\Formatters\CustomLogFormatter;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Response as ResponseFacade;
@@ -63,7 +64,7 @@ final class Evaluator implements IEvaluator
     {
         $this->method = function () use ($closure) {
             if ($this->logInfo) {
-                Log::info("Start execution");
+                Log::info("Start execution", ["mode" => CustomLogFormatter::MODE_FULL]);
             }
 
             $result = $closure();
