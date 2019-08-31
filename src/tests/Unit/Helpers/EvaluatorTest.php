@@ -230,6 +230,41 @@ Process finished with exit code 0", 500);
     }
 
     /**
+     * Set method to be executed on evaluate call
+     * Context: The response is an object in data
+     */
+    public function test_method_6()
+    {
+        $object = $this->getMockBuilder(Evaluator::class)
+            ->setConstructorArgs([true])
+            ->disableArgumentCloning()
+            ->disableOriginalClone()
+            ->getMock();
+
+        $method = self::getMethod("mainMethod", Evaluator::class);
+        $response = new Response(json_encode([
+            "data" => ["field1" => "data", "field2" => "data2"],
+            "message" => "This is a message"
+        ]));
+        $result = $method->invokeArgs($object, [function() use ($response) {
+            return $response;
+        }]);
+
+        $method = self::getMethod("getMethod", Evaluator::class);
+        $method = $method->invoke($object);
+
+        self::assertInstanceOf(Closure::class, $method);
+        self::assertInstanceOf(IEvaluator::class, $result);
+
+        Log::shouldReceive("log")->once();
+        Log::shouldReceive("info")->once();
+        Config::set('l5toolkit.log_text_length', 15);
+        $result = $method();
+
+        self::assertEquals($response, $result);
+    }
+
+    /**
      * Evaluate precondition, main method and post-condition
      */
     public function test_evaluate()

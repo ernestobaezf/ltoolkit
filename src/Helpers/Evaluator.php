@@ -81,6 +81,10 @@ final class Evaluator implements IEvaluator
                         $_message = $content->message ?? "";
 
                         $message = $content->data ?? $message;
+
+                        if (!is_string($message)) {
+                            $message = json_encode($message);
+                        }
                         $message = substr($message, 0, $logTextLength)."\"truncated text...\",\"message\":\"$_message\"}";
                     }
 
