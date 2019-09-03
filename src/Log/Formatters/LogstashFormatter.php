@@ -6,6 +6,7 @@
 namespace l5toolkit\Log\Formatters;
 
 
+use Illuminate\Support\Facades\Config;
 use Monolog\Formatter\LogstashFormatter as ParentFormatter;
 
 class LogstashFormatter extends ParentFormatter
@@ -16,7 +17,7 @@ class LogstashFormatter extends ParentFormatter
                                 $contextPrefix = 'ctxt_',
                                 $version = ParentFormatter::V1)
     {
-        ParentFormatter::__construct($applicationName,
+        ParentFormatter::__construct(Config::get("app.name", $applicationName),
             $systemName,
             $extraPrefix,
             $contextPrefix,
