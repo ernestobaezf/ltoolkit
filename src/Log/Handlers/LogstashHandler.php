@@ -10,6 +10,6 @@ class LogstashHandler extends SocketHandler
 {
     protected function getDefaultFormatter()
     {
-        return app(LogstashFormatter::class);
+        return new LogstashFormatter("");
     }
 }
