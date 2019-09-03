@@ -10,7 +10,7 @@ use Closure;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Config;
-use l5toolkit\Formatters\CustomLogFormatter;
+use l5toolkit\Log\Formatters\CustomLogFormatter;
 
 trait TLogAction
 {

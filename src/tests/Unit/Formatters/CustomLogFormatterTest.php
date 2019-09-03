@@ -10,8 +10,8 @@ use Exception;
 use l5toolkit\Facades\Math;
 use Illuminate\Support\Facades\Config;
 use l5toolkit\Test\Environment\TestCase;
-use l5toolkit\Formatters\CustomLogFormatter;
 use l5toolkit\Test\Environment\DynamicClass;
+use l5toolkit\Log\Formatters\CustomLogFormatter;
 use l5toolkit\Test\Environment\StringSerializableClass;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 

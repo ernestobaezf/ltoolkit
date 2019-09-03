@@ -3,7 +3,7 @@
  * @author Ernesto Baez
  */
 
-namespace l5toolkit\Formatters;
+namespace l5toolkit\Log\Formatters;
 
 
 use DateTime;

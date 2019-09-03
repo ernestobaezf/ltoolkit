@@ -25,6 +25,8 @@
             <directory suffix=".php">./src</directory>
             <exclude>
                 <file>./src/Facades/Math.php</file>
+                <file>./src/Log/Formatters/LogstashFormatter.php</file>
+                <file>./src/Log/Handlers/LogstashHandler.php</file>
                 <file>./src/Helpers/MathFunctions.php</file>
                 <file>./src/Console/Commands/ExampleCommand.php</file>
                 <file>./src/Connectors/BasePrettusConnectorRepository.php</file>

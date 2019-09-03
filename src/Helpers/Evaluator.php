@@ -11,9 +11,9 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
 use l5toolkit\Interfaces\IEvaluator;
 use Illuminate\Support\Facades\Config;
-use l5toolkit\Formatters\CustomLogFormatter;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
+use l5toolkit\Log\Formatters\CustomLogFormatter;
 use Illuminate\Support\Facades\Response as ResponseFacade;
 
 final class Evaluator implements IEvaluator
