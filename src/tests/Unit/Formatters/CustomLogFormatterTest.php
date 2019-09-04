@@ -66,7 +66,7 @@ class CustomLogFormatterTest extends TestCase
         self::assertEquals([
             'message' => 'Start execution',
             'context' => [
-                'exception' => '[object] (Illuminate\Database\Eloquent\ModelNotFoundException(code: 0): Test Exception at /home/ernesto/Projects/core-package/vendor/ernestobaezf/LToolkit/src/tests/Unit/Formatters/CustomLogFormatterTest.php:34)',
+                'exception' => '[object] (Illuminate\Database\Eloquent\ModelNotFoundException(code: 0): Test Exception at /home/ernesto/Projects/core-package/vendor/ernestobaezf/ltoolkit/src/tests/Unit/Formatters/CustomLogFormatterTest.php:34)',
                 'date' => $date->format($SIMPLE_DATE),
                 'int' => 100000,
                 'array' => ["number_string" => "350"],
