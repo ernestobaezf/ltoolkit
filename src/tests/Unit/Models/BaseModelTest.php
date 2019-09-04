@@ -3,12 +3,12 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Test\Unit\Models;
+namespace ltoolkit\Test\Unit\Models;
 
 
-use l5toolkit\Models\BaseModel;
-use l5toolkit\Interfaces\IEntity;
-use l5toolkit\Test\Environment\TestCase;
+use ltoolkit\Models\BaseModel;
+use ltoolkit\Interfaces\IEntity;
+use ltoolkit\Test\Environment\TestCase;
 
 class BaseModelTest extends TestCase
 {

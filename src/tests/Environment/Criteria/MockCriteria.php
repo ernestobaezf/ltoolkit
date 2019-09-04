@@ -1,10 +1,10 @@
 <?php
 
 
-namespace l5toolkit\Test\Environment\Criteria;
+namespace ltoolkit\Test\Environment\Criteria;
 
 
-use l5toolkit\Interfaces\ICriteriaIterator;
+use ltoolkit\Interfaces\ICriteriaIterator;
 
 
 class MockCriteria implements ICriteriaIterator

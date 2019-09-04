@@ -4,10 +4,10 @@
  * @author Ernesto Baez  26/04/19 9:37 AM
  */
 
-namespace l5toolkit\Http\Validators;
+namespace ltoolkit\Http\Validators;
 
 
-use l5toolkit\Interfaces\IUpdateValidator;
+use ltoolkit\Interfaces\IUpdateValidator;
 
 /**
  * Class BasicUpdateValidator

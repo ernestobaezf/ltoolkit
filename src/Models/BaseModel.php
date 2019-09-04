@@ -3,11 +3,11 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Models;
+namespace ltoolkit\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
-use l5toolkit\Interfaces\IEntity;
+use ltoolkit\Interfaces\IEntity;
 
 class BaseModel extends Model implements IEntity
 {

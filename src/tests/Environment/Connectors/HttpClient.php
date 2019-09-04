@@ -3,7 +3,7 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Test\Environment\Connectors;
+namespace ltoolkit\Test\Environment\Connectors;
 
 
 use GuzzleHttp\ClientInterface;

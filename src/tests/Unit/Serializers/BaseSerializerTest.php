@@ -3,11 +3,11 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Test\Unit\Serializers;
+namespace ltoolkit\Test\Unit\Serializers;
 
 
-use l5toolkit\Serializers\BaseSerializer;
-use l5toolkit\Test\Environment\TestCase;
+use ltoolkit\Serializers\BaseSerializer;
+use ltoolkit\Test\Environment\TestCase;
 
 class BaseSerializerTest extends TestCase
 {

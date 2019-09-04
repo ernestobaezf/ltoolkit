@@ -3,7 +3,7 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Console\Commands;
+namespace ltoolkit\Console\Commands;
 
 
 use Illuminate\Console\Command;

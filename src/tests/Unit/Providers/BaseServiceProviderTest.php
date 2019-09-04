@@ -3,11 +3,11 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Test\Unit\Providers;
+namespace ltoolkit\Test\Unit\Providers;
 
 
-use l5toolkit\Providers\BaseServiceProvider;
-use l5toolkit\Test\Environment\TestCase;
+use ltoolkit\Providers\BaseServiceProvider;
+use ltoolkit\Test\Environment\TestCase;
 
 class BaseServiceProviderTest extends TestCase
 {

@@ -3,14 +3,14 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Repositories;
+namespace ltoolkit\Repositories;
 
 
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
-use l5toolkit\Interfaces\IHttpClient;
-use l5toolkit\Interfaces\IRemoteRepository;
+use ltoolkit\Interfaces\IHttpClient;
+use ltoolkit\Interfaces\IRemoteRepository;
 
 abstract class RemoteRepository implements IRemoteRepository
 {

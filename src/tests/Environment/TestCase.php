@@ -1,6 +1,6 @@
 <?php
 
-namespace l5toolkit\Test\Environment;
+namespace ltoolkit\Test\Environment;
 
 use ReflectionClass;
 use PHPUnit\Framework\MockObject\MockObject;

@@ -3,15 +3,15 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Test\Unit\Traits;
+namespace ltoolkit\Test\Unit\Traits;
 
 
 use Exception;
 use ReflectionObject;
 use ReflectionException;
-use l5toolkit\Traits\TLogAction;
+use ltoolkit\Traits\TLogAction;
 use Illuminate\Support\Facades\Log;
-use l5toolkit\Test\Environment\TestCase;
+use ltoolkit\Test\Environment\TestCase;
 
 class TLogActionTest extends TestCase
 {

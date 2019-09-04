@@ -1,5 +1,5 @@
 <?php
-namespace l5toolkit\Interfaces;
+namespace ltoolkit\Interfaces;
 
 
 use Exception;
@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 /**
  * Interface IRepository
  *
- * @package l5toolkit\Interfaces
+ * @package ltoolkit\Interfaces
  */
 interface IRepository
 {

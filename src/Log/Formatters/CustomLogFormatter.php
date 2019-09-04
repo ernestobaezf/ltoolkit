@@ -3,7 +3,7 @@
  * @author Ernesto Baez
  */
 
-namespace l5toolkit\Log\Formatters;
+namespace ltoolkit\Log\Formatters;
 
 
 use DateTime;
@@ -26,7 +26,7 @@ class CustomLogFormatter extends LineFormatter
 
     const SIMPLE_FORMAT = "[%datetime%] %channel%.%level_name% %context% %extra% %message%\n";
 
-    private const KEY = 'l5toolkit.log.scrubber';
+    private const KEY = 'ltoolkit.log.scrubber';
     private $scrub = [];
 
     /**
@@ -38,7 +38,7 @@ class CustomLogFormatter extends LineFormatter
 
         $vars = $this->normalize($record);
 
-        $mode = $vars['context']["mode"] ?? Config::get('l5toolkit.default_log_mode', static::MODE_SIMPLE);
+        $mode = $vars['context']["mode"] ?? Config::get('ltoolkit.default_log_mode', static::MODE_SIMPLE);
         unset($vars['context']["mode"]);
 
         $output = $this->format;
@@ -98,7 +98,7 @@ class CustomLogFormatter extends LineFormatter
                 $response = json_encode($response);
             }
 
-            $logTextLength = Config::get("l5toolkit.log_text_length", 3000);
+            $logTextLength = Config::get("ltoolkit.log_text_length", 3000);
             if ($logTextLength > 0 && strlen($response) > $logTextLength) {
                 $response = substr($response, 0, $logTextLength). "truncated text...";
             }

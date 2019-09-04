@@ -3,11 +3,11 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Repositories;
+namespace ltoolkit\Repositories;
 
 
-use l5toolkit\Interfaces\IUnitOfWork;
-use l5toolkit\Interfaces\IGenericRepository;
+use ltoolkit\Interfaces\IUnitOfWork;
+use ltoolkit\Interfaces\IGenericRepository;
 
 class GenericRepository extends BaseRepository implements IGenericRepository
 {

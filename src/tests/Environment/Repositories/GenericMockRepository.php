@@ -3,11 +3,11 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Test\Environment\Repositories;
+namespace ltoolkit\Test\Environment\Repositories;
 
 
-use l5toolkit\Interfaces\IGenericRepository;
-use l5toolkit\Interfaces\IUnitOfWork;
+use ltoolkit\Interfaces\IGenericRepository;
+use ltoolkit\Interfaces\IUnitOfWork;
 
 class GenericMockRepository implements IGenericRepository
 {

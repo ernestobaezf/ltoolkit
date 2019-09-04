@@ -3,17 +3,17 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Connectors;
+namespace ltoolkit\Connectors;
 
 
 use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
-use l5toolkit\Interfaces\IUnitOfWork;
-use l5toolkit\Interfaces\IBaseRepository;
-use l5toolkit\Interfaces\IRepositoryFinder;
-use l5toolkit\Interfaces\IRemoteRepository;
-use l5toolkit\Interfaces\IGenericRepository;
+use ltoolkit\Interfaces\IUnitOfWork;
+use ltoolkit\Interfaces\IBaseRepository;
+use ltoolkit\Interfaces\IRepositoryFinder;
+use ltoolkit\Interfaces\IRemoteRepository;
+use ltoolkit\Interfaces\IGenericRepository;
 use Illuminate\Contracts\Container\BindingResolutionException;
 
 final class RepositoryFinder implements IRepositoryFinder
@@ -75,7 +75,7 @@ final class RepositoryFinder implements IRepositoryFinder
      */
     private function findRepositoryClass(string $entityClass): string
     {
-        $config = Config::get('l5toolkit.repository_map') ?? [];
+        $config = Config::get('ltoolkit.repository_map') ?? [];
         $repository = $config[$entityClass] ?? null;
 
         if ($repository) {

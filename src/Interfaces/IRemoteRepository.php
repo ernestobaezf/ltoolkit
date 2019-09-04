@@ -1,11 +1,11 @@
 <?php
-namespace l5toolkit\Interfaces;
+namespace ltoolkit\Interfaces;
 
 
 /**
  * Interface IRemoteRepository
  *
- * @package l5toolkit\Interfaces
+ * @package ltoolkit\Interfaces
  */
 interface IRemoteRepository extends IRepositoryCriteria
 {

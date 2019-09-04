@@ -3,14 +3,14 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Traits;
+namespace ltoolkit\Traits;
 
 
 use Closure;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Config;
-use l5toolkit\Log\Formatters\CustomLogFormatter;
+use ltoolkit\Log\Formatters\CustomLogFormatter;
 
 trait TLogAction
 {
@@ -23,7 +23,7 @@ trait TLogAction
      */
     protected function logAction(string $functionName): bool
     {
-        return Config::get('l5toolkit.log_actions', false);
+        return Config::get('ltoolkit.log_actions', false);
     }
 
     /**

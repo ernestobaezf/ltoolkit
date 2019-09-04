@@ -3,10 +3,10 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Test\Environment\Models;
+namespace ltoolkit\Test\Environment\Models;
 
 
-use l5toolkit\Interfaces\IEntity;
+use ltoolkit\Interfaces\IEntity;
 
 class MockModelNoRelations implements IEntity
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace l5toolkit\Test\Environment;
+namespace ltoolkit\Test\Environment;
 
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Application;
-use l5toolkit\Test\Environment\Main\MockTranslator;
+use ltoolkit\Test\Environment\Main\MockTranslator;
 
 trait CreatesApplication
 {

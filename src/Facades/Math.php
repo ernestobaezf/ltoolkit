@@ -3,14 +3,14 @@
  * @author Ernesto Baez
  */
 
-namespace l5toolkit\Facades;
+namespace ltoolkit\Facades;
 
 
 use Illuminate\Support\Facades\Facade;
 
 /**
  * Class Math
- * @package l5toolkit\Facades
+ * @package ltoolkit\Facades
  *
  * @method static float percentage(float $total, float $amount)
  * @method static string baseConvert(string $number, int $fromBase, int $toBase)
@@ -62,7 +62,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static float tanh(float $arg)
  * @method static hypot(float $x, float $y)
  *
- * @see l5toolkit\Helpers\MathFunctions
+ * @see ltoolkit\Helpers\MathFunctions
  */
 class Math extends Facade
 {

@@ -3,11 +3,11 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Test\Environment\Repositories;
+namespace ltoolkit\Test\Environment\Repositories;
 
 
 use Illuminate\Support\Collection;
-use l5toolkit\Interfaces\IRemoteRepository;
+use ltoolkit\Interfaces\IRemoteRepository;
 
 class MockRemoteRepository implements IRemoteRepository
 {

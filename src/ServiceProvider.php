@@ -3,34 +3,34 @@
  * @author Ernesto Baez
  */
 
-namespace l5toolkit;
+namespace ltoolkit;
 
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use l5toolkit\Helpers\Evaluator;
-use l5toolkit\Connectors\UnitOfWork;
-use l5toolkit\Helpers\MathFunctions;
-use l5toolkit\Interfaces\IEvaluator;
-use l5toolkit\Interfaces\IHttpClient;
-use l5toolkit\Interfaces\IUnitOfWork;
-use l5toolkit\Interfaces\IStoreValidator;
-use l5toolkit\Connectors\CriteriaIterator;
-use l5toolkit\Connectors\RepositoryFinder;
-use l5toolkit\Interfaces\IUpdateValidator;
-use l5toolkit\Connectors\ValidatorResolver;
-use l5toolkit\Interfaces\ICriteriaIterator;
-use l5toolkit\Interfaces\IRepositoryFinder;
-use l5toolkit\Interfaces\IGenericRepository;
-use l5toolkit\Interfaces\IValidatorResolver;
-use l5toolkit\Providers\BaseServiceProvider;
-use l5toolkit\Connectors\HttpClientConnector;
-use l5toolkit\Repositories\GenericRepository;
-use l5toolkit\Interfaces\IRepositoryConnector;
+use ltoolkit\Helpers\Evaluator;
+use ltoolkit\Connectors\UnitOfWork;
+use ltoolkit\Helpers\MathFunctions;
+use ltoolkit\Interfaces\IEvaluator;
+use ltoolkit\Interfaces\IHttpClient;
+use ltoolkit\Interfaces\IUnitOfWork;
+use ltoolkit\Interfaces\IStoreValidator;
+use ltoolkit\Connectors\CriteriaIterator;
+use ltoolkit\Connectors\RepositoryFinder;
+use ltoolkit\Interfaces\IUpdateValidator;
+use ltoolkit\Connectors\ValidatorResolver;
+use ltoolkit\Interfaces\ICriteriaIterator;
+use ltoolkit\Interfaces\IRepositoryFinder;
+use ltoolkit\Interfaces\IGenericRepository;
+use ltoolkit\Interfaces\IValidatorResolver;
+use ltoolkit\Providers\BaseServiceProvider;
+use ltoolkit\Connectors\HttpClientConnector;
+use ltoolkit\Repositories\GenericRepository;
+use ltoolkit\Interfaces\IRepositoryConnector;
 use Prettus\Repository\Criteria\RequestCriteria;
-use l5toolkit\Http\Validators\BasicStoreValidator;
-use l5toolkit\Http\Validators\BasicUpdateValidator;
-use l5toolkit\Connectors\BasePrettusConnectorRepository;
+use ltoolkit\Http\Validators\BasicStoreValidator;
+use ltoolkit\Http\Validators\BasicUpdateValidator;
+use ltoolkit\Connectors\BasePrettusConnectorRepository;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -52,7 +52,7 @@ class ServiceProvider extends BaseServiceProvider
      */
     protected function getPackageName(): string
     {
-        return "l5toolkit";
+        return "ltoolkit";
     }
 
     /**
@@ -60,7 +60,7 @@ class ServiceProvider extends BaseServiceProvider
      */
     protected function getPackageNamespace(): string
     {
-        return 'l5toolkit';
+        return 'ltoolkit';
     }
 
     /**

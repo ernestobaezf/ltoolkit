@@ -3,9 +3,9 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Connectors;
+namespace ltoolkit\Connectors;
 
-use l5toolkit\Interfaces\IRepositoryConnector;
+use ltoolkit\Interfaces\IRepositoryConnector;
 use Illuminate\Container\Container as Application;
 use Prettus\Repository\Events\RepositoryEntityDeleted;
 use Prettus\Repository\Exceptions\RepositoryException;

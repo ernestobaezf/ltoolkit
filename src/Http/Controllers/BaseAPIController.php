@@ -3,7 +3,7 @@
  * @author Ernesto Baez
  */
 
-namespace l5toolkit\Http\Controllers;
+namespace ltoolkit\Http\Controllers;
 
 
 use Closure;
@@ -11,11 +11,11 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use \Illuminate\Support\Facades\Response;
-use l5toolkit\Interfaces\IEntity;
-use l5toolkit\Interfaces\ISerializer;
-use l5toolkit\Interfaces\IUnitOfWork;
-use l5toolkit\Interfaces\IBaseRepository;
-use l5toolkit\Interfaces\IValidatorResolver;
+use ltoolkit\Interfaces\IEntity;
+use ltoolkit\Interfaces\ISerializer;
+use ltoolkit\Interfaces\IUnitOfWork;
+use ltoolkit\Interfaces\IBaseRepository;
+use ltoolkit\Interfaces\IValidatorResolver;
 
 abstract class BaseAPIController extends Controller
 {

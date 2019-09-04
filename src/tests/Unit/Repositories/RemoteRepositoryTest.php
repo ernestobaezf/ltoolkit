@@ -3,14 +3,14 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Test\Unit\Repositories;
+namespace ltoolkit\Test\Unit\Repositories;
 
 
 use Exception;
-use l5toolkit\Interfaces\IHttpClient;
-use l5toolkit\Repositories\RemoteRepository;
-use l5toolkit\Test\Environment\Connectors\MockUnitOfWork;
-use l5toolkit\Test\Environment\TestCase;
+use ltoolkit\Interfaces\IHttpClient;
+use ltoolkit\Repositories\RemoteRepository;
+use ltoolkit\Test\Environment\Connectors\MockUnitOfWork;
+use ltoolkit\Test\Environment\TestCase;
 
 class RemoteRepositoryTest extends TestCase
 {
