@@ -3,10 +3,10 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Connectors;
+namespace LToolkit\Connectors;
 
 
-use l5toolkit\Interfaces\ICriteriaIterator;
+use LToolkit\Interfaces\ICriteriaIterator;
 
 class CriteriaIterator extends \ArrayIterator implements ICriteriaIterator
 {

@@ -3,16 +3,16 @@
  * @author Ernesto Baez
  */
 
-namespace l5toolkit\Test\Unit\Formatters;
+namespace LToolkit\Test\Unit\Formatters;
 
 use DateTime;
 use Exception;
-use l5toolkit\Facades\Math;
+use LToolkit\Facades\Math;
 use Illuminate\Support\Facades\Config;
-use l5toolkit\Test\Environment\TestCase;
-use l5toolkit\Test\Environment\DynamicClass;
-use l5toolkit\Log\Formatters\CustomLogFormatter;
-use l5toolkit\Test\Environment\StringSerializableClass;
+use LToolkit\Test\Environment\TestCase;
+use LToolkit\Test\Environment\DynamicClass;
+use LToolkit\Log\Formatters\CustomLogFormatter;
+use LToolkit\Test\Environment\StringSerializableClass;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CustomLogFormatterTest extends TestCase
@@ -66,16 +66,16 @@ class CustomLogFormatterTest extends TestCase
         self::assertEquals([
             'message' => 'Start execution',
             'context' => [
-                'exception' => '[object] (Illuminate\Database\Eloquent\ModelNotFoundException(code: 0): Test Exception at /home/ernesto/Projects/core-package/vendor/ernestobaezf/l5toolkit/src/tests/Unit/Formatters/CustomLogFormatterTest.php:34)',
+                'exception' => '[object] (Illuminate\Database\Eloquent\ModelNotFoundException(code: 0): Test Exception at /home/ernesto/Projects/core-package/vendor/ernestobaezf/LToolkit/src/tests/Unit/Formatters/CustomLogFormatterTest.php:34)',
                 'date' => $date->format($SIMPLE_DATE),
                 'int' => 100000,
                 'array' => ["number_string" => "350"],
                 'infinite' => '-INF',
                 'nan' => 'NaN',
-                'stringObject' => '[object] (l5toolkit\Test\Environment\StringSerializableClass: l5toolkit\Test\Environment\StringSerializableClass)',
+                'stringObject' => '[object] (LToolkit\Test\Environment\StringSerializableClass: LToolkit\Test\Environment\StringSerializableClass)',
                 'float' => 0.1,
                 'resource' => '[resource] (stream)',
-                'object' => '[object] (l5toolkit\Test\Environment\DynamicClass: {})'],
+                'object' => '[object] (LToolkit\Test\Environment\DynamicClass: {})'],
             'level' => 200,
             'level_name' => 'INFO',
             'channel' => 'local-ernesto',
@@ -101,7 +101,7 @@ class CustomLogFormatterTest extends TestCase
             "~credit_card",
         ];
 
-        Config::set("l5toolkit.log.scrubber", $config);
+        Config::set("LToolkit.log.scrubber", $config);
 
         $date = DateTime::createFromFormat($SIMPLE_DATE, "2019-08-12 17:17:02");
 
@@ -116,7 +116,7 @@ class CustomLogFormatterTest extends TestCase
             ])
         ];
 
-        Config::set("l5toolkit.log_text_length", 118);
+        Config::set("LToolkit.log_text_length", 118);
         $record = [
             "message" => "Start execution",
             "context" => [
@@ -139,7 +139,7 @@ class CustomLogFormatterTest extends TestCase
         $result = $method->invokeArgs($object, [$record]);
 
         self::assertIsString($result);
-        self::assertEquals('[2019-08-12 17:17:02] local-ernesto.INFO {"class":"","response":"{\"date\":\"2019-08-12 17:17:02\",\"Credit_Card\":\"[scrubbed value] ***\",\"array\":{\"number_string\":\"350\"},\"object\":\"[object] truncated text...","type":"action","controller":"","action":"","referer":null,"ip":"127.0.0.1","user":"unknown","logId":"1565630222-621879"} {"date":"2019-08-12 17:17:02","Credit_Card":"[scrubbed value] ***","array":{"number_string":"350"},"object":"[object] (l5toolkit\\\Test\\\Environment\\\DynamicClass: {})"} {"Credit_Card":"[scrubbed value] ***","array":"{\"number_string\":\"350\"}","object":"[object] (l5toolkit\\\Test\\\Environment\\\DynamicClass: {})"} 2019-08-12 17:17:02 Start execution
+        self::assertEquals('[2019-08-12 17:17:02] local-ernesto.INFO {"class":"","response":"{\"date\":\"2019-08-12 17:17:02\",\"Credit_Card\":\"[scrubbed value] ***\",\"array\":{\"number_string\":\"350\"},\"object\":\"[object] truncated text...","type":"action","controller":"","action":"","referer":null,"ip":"127.0.0.1","user":"unknown","logId":"1565630222-621879"} {"date":"2019-08-12 17:17:02","Credit_Card":"[scrubbed value] ***","array":{"number_string":"350"},"object":"[object] (LToolkit\\\Test\\\Environment\\\DynamicClass: {})"} {"Credit_Card":"[scrubbed value] ***","array":"{\"number_string\":\"350\"}","object":"[object] (LToolkit\\\Test\\\Environment\\\DynamicClass: {})"} 2019-08-12 17:17:02 Start execution
 ',
             $result);
     }
@@ -161,7 +161,7 @@ class CustomLogFormatterTest extends TestCase
             "~credit_card",
         ];
 
-        Config::set("l5toolkit.log.scrubber", $config);
+        Config::set("LToolkit.log.scrubber", $config);
 
         $date = DateTime::createFromFormat($SIMPLE_DATE, "2019-08-12 17:17:02");
 
@@ -199,7 +199,7 @@ class CustomLogFormatterTest extends TestCase
         $result = $method->invokeArgs($object, [$record]);
 
         self::assertIsString($result);
-        self::assertEquals('[2019-08-12 17:17:02] local-ernesto.INFO {"class":"","payload":"{\"date\":\"2019-08-12 17:17:02\",\"Credit_Card\":\"[scrubbed value] ***\",\"array\":{\"number_string\":\"350\"},\"object\":\"[object] (l5toolkit\\\\\\\Test\\\\\\\Environment\\\\\\\DynamicClass: {})\"}","response":"{\"date\":\"2019-08-12 17:17:02\",\"Credit_Card\":\"[scrubbed value] ***\",\"array\":{\"number_string\":\"350\"},\"object\":\"[object] (l5toolkit\\\\\\\Test\\\\\\\Environment\\\\\\\DynamicClass: {})\"}","type":"action","array":"{\"key\":\"value\"}","controller":"","action":"","referer":null,"ip":"127.0.0.1","user":"unknown","logId":"1565630222-621879"} {"date":"2019-08-12 17:17:02","Credit_Card":"[scrubbed value] ***","array":"{\"number_string\":\"350\"}","object":"[object] (l5toolkit\\\\Test\\\\Environment\\\\DynamicClass: {})"} Start execution
+        self::assertEquals('[2019-08-12 17:17:02] local-ernesto.INFO {"class":"","payload":"{\"date\":\"2019-08-12 17:17:02\",\"Credit_Card\":\"[scrubbed value] ***\",\"array\":{\"number_string\":\"350\"},\"object\":\"[object] (LToolkit\\\\\\\Test\\\\\\\Environment\\\\\\\DynamicClass: {})\"}","response":"{\"date\":\"2019-08-12 17:17:02\",\"Credit_Card\":\"[scrubbed value] ***\",\"array\":{\"number_string\":\"350\"},\"object\":\"[object] (LToolkit\\\\\\\Test\\\\\\\Environment\\\\\\\DynamicClass: {})\"}","type":"action","array":"{\"key\":\"value\"}","controller":"","action":"","referer":null,"ip":"127.0.0.1","user":"unknown","logId":"1565630222-621879"} {"date":"2019-08-12 17:17:02","Credit_Card":"[scrubbed value] ***","array":"{\"number_string\":\"350\"}","object":"[object] (LToolkit\\\\Test\\\\Environment\\\\DynamicClass: {})"} Start execution
 ',
             $result);
     }
@@ -224,7 +224,7 @@ class CustomLogFormatterTest extends TestCase
             "~credit_card",
         ];
 
-        Config::set("l5toolkit.log.scrubber", $config);
+        Config::set("LToolkit.log.scrubber", $config);
 
         $date = DateTime::createFromFormat($SIMPLE_DATE, "2019-08-12 17:17:02");
 
@@ -365,7 +365,7 @@ class CustomLogFormatterTest extends TestCase
             "~cc"
         ];
 
-        Config::set("l5toolkit.log.scrubber", $config);
+        Config::set("LToolkit.log.scrubber", $config);
 
         $object = $this->getMockBuilder(CustomLogFormatter::class)
             ->setConstructorArgs([true])

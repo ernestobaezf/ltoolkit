@@ -3,19 +3,19 @@
  * @author Ernesto Baez
  */
 
-namespace l5toolkit\Test\Unit\Helpers;
+namespace LToolkit\Test\Unit\Helpers;
 
 
 use Closure;
 use Illuminate\Http\Response;
-use l5toolkit\Helpers\Evaluator;
+use LToolkit\Helpers\Evaluator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
-use l5toolkit\Interfaces\IEvaluator;
+use LToolkit\Interfaces\IEvaluator;
 use Illuminate\Support\Facades\Config;
-use l5toolkit\Test\Environment\TestCase;
+use LToolkit\Test\Environment\TestCase;
 use Illuminate\Validation\ValidationException;
-use l5toolkit\Http\Validators\BasicUpdateValidator;
+use LToolkit\Http\Validators\BasicUpdateValidator;
 
 class EvaluatorTest extends TestCase
 {
@@ -90,7 +90,7 @@ Process finished with exit code 0", 500);
             return $response;
         }]);
 
-        Config::set('l5toolkit.log_text_length', 400);
+        Config::set('LToolkit.log_text_length', 400);
         $method = self::getMethod("getMethod", Evaluator::class);
         $method = $method->invoke($object);
 
@@ -161,7 +161,7 @@ Process finished with exit code 0", 500);
 
         Log::shouldReceive("log")->once();
         Log::shouldReceive("info")->once();
-        Config::set('l5toolkit.log_text_length', 15);
+        Config::set('LToolkit.log_text_length', 15);
         $result = $method();
 
         self::assertEquals($response, $result);
@@ -258,7 +258,7 @@ Process finished with exit code 0", 500);
 
         Log::shouldReceive("log")->once();
         Log::shouldReceive("info")->once();
-        Config::set('l5toolkit.log_text_length', 15);
+        Config::set('LToolkit.log_text_length', 15);
         $result = $method();
 
         self::assertEquals($response, $result);

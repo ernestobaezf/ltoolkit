@@ -3,12 +3,12 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Test\Environment\Models;
+namespace LToolkit\Test\Environment\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
-use l5toolkit\Interfaces\IEntity;
-use l5toolkit\Test\Environment\DynamicClass;
+use LToolkit\Interfaces\IEntity;
+use LToolkit\Test\Environment\DynamicClass;
 
 class MockEloquentModel extends Model implements IEntity
 {

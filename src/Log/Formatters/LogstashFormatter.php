@@ -3,11 +3,11 @@
  * @author Ernesto Baez
  */
 
-namespace l5toolkit\Log\Formatters;
+namespace LToolkit\Log\Formatters;
 
 
 use Illuminate\Support\Facades\Config;
-use l5toolkit\Interfaces\ILogstashFormatter;
+use LToolkit\Interfaces\ILogstashFormatter;
 use Monolog\Formatter\LogstashFormatter as ParentFormatter;
 
 class LogstashFormatter extends ParentFormatter implements ILogstashFormatter

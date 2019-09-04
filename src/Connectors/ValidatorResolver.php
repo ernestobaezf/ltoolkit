@@ -3,22 +3,22 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Connectors;
+namespace LToolkit\Connectors;
 
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
-use l5toolkit\Interfaces\IValidator;
-use l5toolkit\Interfaces\IStoreValidator;
-use l5toolkit\Interfaces\IUpdateValidator;
-use l5toolkit\Interfaces\IValidatorResolver;
+use LToolkit\Interfaces\IValidator;
+use LToolkit\Interfaces\IStoreValidator;
+use LToolkit\Interfaces\IUpdateValidator;
+use LToolkit\Interfaces\IValidatorResolver;
 
 /**
  * Class to find the validators given the class name and the method being executed
  *
  * Class ValidatorResolver
- * @package l5toolkit\Connectors
+ * @package LToolkit\Connectors
  */
 final class ValidatorResolver implements IValidatorResolver
 {

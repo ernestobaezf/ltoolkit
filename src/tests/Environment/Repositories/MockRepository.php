@@ -3,15 +3,15 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Test\Environment\Repositories;
+namespace LToolkit\Test\Environment\Repositories;
 
 
 use Exception;
-use l5toolkit\Interfaces\IEntity;
+use LToolkit\Interfaces\IEntity;
 use Illuminate\Support\Collection;
-use l5toolkit\Interfaces\IUnitOfWork;
-use l5toolkit\Interfaces\IBaseRepository;
-use l5toolkit\Test\Environment\Models\MockModel;
+use LToolkit\Interfaces\IUnitOfWork;
+use LToolkit\Interfaces\IBaseRepository;
+use LToolkit\Test\Environment\Models\MockModel;
 
 class MockRepository implements IBaseRepository
 {

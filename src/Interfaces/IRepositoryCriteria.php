@@ -1,12 +1,12 @@
 <?php
-namespace l5toolkit\Interfaces;
+namespace LToolkit\Interfaces;
 
 use Illuminate\Support\Collection;
 
 /**
  * Interface IRepositoryCriteria
  *
- * @package l5toolkit\Interfaces
+ * @package LToolkit\Interfaces
  */
 interface IRepositoryCriteria
 {

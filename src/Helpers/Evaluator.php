@@ -3,17 +3,17 @@
  * @author Ernesto Baez
  */
 
-namespace l5toolkit\Helpers;
+namespace LToolkit\Helpers;
 
 
 use Closure;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
-use l5toolkit\Interfaces\IEvaluator;
+use LToolkit\Interfaces\IEvaluator;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
-use l5toolkit\Log\Formatters\CustomLogFormatter;
+use LToolkit\Log\Formatters\CustomLogFormatter;
 use Illuminate\Support\Facades\Response as ResponseFacade;
 
 final class Evaluator implements IEvaluator
@@ -75,7 +75,7 @@ final class Evaluator implements IEvaluator
                 if ($result && $result instanceof Response) {
                     $message = $result->getContent();
 
-                    $logTextLength = Config::get("l5toolkit.log_text_length", 3000);
+                    $logTextLength = Config::get("LToolkit.log_text_length", 3000);
                     if ($message && $logTextLength > 0 && strlen($message) > $logTextLength) {
                         $content = json_decode($message);
                         $_message = $content->message ?? "";

@@ -3,18 +3,18 @@
  * @author Ernesto Baez
  */
 
-namespace l5toolkit\Test\Unit\Traits;
+namespace LToolkit\Test\Unit\Traits;
 
 use Exception;
 use ReflectionObject;
 use ReflectionException;
 use Illuminate\Support\Facades\Log;
-use l5toolkit\Traits\TLoggable;
-use l5toolkit\Test\Environment\TestCase;
+use LToolkit\Traits\TLoggable;
+use LToolkit\Test\Environment\TestCase;
 
 /**
  * Class TLoggableTest
- * @package l5toolkit\Traits
+ * @package LToolkit\Traits
  */
 class TLoggableTest extends TestCase
 {

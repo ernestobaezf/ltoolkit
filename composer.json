@@ -1,5 +1,5 @@
 {
-    "name": "ernestobaezf/l5toolkit",
+    "name": "ernestobaezf/LToolkit",
     "description": "Package to easy start a new project by using repository and other patterns for laravel 5",
     "keywords": ["repository", "laravel", "package", "manager", "structure", "standard", "repository patterns", "easy start", "boilerplate"],
     "type": "library",

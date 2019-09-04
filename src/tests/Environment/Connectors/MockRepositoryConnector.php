@@ -3,14 +3,14 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Test\Environment\Connectors;
+namespace LToolkit\Test\Environment\Connectors;
 
 
 use Closure;
 use Exception;
 use Illuminate\Foundation\Application;
 use Illuminate\Database\Eloquent\Collection;
-use l5toolkit\Interfaces\IRepositoryConnector;
+use LToolkit\Interfaces\IRepositoryConnector;
 
 class MockRepositoryConnector implements IRepositoryConnector
 {

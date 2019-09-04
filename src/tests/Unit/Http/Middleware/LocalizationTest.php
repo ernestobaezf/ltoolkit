@@ -4,14 +4,14 @@
  * @author Ernesto Baez  05/06/19 9:29 AM
  */
 
-namespace l5toolkit\Test\Unit\Http\Middleware;
+namespace LToolkit\Test\Unit\Http\Middleware;
 
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
-use l5toolkit\Test\Environment\TestCase;
-use l5toolkit\Http\Middleware\Localization;
+use LToolkit\Test\Environment\TestCase;
+use LToolkit\Http\Middleware\Localization;
 
 class LocalizationTest extends TestCase
 {

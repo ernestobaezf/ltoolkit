@@ -3,7 +3,7 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Interfaces;
+namespace LToolkit\Interfaces;
 
 
 use Illuminate\Contracts\Validation\Validator;

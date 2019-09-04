@@ -1,6 +1,6 @@
 <?php
 
-namespace l5toolkit\Providers;
+namespace LToolkit\Providers;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;

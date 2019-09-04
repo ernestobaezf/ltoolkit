@@ -4,11 +4,11 @@
  * @author Ernesto Baez  26/04/19 9:37 AM
  */
 
-namespace l5toolkit\Http\Validators;
+namespace LToolkit\Http\Validators;
 
 
 use Illuminate\Validation\Validator;
-use l5toolkit\Interfaces\IValidator;
+use LToolkit\Interfaces\IValidator;
 
 /**
  * Class BaseValidator

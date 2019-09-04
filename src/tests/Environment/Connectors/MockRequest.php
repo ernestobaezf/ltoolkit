@@ -3,7 +3,7 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Test\Environment\Connectors;
+namespace LToolkit\Test\Environment\Connectors;
 
 
 use Psr\Http\Message\RequestInterface;

@@ -3,12 +3,12 @@
  * @author Ernesto Baez
  */
 
-namespace l5toolkit\Log\Handlers;
+namespace LToolkit\Log\Handlers;
 
 use Monolog\Handler\SocketHandler;
 use Monolog\Formatter\FormatterInterface;
-use l5toolkit\Interfaces\ILogstashFormatter;
-use l5toolkit\Log\Formatters\LogstashFormatter;
+use LToolkit\Interfaces\ILogstashFormatter;
+use LToolkit\Log\Formatters\LogstashFormatter;
 
 class LogstashHandler extends SocketHandler
 {

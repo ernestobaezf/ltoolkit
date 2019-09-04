@@ -3,11 +3,11 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Test\Environment\Http\Controllers;
+namespace LToolkit\Test\Environment\Http\Controllers;
 
 
-use l5toolkit\Http\Controllers\BaseAPIController;
-use l5toolkit\Test\Environment\Models\MockModel;
+use LToolkit\Http\Controllers\BaseAPIController;
+use LToolkit\Test\Environment\Models\MockModel;
 
 class MockAPIController extends BaseAPIController
 {

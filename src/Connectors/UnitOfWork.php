@@ -3,14 +3,14 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Connectors;
+namespace LToolkit\Connectors;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
-use l5toolkit\Interfaces\IUnitOfWork;
-use l5toolkit\Interfaces\IBaseRepository;
-use l5toolkit\Interfaces\IRemoteRepository;
-use l5toolkit\Interfaces\IRepositoryFinder;
+use LToolkit\Interfaces\IUnitOfWork;
+use LToolkit\Interfaces\IBaseRepository;
+use LToolkit\Interfaces\IRemoteRepository;
+use LToolkit\Interfaces\IRepositoryFinder;
 
 final class UnitOfWork implements IUnitOfWork
 {

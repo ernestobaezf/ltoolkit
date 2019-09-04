@@ -3,18 +3,18 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Repositories;
+namespace LToolkit\Repositories;
 
 use Closure;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use l5toolkit\Traits\TLogAction;
-use l5toolkit\Interfaces\IEntity;
-use l5toolkit\Interfaces\IUnitOfWork;
-use l5toolkit\Interfaces\IBaseRepository;
-use l5toolkit\Interfaces\IRepositoryConnector;
+use LToolkit\Traits\TLogAction;
+use LToolkit\Interfaces\IEntity;
+use LToolkit\Interfaces\IUnitOfWork;
+use LToolkit\Interfaces\IBaseRepository;
+use LToolkit\Interfaces\IRepositoryConnector;
 
 abstract class BaseRepository implements IBaseRepository
 {

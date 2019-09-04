@@ -3,7 +3,7 @@
  * @author Ernesto Baez
  */
 
-namespace l5toolkit\Traits;
+namespace LToolkit\Traits;
 
 use Exception;
 use ReflectionMethod;
@@ -25,7 +25,7 @@ trait TLoggable
 {
     protected function logLevel()
     {
-        return Config::get('l5toolkit.loggable_log_level', 'debug');
+        return Config::get('LToolkit.loggable_log_level', 'debug');
     }
 
     /**

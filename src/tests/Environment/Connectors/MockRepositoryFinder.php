@@ -3,12 +3,12 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Test\Environment\Connectors;
+namespace LToolkit\Test\Environment\Connectors;
 
 
-use l5toolkit\Interfaces\IRepositoryFinder;
-use l5toolkit\Interfaces\IUnitOfWork;
-use l5toolkit\Test\Environment\Repositories\MockRepository;
+use LToolkit\Interfaces\IRepositoryFinder;
+use LToolkit\Interfaces\IUnitOfWork;
+use LToolkit\Test\Environment\Repositories\MockRepository;
 
 class MockRepositoryFinder implements IRepositoryFinder
 {

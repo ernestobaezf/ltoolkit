@@ -3,17 +3,17 @@
  * @author Ernesto Baez 
  */
 
-namespace l5toolkit\Test\Unit\Connectors;
+namespace LToolkit\Test\Unit\Connectors;
 
 
 use ReflectionException;
-use l5toolkit\Test\Environment\TestCase;
-use l5toolkit\Interfaces\IStoreValidator;
-use l5toolkit\Interfaces\IUpdateValidator;
-use l5toolkit\Connectors\ValidatorResolver;
-use l5toolkit\Interfaces\IValidatorResolver;
-use l5toolkit\Test\Environment\Http\Controllers\MockAPIController;
-use l5toolkit\Test\Environment\Http\Validators\Mock\TestValidator;
+use LToolkit\Test\Environment\TestCase;
+use LToolkit\Interfaces\IStoreValidator;
+use LToolkit\Interfaces\IUpdateValidator;
+use LToolkit\Connectors\ValidatorResolver;
+use LToolkit\Interfaces\IValidatorResolver;
+use LToolkit\Test\Environment\Http\Controllers\MockAPIController;
+use LToolkit\Test\Environment\Http\Validators\Mock\TestValidator;
 
 class ValidatorResolverTest extends TestCase
 {
