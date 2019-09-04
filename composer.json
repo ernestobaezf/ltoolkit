@@ -1,6 +1,6 @@
 {
     "name": "ernestobaezf/LToolkit",
-    "description": "Package to easy start a new project by using repository and other patterns for laravel 5",
+    "description": "Package to easy start a new project by using repository and other patterns for laravel",
     "keywords": ["repository", "laravel", "package", "manager", "structure", "standard", "repository patterns", "easy start", "boilerplate"],
     "type": "library",
     "license": "MIT",
@@ -12,7 +12,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "l5toolkit\\": "src/"
+            "LToolkit\\": "src/"
         },
         "files": [
             "src/globals.php"
@@ -20,7 +20,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "l5toolkit\\Test": "src/tests"
+            "LToolkit\\Test": "src/tests"
         }
     },
     "require": {
