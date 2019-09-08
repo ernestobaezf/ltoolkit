@@ -62,7 +62,7 @@ abstract class BaseAPIResourceController extends BaseAPIController implements IA
             $entities = $repository->all();
         }
 
-        return $this->respond($entities, trans_choice('LToolkit::messages.entity.retrieved', $entities->count()));
+        return $this->respond($entities, trans_choice('ltoolkit::messages.entity.retrieved', $entities->count()));
     }
 
     /**
@@ -95,10 +95,10 @@ abstract class BaseAPIResourceController extends BaseAPIController implements IA
         $entity = $repository->find($id, ['*', 'relations' => $relations]);
 
         if (!$entity) {
-            return $this->respond(null, trans('LToolkit::messages.entity.not_found'), 404);
+            return $this->respond(null, trans('ltoolkit::messages.entity.not_found'), 404);
         }
 
-        return $this->respond($entity, trans_choice('LToolkit::messages.entity.retrieved', 1));
+        return $this->respond($entity, trans_choice('ltoolkit::messages.entity.retrieved', 1));
     }
 
     /**
@@ -112,7 +112,7 @@ abstract class BaseAPIResourceController extends BaseAPIController implements IA
             $repository = $this->getRepository();
             $entity = $repository->create($input);
 
-            return $this->respond($entity, trans('LToolkit::messages.entity.saved'));
+            return $this->respond($entity, trans('ltoolkit::messages.entity.saved'));
         } catch (Exception $exception) {
             report($exception);
 
@@ -132,10 +132,10 @@ abstract class BaseAPIResourceController extends BaseAPIController implements IA
             $entity = $repository->update($id, $input);
 
             if (!$entity) {
-                return $this->respond(null, trans('LToolkit::messages.entity.not_found'), 404);
+                return $this->respond(null, trans('ltoolkit::messages.entity.not_found'), 404);
             }
 
-            return $this->respond($entity, trans('LToolkit::messages.entity.updated'));
+            return $this->respond($entity, trans('ltoolkit::messages.entity.updated'));
         } catch (Exception $exception) {
             report($exception);
 
@@ -151,9 +151,9 @@ abstract class BaseAPIResourceController extends BaseAPIController implements IA
         $deleted = $this->getRepository()->delete($id);
 
         if (!$deleted) {
-            return $this->respond(null, trans('LToolkit::messages.entity.not_found'), 404);
+            return $this->respond(null, trans('ltoolkit::messages.entity.not_found'), 404);
         }
 
-        return $this->respond($id, trans('LToolkit::messages.entity.deleted'));
+        return $this->respond($id, trans('ltoolkit::messages.entity.deleted'));
     }
 }
