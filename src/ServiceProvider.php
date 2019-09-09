@@ -89,7 +89,7 @@ class ServiceProvider extends BaseServiceProvider
         $this->publishes(
             [
                 $this->getPath("Config".DIRECTORY_SEPARATOR."$packageName.php") =>
-                    config_path("packages".DIRECTORY_SEPARATOR."$packageName.php"),
+                    config_path("$packageName.php"),
             ], 'config'
         );
     }
