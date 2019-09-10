@@ -5,12 +5,13 @@ namespace LToolkit\Test\Unit\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use LToolkit\Interfaces\IUnitOfWork;
-use Illuminate\Support\Facades\Response;
 use LToolkit\Test\Environment\TestCase;
+use Illuminate\Support\Facades\Response;
 use LToolkit\Interfaces\ICriteriaIterator;
 use LToolkit\Interfaces\IValidatorResolver;
 use Illuminate\Http\Response as HttpReponse;
 use LToolkit\Test\Environment\MockExceptionHandler;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use LToolkit\Http\Controllers\BaseAPIResourceController;
 use LToolkit\Test\Environment\Repositories\MockRepository;
 use Illuminate\Contracts\Debug\ExceptionHandler as ExceptionHandlerContract;
@@ -30,7 +31,7 @@ class BaseAPIResourceControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['getEntity', 'getRepository', 'respond'])
+            ->onlyMethods(['getEntity', 'getRepository', 'respond'])
             ->setConstructorArgs(
                 [
                 'unitOfWork'          => app(IUnitOfWork::class),
@@ -50,7 +51,7 @@ class BaseAPIResourceControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['pushCriteria'])
+            ->onlyMethods(['pushCriteria'])
             ->setConstructorArgs(['unitOfWork' => app(IUnitOfWork::class)])
             ->getMock();
         $repository->expects(self::once())->method('pushCriteria')->willReturnCallback(
@@ -81,7 +82,7 @@ class BaseAPIResourceControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['getEntity', 'getRepository', 'respond'])
+            ->onlyMethods(['getEntity', 'getRepository', 'respond'])
             ->setConstructorArgs(
                 [
                 'unitOfWork'          => app(IUnitOfWork::class),
@@ -101,7 +102,7 @@ class BaseAPIResourceControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['pushCriteria'])
+            ->onlyMethods(['pushCriteria'])
             ->setConstructorArgs(['unitOfWork' => app(IUnitOfWork::class)])
             ->getMock();
         $repository->expects(self::once())->method('pushCriteria')->willReturnCallback(
@@ -131,7 +132,7 @@ class BaseAPIResourceControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['getEntity', 'getRepository'])
+            ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
                 'unitOfWork'          => app(IUnitOfWork::class),
@@ -163,7 +164,7 @@ class BaseAPIResourceControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['getEntity', 'getRepository'])
+            ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
                 'unitOfWork'          => app(IUnitOfWork::class),
@@ -175,11 +176,9 @@ class BaseAPIResourceControllerTest extends TestCase
         $object->method('getEntity')->willReturn($entityClass);
         $object->method('getRepository')->willReturn(new MockRepository(app(IUnitOfWork::class)));
 
+        self::expectException(ModelNotFoundException::class);
         $method   = self::getMethod('show', BaseAPIResourceController::class);
-        $response = $method->invokeArgs($object, [$params]);
-
-        $this->assertEquals("ltoolkit::messages.entity.not_found", $response->getData()->message);
-        $this->assertEquals(HttpReponse::HTTP_NOT_FOUND, $response->getStatusCode());
+        $method->invokeArgs($object, [$params]);
     }
 
     /**
@@ -194,7 +193,7 @@ class BaseAPIResourceControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['getEntity', 'getRepository'])
+            ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
                     'unitOfWork'          => app(IUnitOfWork::class),
@@ -230,7 +229,7 @@ class BaseAPIResourceControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['getEntity', 'getRepository'])
+            ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
                 'unitOfWork'          => app(IUnitOfWork::class),
@@ -262,7 +261,7 @@ class BaseAPIResourceControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['getEntity', 'getRepository'])
+            ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
                 'unitOfWork'          => app(IUnitOfWork::class),
@@ -274,11 +273,9 @@ class BaseAPIResourceControllerTest extends TestCase
         $object->method('getEntity')->willReturn($entityClass);
         $object->method('getRepository')->willReturn(new MockRepository(app(IUnitOfWork::class)));
 
+        self::expectException(ModelNotFoundException::class);
         $method   = self::getMethod('showWithRelationList', BaseAPIResourceController::class);
-        $response = $method->invokeArgs($object, [$params, ["relation1"]]);
-
-        $this->assertEquals("ltoolkit::messages.entity.not_found", $response->getData()->message);
-        $this->assertEquals(HttpReponse::HTTP_NOT_FOUND, $response->getStatusCode());
+        $method->invokeArgs($object, [$params, ["relation1"]]);
     }
 
     /**
@@ -292,7 +289,7 @@ class BaseAPIResourceControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['getEntity', 'getRepository'])
+            ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
                 'unitOfWork'          => app(IUnitOfWork::class),
@@ -321,20 +318,13 @@ class BaseAPIResourceControllerTest extends TestCase
      */
     public function test_store_2()
     {
-        $errorReported = false;
         $object      = $this->getMockBuilder(MockExceptionHandler::class)
             ->disableOriginalClone()
             ->disableOriginalConstructor()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['report'])
+            ->onlyMethods(['report'])
             ->getMock();
-
-        $object->method('report')->willReturnCallback(
-            function () use (&$errorReported) {
-                $errorReported = true;
-            }
-        );
 
         $this->app->instance(ExceptionHandlerContract::class, $object);
 
@@ -343,7 +333,7 @@ class BaseAPIResourceControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['getEntity', 'getRepository'])
+            ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
                 'unitOfWork'          => app(IUnitOfWork::class),
@@ -360,12 +350,9 @@ class BaseAPIResourceControllerTest extends TestCase
         $params   = ['test' => 1];
         $request  = Request::create('www.test.com', 'GET', $params);
         $method   = self::getMethod('store', BaseAPIResourceController::class);
-        $response = $method->invokeArgs($object, [$request]);
 
-        $this->assertTrue($errorReported);
-        $this->assertNull($response->getData()->data);
-        $this->assertEquals($message, $response->getData()->message);
-        $this->assertEquals(HttpReponse::HTTP_BAD_REQUEST, $response->getStatusCode());
+        self::expectException(Exception::class);
+        $method->invokeArgs($object, [$request]);
     }
 
     /**
@@ -378,7 +365,7 @@ class BaseAPIResourceControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['getEntity', 'getRepository'])
+            ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
                 'unitOfWork'          => app(IUnitOfWork::class),
@@ -411,7 +398,7 @@ class BaseAPIResourceControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['getEntity', 'getRepository'])
+            ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
                 'unitOfWork'          => app(IUnitOfWork::class),
@@ -426,11 +413,9 @@ class BaseAPIResourceControllerTest extends TestCase
         $params   = ['test' => 1];
         $request  = Request::create('www.test.com', 'GET', $params);
         $method   = self::getMethod('update', BaseAPIResourceController::class);
-        $response = $method->invokeArgs($object, [0, $request]);
 
-        $this->assertNull($response->getData()->data);
-        $this->assertEquals("ltoolkit::messages.entity.not_found", $response->getData()->message);
-        $this->assertEquals(HttpReponse::HTTP_NOT_FOUND, $response->getStatusCode());
+        self::expectException(ModelNotFoundException::class);
+        $method->invokeArgs($object, [0, $request]);
     }
 
     /**
@@ -439,20 +424,13 @@ class BaseAPIResourceControllerTest extends TestCase
      */
     public function test_update_3()
     {
-        $errorReported = false;
         $object      = $this->getMockBuilder(MockExceptionHandler::class)
             ->disableOriginalClone()
             ->disableOriginalConstructor()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['report'])
+            ->onlyMethods(['report'])
             ->getMock();
-
-        $object->method('report')->willReturnCallback(
-            function () use (&$errorReported) {
-                $errorReported = true;
-            }
-        );
 
         $this->app->instance(ExceptionHandlerContract::class, $object);
 
@@ -461,7 +439,7 @@ class BaseAPIResourceControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['getEntity', 'getRepository'])
+            ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
                 'unitOfWork'          => app(IUnitOfWork::class),
@@ -478,12 +456,8 @@ class BaseAPIResourceControllerTest extends TestCase
         $params   = ['test' => 1];
         $request  = Request::create('www.test.com', 'GET', $params);
         $method   = self::getMethod('update', BaseAPIResourceController::class);
-        $response = $method->invokeArgs($object, [0, $request]);
-
-        $this->assertTrue($errorReported);
-        $this->assertNull($response->getData()->data);
-        $this->assertEquals($message, $response->getData()->message);
-        $this->assertEquals(HttpReponse::HTTP_BAD_REQUEST, $response->getStatusCode());
+        self::expectException(Exception::class);
+        $method->invokeArgs($object, [0, $request]);
     }
 
     /**
@@ -496,7 +470,7 @@ class BaseAPIResourceControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['getEntity', 'getRepository'])
+            ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
                 'unitOfWork'          => app(IUnitOfWork::class),
@@ -526,7 +500,7 @@ class BaseAPIResourceControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['getEntity', 'getRepository'])
+            ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
                 'unitOfWork'          => app(IUnitOfWork::class),
@@ -539,10 +513,7 @@ class BaseAPIResourceControllerTest extends TestCase
         $object->method('getRepository')->willReturn(new MockRepository(app(IUnitOfWork::class)));
 
         $method   = self::getMethod('destroy', BaseAPIResourceController::class);
-        $response = $method->invokeArgs($object, [0]);
-
-        $this->assertNull($response->getData()->data);
-        $this->assertEquals("ltoolkit::messages.entity.not_found", $response->getData()->message);
-        $this->assertEquals(HttpReponse::HTTP_NOT_FOUND, $response->getStatusCode());
+        self::expectException(ModelNotFoundException::class);
+        $method->invokeArgs($object, [0]);
     }
 }

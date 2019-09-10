@@ -3,20 +3,20 @@
  * @author Ernesto Baez 
  */
 
-namespace LToolkit\Connectors;
+namespace LToolkit\Adapters;
 
 
 use Exception;
+use LToolkit\Interfaces\IUnitOfWork;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
-use LToolkit\Interfaces\IUnitOfWork;
 use LToolkit\Interfaces\IBaseRepository;
-use LToolkit\Interfaces\IRepositoryFinder;
 use LToolkit\Interfaces\IRemoteRepository;
 use LToolkit\Interfaces\IGenericRepository;
+use LToolkit\Interfaces\IRepositoryResolver;
 use Illuminate\Contracts\Container\BindingResolutionException;
 
-final class RepositoryFinder implements IRepositoryFinder
+final class RepositoryResolver implements IRepositoryResolver
 {
     private const REPOSITORIES_DIRNAME = "Repositories";
     private const REPOSITORY_POSTFIX = "Repository";

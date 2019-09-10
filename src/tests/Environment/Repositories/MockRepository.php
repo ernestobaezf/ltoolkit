@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
 use LToolkit\Interfaces\IUnitOfWork;
 use LToolkit\Interfaces\IBaseRepository;
 use LToolkit\Test\Environment\Models\MockModel;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class MockRepository implements IBaseRepository
 {
@@ -40,7 +41,7 @@ class MockRepository implements IBaseRepository
     public function find($id, $columns = ['*']): ?IEntity
     {
         if($id==0){
-            return null;
+            throw new ModelNotFoundException();
         }
 
         $data = new MockModel();
@@ -64,7 +65,7 @@ class MockRepository implements IBaseRepository
     public function update($id, array $attributes): ?IEntity
     {
         if($id==0){
-            return null;
+            throw new ModelNotFoundException();
         }
 
         $data = new MockModel();
@@ -80,7 +81,7 @@ class MockRepository implements IBaseRepository
     public function delete($id): int
     {
         if($id==0){
-            return 0;
+            throw new ModelNotFoundException();
         }
 
         return 1;

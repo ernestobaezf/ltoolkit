@@ -29,8 +29,8 @@ abstract class BaseAPIResourceController extends BaseAPIController implements IA
      * @param ICriteriaIterator  $criteria          Used to filter content in index method
      */
     public function __construct(IUnitOfWork $unitOfWork,
-        IValidatorResolver $validatorResolver,
-        ICriteriaIterator $criteria
+                                IValidatorResolver $validatorResolver,
+                                ICriteriaIterator $criteria
     ) {
         $this->criteria = $criteria;
 
@@ -94,65 +94,51 @@ abstract class BaseAPIResourceController extends BaseAPIController implements IA
         $repository = $this->getRepository();
         $entity = $repository->find($id, ['*', 'relations' => $relations]);
 
-        if (!$entity) {
-            return $this->respond(null, trans('ltoolkit::messages.entity.not_found'), 404);
-        }
-
         return $this->respond($entity, trans_choice('ltoolkit::messages.entity.retrieved', 1));
     }
 
     /**
      * @inheritdoc
+     *
+     * @throws Exception Handle this exception in the laravel exception Handler
      */
     public function store(Request $request): JsonResponse
     {
-        try {
-            $input = $request->all();
+        $input = $request->all();
 
-            $repository = $this->getRepository();
-            $entity = $repository->create($input);
+        $repository = $this->getRepository();
+        $entity = $repository->create($input);
 
-            return $this->respond($entity, trans('ltoolkit::messages.entity.saved'));
-        } catch (Exception $exception) {
-            report($exception);
-
-            return $this->respond(null, $exception->getMessage(), 400);
-        }
+        return $this->respond($entity, trans('ltoolkit::messages.entity.saved'));
     }
 
     /**
      * @inheritdoc
+     *
+     * @throws Exception Handle this exception in the laravel exception Handler
      */
     public function update(int $id, Request $request): JsonResponse
     {
-        try {
-            $input = $request->all();
+        $input = $request->all();
 
-            $repository = $this->getRepository();
-            $entity = $repository->update($id, $input);
+        $repository = $this->getRepository();
+        $entity = $repository->update($id, $input);
 
-            if (!$entity) {
-                return $this->respond(null, trans('ltoolkit::messages.entity.not_found'), 404);
-            }
-
-            return $this->respond($entity, trans('ltoolkit::messages.entity.updated'));
-        } catch (Exception $exception) {
-            report($exception);
-
-            return $this->respond(null, $exception->getMessage(), 400);
+        if (!$entity) {
+            return $this->respond(null, trans('ltoolkit::messages.entity.not_found'), 404);
         }
+
+        return $this->respond($entity, trans('ltoolkit::messages.entity.updated'));
     }
 
     /**
      * @inheritdoc
+     *
+     * @throws Exception Handle this exception in the laravel exception Handler
      */
     public function destroy(int $id): JsonResponse
     {
-        $deleted = $this->getRepository()->delete($id);
-
-        if (!$deleted) {
-            return $this->respond(null, trans('ltoolkit::messages.entity.not_found'), 404);
-        }
+        $this->getRepository()->delete($id);
 
         return $this->respond($id, trans('ltoolkit::messages.entity.deleted'));
     }

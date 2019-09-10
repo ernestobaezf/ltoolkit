@@ -338,7 +338,7 @@ class CustomLogFormatterTest extends TestCase
         $object = $this->getMockBuilder(CustomLogFormatter::class)
             ->setConstructorArgs([null, $SIMPLE_DATE])
             ->disableArgumentCloning()
-            ->setMethods(["isObject"])
+            ->onlyMethods(["isObject"])
             ->disableOriginalClone()
             ->getMock();
 

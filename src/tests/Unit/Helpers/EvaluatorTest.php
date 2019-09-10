@@ -296,7 +296,7 @@ Process finished with exit code 0", 500);
             ->disableOriginalConstructor()
             ->disableArgumentCloning()
             ->disableOriginalClone()
-            ->setMethods(["getPreCondition"])
+            ->onlyMethods(["getPreCondition"])
             ->getMock();
 
         $object->method("getPreCondition")->willReturn(function () {
@@ -307,13 +307,9 @@ Process finished with exit code 0", 500);
 
         Log::shouldReceive("error")->once();
 
+        self::expectException(ValidationException::class);
         /** @var JsonResponse $result */
         $result = $method->invoke($object);
-
-        self::assertInstanceOf(JsonResponse::class, $result);
-        self::assertEquals($result->getStatusCode(), 400);
-        self::assertArrayHasKey("error", (array) $result->getData());
-        self::assertArrayHasKey("message", (array) $result->getData());
     }
 
 
@@ -326,7 +322,7 @@ Process finished with exit code 0", 500);
             ->disableOriginalConstructor()
             ->disableArgumentCloning()
             ->disableOriginalClone()
-            ->setMethods(["getPostCondition"])
+            ->onlyMethods(["getPostCondition"])
             ->getMock();
 
         $object->method("getPostCondition")->willReturn(function () {
@@ -342,12 +338,8 @@ Process finished with exit code 0", 500);
 
         Log::shouldReceive("error")->once();
 
+        self::expectException(ValidationException::class);
         /** @var JsonResponse $result */
         $result = $method->invoke($object);
-
-        self::assertInstanceOf(JsonResponse::class, $result);
-        self::assertEquals($result->getStatusCode(), 400);
-        self::assertArrayHasKey("error", (array) $result->getData());
-        self::assertArrayHasKey("message", (array) $result->getData());
     }
 }

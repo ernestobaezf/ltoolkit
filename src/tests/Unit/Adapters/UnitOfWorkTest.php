@@ -1,13 +1,13 @@
 <?php
 
-namespace LToolkit\Test\Unit\Connectors;
+namespace LToolkit\Test\Unit\Adapters;
 
 use Illuminate\Support\Facades\DB;
-use LToolkit\Connectors\UnitOfWork;
-use LToolkit\Interfaces\IRepositoryFinder;
+use LToolkit\Adapters\UnitOfWork;
+use LToolkit\Interfaces\IRepositoryResolver;
 use LToolkit\Interfaces\IUnitOfWork;
 use LToolkit\Test\Environment\Repositories\MockRepository;
-use LToolkit\Test\Environment\Connectors\MockRepositoryFinder;
+use LToolkit\Test\Environment\Adapters\MockRepositoryResolver;
 use LToolkit\Test\Environment\TestCase;
 
 class UnitOfWorkTest extends TestCase
@@ -191,7 +191,7 @@ class UnitOfWorkTest extends TestCase
      */
     public function test_isAutocommit()
     {
-        app()->bind(IRepositoryFinder::class, MockRepositoryFinder::class);
+        app()->bind(IRepositoryResolver::class, MockRepositoryResolver::class);
 
         $uow = app(IUnitOfWork::class);
         $this->assertTrue($uow->isAutocommit());
@@ -212,7 +212,7 @@ class UnitOfWorkTest extends TestCase
     {
         $entityClass = "LToolkit\Test\Environment\Models\Mock";
 
-        app()->bind(IRepositoryFinder::class, MockRepositoryFinder::class);
+        app()->bind(IRepositoryResolver::class, MockRepositoryResolver::class);
 
         $uow = app(IUnitOfWork::class);
         $repository = $uow->getRepository($entityClass);

@@ -48,6 +48,8 @@ interface IRepository
      * @param array $columns
      *
      * @return null|IEntity
+     *
+     * @throws Exception Not found exception
      */
     public function find($id, $columns = ['*']): ?IEntity;
 
@@ -59,6 +61,8 @@ interface IRepository
      * @param array  $columns
      *
      * @return Collection
+     *
+     * @throws Exception Not found exception
      */
     public function findByField($field, $value, $columns = ['*']): Collection;
 
@@ -68,6 +72,7 @@ interface IRepository
      * @param array $attributes
      *
      * @return IEntity
+     *
      * @throws Exception
      */
     public function create(array $attributes): IEntity;
@@ -79,6 +84,7 @@ interface IRepository
      * @param array $attributes
      *
      * @return IEntity|null
+     *
      * @throws Exception
      */
     public function update($id, array $attributes): ?IEntity;
@@ -90,6 +96,7 @@ interface IRepository
      * @param array $values
      *
      * @return IEntity
+     *
      * @throws Exception
      */
     public function updateOrCreate(array $attributes, array $values = []): IEntity;
@@ -100,6 +107,8 @@ interface IRepository
      * @param int $id
      *
      * @return int
+     *
+     * @throws Exception Not found exception
      */
     public function delete($id): int;
 }

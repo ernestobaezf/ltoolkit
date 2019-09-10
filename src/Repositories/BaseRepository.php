@@ -8,20 +8,20 @@ namespace LToolkit\Repositories;
 use Closure;
 use Exception;
 use Illuminate\Support\Str;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
 use LToolkit\Traits\TLogAction;
 use LToolkit\Interfaces\IEntity;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use LToolkit\Interfaces\IUnitOfWork;
 use LToolkit\Interfaces\IBaseRepository;
-use LToolkit\Interfaces\IRepositoryConnector;
+use LToolkit\Interfaces\IRepositoryAdapter;
 
 abstract class BaseRepository implements IBaseRepository
 {
     use TLogAction;
 
     /**
-     * @var IRepositoryConnector
+     * @var IRepositoryAdapter
      */
     private $innerRepository;
 
@@ -29,7 +29,7 @@ abstract class BaseRepository implements IBaseRepository
 
     public function __construct(IUnitOfWork $unitOfWork)
     {
-        $this->innerRepository = app()->make(IRepositoryConnector::class, ["modelClass" => $this->model()]);
+        $this->innerRepository = app()->make(IRepositoryAdapter::class, ["modelClass" => $this->model()]);
 
         $this->unitOfWork = $unitOfWork;
     }
@@ -42,7 +42,7 @@ abstract class BaseRepository implements IBaseRepository
     protected abstract function model(): string;
 
     /**
-     * @return IRepositoryConnector
+     * @return IRepositoryAdapter
      */
     protected function getInternalRepository()
     {

@@ -20,7 +20,7 @@ class BaseServiceProviderTest extends TestCase
             ->disableOriginalConstructor()
             ->disableArgumentCloning()
             ->disableOriginalClone()
-            ->setMethods(["getPolicies"])
+            ->onlyMethods(["getPolicies"])
             ->getMock();
 
         $object->method("getPolicies")->willReturn(["className" => "policyName"]);
@@ -40,7 +40,7 @@ class BaseServiceProviderTest extends TestCase
             ->disableOriginalConstructor()
             ->disableArgumentCloning()
             ->disableOriginalClone()
-            ->setMethods(["getGates"])
+            ->onlyMethods(["getGates"])
             ->getMock();
 
         $object->method("getGates")->willReturn([]);
@@ -52,7 +52,7 @@ class BaseServiceProviderTest extends TestCase
             ->disableOriginalConstructor()
             ->disableArgumentCloning()
             ->disableOriginalClone()
-            ->setMethods(["getGates"])
+            ->onlyMethods(["getGates"])
             ->getMock();
 
         $object->method("getGates")->willReturn(["className" => "policyName"]);
@@ -64,7 +64,7 @@ class BaseServiceProviderTest extends TestCase
             ->disableOriginalConstructor()
             ->disableArgumentCloning()
             ->disableOriginalClone()
-            ->setMethods(["getGates"])
+            ->onlyMethods(["getGates"])
             ->getMock();
 
         $object->method("getGates")->willReturn("policyName");

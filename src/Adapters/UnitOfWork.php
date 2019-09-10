@@ -3,14 +3,14 @@
  * @author Ernesto Baez 
  */
 
-namespace LToolkit\Connectors;
+namespace LToolkit\Adapters;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use LToolkit\Interfaces\IUnitOfWork;
 use LToolkit\Interfaces\IBaseRepository;
 use LToolkit\Interfaces\IRemoteRepository;
-use LToolkit\Interfaces\IRepositoryFinder;
+use LToolkit\Interfaces\IRepositoryResolver;
 
 final class UnitOfWork implements IUnitOfWork
 {
@@ -22,14 +22,14 @@ final class UnitOfWork implements IUnitOfWork
     private $inTransaction = false;
 
     /**
-     * @var IRepositoryFinder
+     * @var IRepositoryResolver
      */
     private $repositoryFinder;
 
     public function __construct(bool $autoCommit=true)
     {
         $this->setAutoCommit($autoCommit);
-        $this->repositoryFinder = App::make(IRepositoryFinder::class, ["unitOfWork" => $this]);
+        $this->repositoryFinder = App::make(IRepositoryResolver::class, ["unitOfWork" => $this]);
     }
 
     /**

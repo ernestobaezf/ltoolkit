@@ -21,7 +21,7 @@ class BaseSerializerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["transform"])
+            ->onlyMethods(["transform"])
             ->getMock();
 
         $object->expects($this->exactly(2))->method("transform");
@@ -42,7 +42,7 @@ class BaseSerializerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["transform"])
+            ->onlyMethods(["transform"])
             ->getMock();
 
         $object->method("transform")->willReturnArgument(0);
@@ -63,7 +63,7 @@ class BaseSerializerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["transform"])
+            ->onlyMethods(["transform"])
             ->getMock();
 
         $object->expects(self::exactly(2))->method("transform")->willReturnArgument(0);
@@ -84,7 +84,7 @@ class BaseSerializerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["transform"])
+            ->onlyMethods(["transform"])
             ->getMock();
 
         $object->expects(self::once())->method("transform")->willReturnArgument(0);

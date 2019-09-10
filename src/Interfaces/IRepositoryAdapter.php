@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
  *
  * @package LToolkit\Interfaces
  */
-interface IRepositoryConnector
+interface IRepositoryAdapter
 {
     /**
      * Retrieve all data of repository

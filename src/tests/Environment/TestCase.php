@@ -37,7 +37,7 @@ abstract class TestCase extends BaseTestCase
             ->disallowMockingUnknownTypes();
 
         if ($method) {
-            $object = $object->setMethods([$method])->getMock();
+            $object = $object->onlyMethods([$method])->getMock();
 
             $object->method($method)->willReturn($result);
         } else {

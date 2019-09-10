@@ -7,10 +7,11 @@ namespace LToolkit\Test\Unit\Repositories;
 
 
 use Exception;
-use LToolkit\Interfaces\IHttpClient;
-use LToolkit\Repositories\RemoteRepository;
-use LToolkit\Test\Environment\Connectors\MockUnitOfWork;
+use Psr\Http\Client\ClientInterface;
 use LToolkit\Test\Environment\TestCase;
+use LToolkit\Repositories\RemoteRepository;
+use LToolkit\Test\Environment\Adapters\HttpClient;
+use LToolkit\Test\Environment\Adapters\MockUnitOfWork;
 
 class RemoteRepositoryTest extends TestCase
 {
@@ -19,6 +20,8 @@ class RemoteRepositoryTest extends TestCase
      */
     public function test_getHttpClient()
     {
+        $this->app->bind(ClientInterface::class, HttpClient::class);
+
         $object = $this->getMockBuilder(RemoteRepository::class)
             ->disableOriginalClone()
             ->disableOriginalConstructor()
@@ -27,12 +30,12 @@ class RemoteRepositoryTest extends TestCase
         $method = self::getMethod("getHttpClient", RemoteRepository::class);
         $result = $method->invoke($object);
 
-        self::assertInstanceOf(IHttpClient::class, $result);
+        self::assertInstanceOf(ClientInterface::class, $result);
 
         $method = self::getMethod("getHttpClient", RemoteRepository::class);
         $result = $method->invoke($object);
 
-        self::assertInstanceOf(IHttpClient::class, $result);
+        self::assertInstanceOf(ClientInterface::class, $result);
     }
 
     /**
@@ -102,7 +105,7 @@ class RemoteRepositoryTest extends TestCase
         $uow = new MockUnitOfWork();
         $object = $this->getMockBuilder(RemoteRepository::class)
             ->setConstructorArgs([$uow])
-            ->setMethods(["baseUrl", "resourceUri", "all","find","findByField","create","update","delete"])
+            ->onlyMethods(["baseUrl", "resourceUri", "all","find","findByField","create","update","delete"])
             ->getMock();
 
         $object->method("all")->willReturn("");
@@ -129,7 +132,7 @@ class RemoteRepositoryTest extends TestCase
         $uow = new MockUnitOfWork();
         $object = $this->getMockBuilder(RemoteRepository::class)
             ->setConstructorArgs([$uow])
-            ->setMethods(["baseUrl", "resourceUri", "all","find","findByField","create","update","delete"])
+            ->onlyMethods(["baseUrl", "resourceUri", "all","find","findByField","create","update","delete"])
             ->getMock();
 
         $object->method("all")->willReturn("");
@@ -167,7 +170,7 @@ class RemoteRepositoryTest extends TestCase
         $uow = new MockUnitOfWork();
         $object = $this->getMockBuilder(RemoteRepository::class)
             ->setConstructorArgs([$uow])
-            ->setMethods(["baseUrl", "resourceUri", "all","find","findByField","create","update","delete"])
+            ->onlyMethods(["baseUrl", "resourceUri", "all","find","findByField","create","update","delete"])
             ->getMock();
 
         $object->method("all")->willReturn("");
@@ -203,7 +206,7 @@ class RemoteRepositoryTest extends TestCase
         $uow = new MockUnitOfWork();
         $object = $this->getMockBuilder(RemoteRepository::class)
             ->setConstructorArgs([$uow])
-            ->setMethods(["baseUrl", "resourceUri", "all","find","findByField","create","update","delete"])
+            ->onlyMethods(["baseUrl", "resourceUri", "all","find","findByField","create","update","delete"])
             ->getMock();
 
         $object->method("all")->willReturn("");

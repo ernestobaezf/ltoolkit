@@ -6,7 +6,7 @@
 namespace LToolkit\Interfaces;
 
 
-interface IRepositoryFinder
+interface IRepositoryResolver
 {
     /**
      * Get repository associated to an entity

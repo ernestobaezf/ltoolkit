@@ -9,7 +9,7 @@ namespace LToolkit\Repositories;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
-use LToolkit\Interfaces\IHttpClient;
+use Psr\Http\Client\ClientInterface;
 use LToolkit\Interfaces\IRemoteRepository;
 
 abstract class RemoteRepository implements IRemoteRepository
@@ -31,12 +31,12 @@ abstract class RemoteRepository implements IRemoteRepository
      *
      * @param  array $options
      *
-     * @return IHttpClient
+     * @return ClientInterface
      */
-    protected function getHttpClient(array $options=[]): IHttpClient
+    protected function getHttpClient(array $options=[]): ClientInterface
     {
         if (!$this->client) {
-            return $this->client = app(IHttpClient::class, ["options" => $options]);
+            return $this->client = app(ClientInterface::class, ["options" => $options]);
         }
 
         return $this->client;

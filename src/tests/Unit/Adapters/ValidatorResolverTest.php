@@ -3,14 +3,14 @@
  * @author Ernesto Baez 
  */
 
-namespace LToolkit\Test\Unit\Connectors;
+namespace LToolkit\Test\Unit\Adapters;
 
 
 use ReflectionException;
 use LToolkit\Test\Environment\TestCase;
 use LToolkit\Interfaces\IStoreValidator;
 use LToolkit\Interfaces\IUpdateValidator;
-use LToolkit\Connectors\ValidatorResolver;
+use LToolkit\Adapters\ValidatorResolver;
 use LToolkit\Interfaces\IValidatorResolver;
 use LToolkit\Test\Environment\Http\Controllers\MockAPIController;
 use LToolkit\Test\Environment\Http\Validators\Mock\TestValidator;
@@ -114,7 +114,7 @@ class ValidatorResolverTest extends TestCase
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
             ->setConstructorArgs([MockAPIController::class])
-            ->setMethods(["classExists"])
+            ->onlyMethods(["classExists"])
             ->getMock();
 
         $validatorResolver->method("classExists")->willReturn(false);

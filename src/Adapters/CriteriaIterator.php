@@ -3,12 +3,13 @@
  * @author Ernesto Baez 
  */
 
-namespace LToolkit\Connectors;
+namespace LToolkit\Adapters;
 
 
+use ArrayIterator;
 use LToolkit\Interfaces\ICriteriaIterator;
 
-class CriteriaIterator extends \ArrayIterator implements ICriteriaIterator
+class CriteriaIterator extends ArrayIterator implements ICriteriaIterator
 {
     public function __construct(array $array = array())
     {

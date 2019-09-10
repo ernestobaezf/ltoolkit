@@ -3,16 +3,16 @@
  * @author Ernesto Baez 
  */
 
-namespace LToolkit\Test\Environment\Connectors;
+namespace LToolkit\Test\Environment\Adapters;
 
 
 use Closure;
 use Exception;
 use Illuminate\Foundation\Application;
 use Illuminate\Database\Eloquent\Collection;
-use LToolkit\Interfaces\IRepositoryConnector;
+use LToolkit\Interfaces\IRepositoryAdapter;
 
-class MockRepositoryConnector implements IRepositoryConnector
+class MockRepositoryAdapter implements IRepositoryAdapter
 {
     public function __construct(Application $app, string $modelClass)
     {

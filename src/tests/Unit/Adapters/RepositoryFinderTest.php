@@ -1,13 +1,13 @@
 <?php
 
-namespace LToolkit\Test\Unit\Connectors;
+namespace LToolkit\Test\Unit\Adapters;
 
 use Closure;
 use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
-use LToolkit\Connectors\RepositoryFinder;
-use LToolkit\Connectors\UnitOfWork;
+use LToolkit\Adapters\RepositoryResolver;
+use LToolkit\Adapters\UnitOfWork;
 use LToolkit\Interfaces\IGenericRepository;
 use LToolkit\Interfaces\IRemoteRepository;
 use LToolkit\Test\Environment\Repositories\GenericMockRepository;
@@ -27,9 +27,9 @@ class RepositoryFinderTest extends TestCase
     {
         $entityClass = "LToolkit\Models\Mock".time();
 
-        $finder = new RepositoryFinder(new UnitOfWork(false));
+        $finder = new RepositoryResolver(new UnitOfWork(false));
 
-        $method = self::getMethod("findRepositoryClass", RepositoryFinder::class);
+        $method = self::getMethod("findRepositoryClass", RepositoryResolver::class);
         $repository =  $method->invokeArgs($finder, ["entityClass" => $entityClass]);
 
         $this->assertTrue($repository == IGenericRepository::class);
@@ -45,9 +45,9 @@ class RepositoryFinderTest extends TestCase
     {
         $entityClass = "LToolkit\Models\Mock";
 
-        $finder = $this->mockClass(RepositoryFinder::class, 'classExists', true);
+        $finder = $this->mockClass(RepositoryResolver::class, 'classExists', true);
 
-        $method = self::getMethod("findRepositoryClass", RepositoryFinder::class);
+        $method = self::getMethod("findRepositoryClass", RepositoryResolver::class);
         $repository =  $method->invokeArgs($finder, ["entityClass" => $entityClass]);
 
         $this->assertTrue($repository == 'LToolkit\Repositories\MockRepository');
@@ -65,9 +65,9 @@ class RepositoryFinderTest extends TestCase
 
         Config::set('LToolkit.repository_map', [$entityClass => 'MockRepository']);
 
-        $finder = $this->mockClass(RepositoryFinder::class, 'classExists', true);
+        $finder = $this->mockClass(RepositoryResolver::class, 'classExists', true);
 
-        $method = self::getMethod("findRepositoryClass", RepositoryFinder::class);
+        $method = self::getMethod("findRepositoryClass", RepositoryResolver::class);
         $repository =  $method->invokeArgs($finder, ["entityClass" => $entityClass]);
 
         $this->assertTrue($repository == 'MockRepository');
@@ -85,10 +85,10 @@ class RepositoryFinderTest extends TestCase
 
         Config::set('LToolkit.repository_map', [$entityClass => 'MockRepository']);
 
-        $finder = $this->mockClass(RepositoryFinder::class, 'classExists', false);
+        $finder = $this->mockClass(RepositoryResolver::class, 'classExists', false);
 
         try {
-            $method = self::getMethod("findRepositoryClass", RepositoryFinder::class);
+            $method = self::getMethod("findRepositoryClass", RepositoryResolver::class);
             $method->invokeArgs($finder, ["entityClass" => $entityClass]);
         } catch (Exception $exception) {
             $this->assertTrue($exception->getMessage() == 'Repository class MockRepository not found.');
@@ -112,9 +112,9 @@ class RepositoryFinderTest extends TestCase
 
         Config::set('LToolkit.repository_map', ['LToolkit\Models' => 'Packages\Custom\RepositoryPath']);
 
-        $finder = $this->mockClass(RepositoryFinder::class, 'classExists', true);
+        $finder = $this->mockClass(RepositoryResolver::class, 'classExists', true);
 
-        $method = self::getMethod("findRepositoryClass", RepositoryFinder::class);
+        $method = self::getMethod("findRepositoryClass", RepositoryResolver::class);
         $repository = $method->invokeArgs($finder, ["entityClass" => $entityClass]);
         $this->assertTrue($repository == 'Packages\Custom\RepositoryPath\MockRepository');
     }
@@ -132,9 +132,9 @@ class RepositoryFinderTest extends TestCase
 
         Config::set('LToolkit.repository_map', ['LToolkit\Models' => 'Packages\Custom\RepositoryPath']);
 
-        $finder = $this->mockClass(RepositoryFinder::class, 'classExists', false);
+        $finder = $this->mockClass(RepositoryResolver::class, 'classExists', false);
 
-        $method = self::getMethod("findRepositoryClass", RepositoryFinder::class);
+        $method = self::getMethod("findRepositoryClass", RepositoryResolver::class);
         $repository = $method->invokeArgs($finder, ["entityClass" => $entityClass]);
         $this->assertTrue($repository == IGenericRepository::class);
     }
@@ -150,14 +150,14 @@ class RepositoryFinderTest extends TestCase
 
         Cache::shouldReceive('rememberForever')
             ->once()
-            ->with(RepositoryFinder::class."::getRepository($entityClass)", Closure::class)
+            ->with(RepositoryResolver::class."::getRepository($entityClass)", Closure::class)
             ->andReturn(IGenericRepository::class);
 
         app()->bind(IGenericRepository::class, GenericMockRepository::class);
 
-        $finder = new RepositoryFinder(new UnitOfWork(false));
+        $finder = new RepositoryResolver(new UnitOfWork(false));
 
-        $method = self::getMethod("getRepository", RepositoryFinder::class);
+        $method = self::getMethod("getRepository", RepositoryResolver::class);
         $repository =  $method->invokeArgs($finder, ["entityClass" => $entityClass]);
 
         $this->assertTrue($repository instanceof IGenericRepository);
@@ -172,9 +172,9 @@ class RepositoryFinderTest extends TestCase
     {
         $entityClass = "LToolkit\Test\Environment\Models\Mock";
 
-        $finder = new RepositoryFinder(new UnitOfWork(false));
+        $finder = new RepositoryResolver(new UnitOfWork(false));
 
-        $method = self::getMethod("getRepository", RepositoryFinder::class);
+        $method = self::getMethod("getRepository", RepositoryResolver::class);
         $repository =  $method->invokeArgs($finder, ["entityClass" => $entityClass]);
 
         $this->assertTrue($repository instanceof MockRepository);
@@ -190,9 +190,9 @@ class RepositoryFinderTest extends TestCase
         $entityClass = "LToolkit\Test\Environment\Models\Mock";
 
         Cache::shouldReceive("rememberForever")->andReturn(MockRemoteRepository::class);
-        $finder = new RepositoryFinder(new UnitOfWork(false));
+        $finder = new RepositoryResolver(new UnitOfWork(false));
 
-        $method = self::getMethod("getRepository", RepositoryFinder::class);
+        $method = self::getMethod("getRepository", RepositoryResolver::class);
         $repository =  $method->invokeArgs($finder, ["entityClass" => $entityClass]);
 
         $this->assertTrue($repository instanceof IRemoteRepository);

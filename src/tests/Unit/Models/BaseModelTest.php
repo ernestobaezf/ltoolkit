@@ -38,7 +38,7 @@ class BaseModelTest extends TestCase
             ->disableOriginalConstructor()
             ->disableOriginalClone()
             ->disableArgumentCloning()
-            ->setMethods(["getFillable", "fillable", "fill", "syncOriginal"])
+            ->onlyMethods(["getFillable", "fillable", "fill", "syncOriginal"])
             ->getMock();
 
         $object->expects(self::once())->method("getFillable")->willReturnCallback(function() {

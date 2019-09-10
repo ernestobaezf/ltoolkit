@@ -9,11 +9,11 @@ namespace LToolkit\Test\Unit\Repositories;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use LToolkit\Interfaces\IEntity;
-use LToolkit\Interfaces\IRepositoryConnector;
+use LToolkit\Interfaces\IRepositoryAdapter;
 use LToolkit\Interfaces\IUnitOfWork;
 use LToolkit\Repositories\BaseRepository;
-use LToolkit\Test\Environment\Connectors\MockRepositoryConnector;
-use LToolkit\Test\Environment\Connectors\MockUnitOfWork;
+use LToolkit\Test\Environment\Adapters\MockRepositoryAdapter;
+use LToolkit\Test\Environment\Adapters\MockUnitOfWork;
 use LToolkit\Test\Environment\DynamicClass;
 use LToolkit\Test\Environment\Models\MockModel;
 use LToolkit\Test\Environment\Models\MockModelNoRelations;
@@ -26,12 +26,12 @@ class BaseRepositoryTest extends TestCase
      */
     public function test_getInternalRepository()
     {
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
         $object = $this->getMockBuilder(BaseRepository::class)
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["model"])
+            ->onlyMethods(["model"])
             ->setConstructorArgs([app(IUnitOfWork::class)])
             ->getMock();
         $object->method("model")->willReturn("");
@@ -39,7 +39,7 @@ class BaseRepositoryTest extends TestCase
         $method = self::getMethod('getInternalRepository', BaseRepository::class);
         $response = $method->invoke($object);
 
-        self::assertTrue($response instanceof IRepositoryConnector);
+        self::assertTrue($response instanceof IRepositoryAdapter);
     }
 
     /**
@@ -49,9 +49,9 @@ class BaseRepositoryTest extends TestCase
      */
     public function test_pushCriteria_1()
     {
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
-        $this->app->extend(IRepositoryConnector::class, function() {
-            $object = $this->getMockBuilder(MockRepositoryConnector::class)
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
+        $this->app->extend(IRepositoryAdapter::class, function() {
+            $object = $this->getMockBuilder(MockRepositoryAdapter::class)
                 ->disableOriginalConstructor()
                 ->disableOriginalClone()
                 ->disableArgumentCloning()
@@ -66,7 +66,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["model"])
+            ->onlyMethods(["model"])
             ->setConstructorArgs([app(IUnitOfWork::class)])
             ->getMock();
         $object->method("model")->willReturn("");
@@ -84,9 +84,9 @@ class BaseRepositoryTest extends TestCase
      */
     public function test_pushCriteria_2()
     {
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
-        $this->app->extend(IRepositoryConnector::class, function() {
-            $object = $this->getMockBuilder(MockRepositoryConnector::class)
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
+        $this->app->extend(IRepositoryAdapter::class, function() {
+            $object = $this->getMockBuilder(MockRepositoryAdapter::class)
                 ->disableOriginalConstructor()
                 ->disableOriginalClone()
                 ->disableArgumentCloning()
@@ -102,7 +102,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["model"])
+            ->onlyMethods(["model"])
             ->setConstructorArgs([app(IUnitOfWork::class)])
             ->getMock();
         $object->method("model")->willReturn("");
@@ -118,9 +118,9 @@ class BaseRepositoryTest extends TestCase
      */
     public function test_skipCriteria()
     {
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
-        $this->app->extend(IRepositoryConnector::class, function() {
-            $object = $this->getMockBuilder(MockRepositoryConnector::class)
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
+        $this->app->extend(IRepositoryAdapter::class, function() {
+            $object = $this->getMockBuilder(MockRepositoryAdapter::class)
                 ->disableOriginalConstructor()
                 ->disableOriginalClone()
                 ->disableArgumentCloning()
@@ -135,7 +135,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["model"])
+            ->onlyMethods(["model"])
             ->setConstructorArgs([app(IUnitOfWork::class)])
             ->getMock();
         $object->method("model")->willReturn("");
@@ -154,9 +154,9 @@ class BaseRepositoryTest extends TestCase
      */
     public function test_resetCriteria()
     {
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
-        $this->app->extend(IRepositoryConnector::class, function() {
-            $object = $this->getMockBuilder(MockRepositoryConnector::class)
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
+        $this->app->extend(IRepositoryAdapter::class, function() {
+            $object = $this->getMockBuilder(MockRepositoryAdapter::class)
                 ->disableOriginalConstructor()
                 ->disableOriginalClone()
                 ->disableArgumentCloning()
@@ -171,7 +171,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["model"])
+            ->onlyMethods(["model"])
             ->setConstructorArgs([app(IUnitOfWork::class)])
             ->getMock();
         $object->method("model")->willReturn("");
@@ -190,9 +190,9 @@ class BaseRepositoryTest extends TestCase
      */
     public function test_scopeQuery()
     {
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
-        $this->app->extend(IRepositoryConnector::class, function() {
-            $object = $this->getMockBuilder(MockRepositoryConnector::class)
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
+        $this->app->extend(IRepositoryAdapter::class, function() {
+            $object = $this->getMockBuilder(MockRepositoryAdapter::class)
                 ->disableOriginalConstructor()
                 ->disableOriginalClone()
                 ->disableArgumentCloning()
@@ -207,7 +207,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["model"])
+            ->onlyMethods(["model"])
             ->setConstructorArgs([app(IUnitOfWork::class)])
             ->getMock();
         $object->method("model")->willReturn("");
@@ -225,9 +225,9 @@ class BaseRepositoryTest extends TestCase
      */
     public function test_popCriteria()
     {
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
-        $this->app->extend(IRepositoryConnector::class, function() {
-            $object = $this->getMockBuilder(MockRepositoryConnector::class)
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
+        $this->app->extend(IRepositoryAdapter::class, function() {
+            $object = $this->getMockBuilder(MockRepositoryAdapter::class)
                 ->disableOriginalConstructor()
                 ->disableOriginalClone()
                 ->disableArgumentCloning()
@@ -244,7 +244,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["model"])
+            ->onlyMethods(["model"])
             ->setConstructorArgs([app(IUnitOfWork::class)])
             ->getMock();
         $object->method("model")->willReturn("");
@@ -263,9 +263,9 @@ class BaseRepositoryTest extends TestCase
      */
     public function test_getCriteria()
     {
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
-        $this->app->extend(IRepositoryConnector::class, function() {
-            $object = $this->getMockBuilder(MockRepositoryConnector::class)
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
+        $this->app->extend(IRepositoryAdapter::class, function() {
+            $object = $this->getMockBuilder(MockRepositoryAdapter::class)
                 ->disableOriginalConstructor()
                 ->disableOriginalClone()
                 ->disableArgumentCloning()
@@ -282,7 +282,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["model"])
+            ->onlyMethods(["model"])
             ->setConstructorArgs([app(IUnitOfWork::class)])
             ->getMock();
         $object->method("model")->willReturn("");
@@ -301,12 +301,12 @@ class BaseRepositoryTest extends TestCase
      */
     public function test_unitOfWork()
     {
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
         $object = $this->getMockBuilder(BaseRepository::class)
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["model"])
+            ->onlyMethods(["model"])
             ->setConstructorArgs([app(IUnitOfWork::class)])
             ->getMock();
         $object->method("model")->willReturn("");
@@ -324,9 +324,9 @@ class BaseRepositoryTest extends TestCase
      */
     public function test_all()
     {
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
-        $this->app->extend(IRepositoryConnector::class, function() {
-            $object = $this->getMockBuilder(MockRepositoryConnector::class)
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
+        $this->app->extend(IRepositoryAdapter::class, function() {
+            $object = $this->getMockBuilder(MockRepositoryAdapter::class)
                 ->disableOriginalConstructor()
                 ->disableOriginalClone()
                 ->disableArgumentCloning()
@@ -344,7 +344,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["model", "evaluate"])
+            ->onlyMethods(["model", "evaluate"])
             ->setConstructorArgs([app(IUnitOfWork::class)])
             ->getMock();
         $object->method("model")->willReturn("");
@@ -364,9 +364,9 @@ class BaseRepositoryTest extends TestCase
      */
     public function test_paginate()
     {
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
-        $this->app->extend(IRepositoryConnector::class, function() {
-            $object = $this->getMockBuilder(MockRepositoryConnector::class)
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
+        $this->app->extend(IRepositoryAdapter::class, function() {
+            $object = $this->getMockBuilder(MockRepositoryAdapter::class)
                 ->disableOriginalConstructor()
                 ->disableOriginalClone()
                 ->disableArgumentCloning()
@@ -383,7 +383,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["model", "evaluate"])
+            ->onlyMethods(["model", "evaluate"])
             ->setConstructorArgs([app(IUnitOfWork::class)])
             ->getMock();
         $object->method("model")->willReturn("");
@@ -404,9 +404,9 @@ class BaseRepositoryTest extends TestCase
      */
     public function test_simplePaginate()
     {
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
-        $this->app->extend(IRepositoryConnector::class, function() {
-            $object = $this->getMockBuilder(MockRepositoryConnector::class)
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
+        $this->app->extend(IRepositoryAdapter::class, function() {
+            $object = $this->getMockBuilder(MockRepositoryAdapter::class)
                 ->disableOriginalConstructor()
                 ->disableOriginalClone()
                 ->disableArgumentCloning()
@@ -423,7 +423,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["model", "evaluate"])
+            ->onlyMethods(["model", "evaluate"])
             ->setConstructorArgs([app(IUnitOfWork::class)])
             ->getMock();
         $object->method("model")->willReturn("");
@@ -446,9 +446,9 @@ class BaseRepositoryTest extends TestCase
         $id = 1;
         $columns = ["*"];
 
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
-        $this->app->extend(IRepositoryConnector::class, function() use ($id, $columns) {
-            $object = $this->getMockBuilder(MockRepositoryConnector::class)
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
+        $this->app->extend(IRepositoryAdapter::class, function() use ($id, $columns) {
+            $object = $this->getMockBuilder(MockRepositoryAdapter::class)
                 ->disableOriginalConstructor()
                 ->disableOriginalClone()
                 ->disableArgumentCloning()
@@ -468,7 +468,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["model", "evaluate", "setScope"])
+            ->onlyMethods(["model", "evaluate", "setScope"])
             ->setConstructorArgs([app(IUnitOfWork::class)])
             ->getMock();
         $object->method("setScope")->willReturnCallback(function ($arg) {
@@ -496,9 +496,9 @@ class BaseRepositoryTest extends TestCase
         $id = 1;
         $columns = ["*"];
 
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
-        $this->app->extend(IRepositoryConnector::class, function() use (&$called, $id, $columns) {
-            $object = $this->getMockBuilder(MockRepositoryConnector::class)
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
+        $this->app->extend(IRepositoryAdapter::class, function() use (&$called, $id, $columns) {
+            $object = $this->getMockBuilder(MockRepositoryAdapter::class)
                 ->disableOriginalConstructor()
                 ->disableOriginalClone()
                 ->disableArgumentCloning()
@@ -521,7 +521,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["model", "evaluate", "setScope"])
+            ->onlyMethods(["model", "evaluate", "setScope"])
             ->setConstructorArgs([app(IUnitOfWork::class)])
             ->getMock();
         $object->method("setScope")->willReturnCallback(function ($arg)
@@ -551,13 +551,13 @@ class BaseRepositoryTest extends TestCase
         $called = false;
         $attributes = [1, 2];
 
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
 
         $uow = $this->getMockBuilder(MockUnitOfWork::class)
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["beginTransaction"])
+            ->onlyMethods(["beginTransaction"])
             ->getMock();
         $uow->method("beginTransaction")->willReturnCallback(function () use (&$called)
         {
@@ -568,7 +568,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["model", "evaluate", "execute"])
+            ->onlyMethods(["model", "evaluate", "execute"])
             ->setConstructorArgs([$uow])
             ->getMock();
         $object->method("model")->willReturn("");
@@ -603,13 +603,13 @@ class BaseRepositoryTest extends TestCase
         $id = 1;
         $attributes = [2, 3];
 
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
 
         $uow = $this->getMockBuilder(MockUnitOfWork::class)
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["beginTransaction"])
+            ->onlyMethods(["beginTransaction"])
             ->getMock();
         $uow->expects($this->once())->method("beginTransaction");
 
@@ -617,7 +617,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["model", "evaluate", "execute"])
+            ->onlyMethods(["model", "evaluate", "execute"])
             ->setConstructorArgs([$uow])
             ->getMock();
         $object->method("model")->willReturn("");
@@ -651,13 +651,13 @@ class BaseRepositoryTest extends TestCase
         $values = [4, 6];
         $attributes = [2, 3];
 
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
 
         $uow = $this->getMockBuilder(MockUnitOfWork::class)
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["beginTransaction"])
+            ->onlyMethods(["beginTransaction"])
             ->getMock();
         $uow->expects(self::once())->method("beginTransaction");
 
@@ -665,7 +665,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["model", "evaluate", "execute"])
+            ->onlyMethods(["model", "evaluate", "execute"])
             ->setConstructorArgs([$uow])
             ->getMock();
         $object->method("model")->willReturn("");
@@ -699,9 +699,9 @@ class BaseRepositoryTest extends TestCase
         $deleteCalled = false;
         $id = 3;
 
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
-        $this->app->extend(IRepositoryConnector::class, function() use (&$deleteCalled, $id) {
-            $object = $this->getMockBuilder(MockRepositoryConnector::class)
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
+        $this->app->extend(IRepositoryAdapter::class, function() use (&$deleteCalled, $id) {
+            $object = $this->getMockBuilder(MockRepositoryAdapter::class)
                 ->disableOriginalConstructor()
                 ->disableOriginalClone()
                 ->disableArgumentCloning()
@@ -723,7 +723,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["beginTransaction"])
+            ->onlyMethods(["beginTransaction"])
             ->getMock();
         $uow->expects(self::once())->method("beginTransaction");
 
@@ -731,7 +731,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["model", "evaluate", "execute"])
+            ->onlyMethods(["model", "evaluate", "execute"])
             ->setConstructorArgs([$uow])
             ->getMock();
         $object->method("model")->willReturn("");
@@ -787,7 +787,7 @@ class BaseRepositoryTest extends TestCase
             ->disableArgumentCloning()
             ->disableOriginalConstructor()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["scopeQuery", "model"])
+            ->onlyMethods(["scopeQuery", "model"])
             ->getMock();
         $object->expects(self::once())->method("scopeQuery");
         $object->method("model")->willReturn("");
@@ -843,7 +843,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["commit", "setAutoCommit"])
+            ->onlyMethods(["commit", "setAutoCommit"])
             ->getMock();
         $uow->expects(self::once())->method("commit");
         $uow->expects(self::once())->method("setAutoCommit")->willReturnCallback(function ($_param) use ($param)
@@ -856,7 +856,7 @@ class BaseRepositoryTest extends TestCase
             ->disableArgumentCloning()
             ->disableOriginalConstructor()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["getUnitOfWork", "model"])
+            ->onlyMethods(["getUnitOfWork", "model"])
             ->getMock();
         $object->method("getUnitOfWork")->willReturn($uow);
 
@@ -877,7 +877,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["isAutoCommit", "setAutoCommit"])
+            ->onlyMethods(["isAutoCommit", "setAutoCommit"])
             ->getMock();
         $uow->expects(self::once())->method("isAutoCommit")->willReturn(true);
         $uow->expects(self::once())->method("setAutoCommit")->willReturnCallback(function ($param)
@@ -890,7 +890,7 @@ class BaseRepositoryTest extends TestCase
             ->disableArgumentCloning()
             ->disableOriginalConstructor()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["getUnitOfWork", "model"])
+            ->onlyMethods(["getUnitOfWork", "model"])
             ->getMock();
         $object->method("getUnitOfWork")->willReturn($uow);
         $object->method("model")->willReturn(MockModel::class);
@@ -921,7 +921,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["isAutoCommit", "setAutoCommit"])
+            ->onlyMethods(["isAutoCommit", "setAutoCommit"])
             ->getMock();
         $uow->expects(self::once())->method("isAutoCommit")->willReturn(true);
         $uow->expects(self::exactly(0))->method("setAutoCommit");
@@ -931,7 +931,7 @@ class BaseRepositoryTest extends TestCase
             ->disableArgumentCloning()
             ->disableOriginalConstructor()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["getUnitOfWork", "model"])
+            ->onlyMethods(["getUnitOfWork", "model"])
             ->getMock();
         $object->method("getUnitOfWork")->willReturn($uow);
         $object->method("model")->willReturn(MockModelNoRelations::class);
@@ -962,7 +962,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["isAutoCommit", "setAutoCommit"])
+            ->onlyMethods(["isAutoCommit", "setAutoCommit"])
             ->getMock();
         $uow->expects(self::once())->method("isAutoCommit")->willReturn(true);
         $uow->expects(self::exactly(0))->method("setAutoCommit");
@@ -972,7 +972,7 @@ class BaseRepositoryTest extends TestCase
             ->disableArgumentCloning()
             ->disableOriginalConstructor()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["getUnitOfWork", "model"])
+            ->onlyMethods(["getUnitOfWork", "model"])
             ->getMock();
         $object->method("getUnitOfWork")->willReturn($uow);
         $object->method("model")->willReturn(MockModel::class);
@@ -998,20 +998,20 @@ class BaseRepositoryTest extends TestCase
      */
     public function test_execute_1()
     {
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
 
         $uow = $this->getMockBuilder(MockUnitOfWork::class)
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["commit", "setAutoCommit"])
+            ->onlyMethods(["commit", "setAutoCommit"])
             ->getMock();
         $uow->expects($this->exactly(3))->method("commit");
         $uow->expects($this->exactly(6))->method("setAutoCommit");
 
         $called = '';
-        $this->app->extend(IRepositoryConnector::class, function() use (&$called) {
-            $object = $this->getMockBuilder(MockRepositoryConnector::class)
+        $this->app->extend(IRepositoryAdapter::class, function() use (&$called) {
+            $object = $this->getMockBuilder(MockRepositoryAdapter::class)
                 ->disableOriginalConstructor()
                 ->disableOriginalClone()
                 ->disableArgumentCloning()
@@ -1062,7 +1062,7 @@ class BaseRepositoryTest extends TestCase
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
             ->setConstructorArgs([$uow])
-            ->setMethods(["model"])
+            ->onlyMethods(["model"])
             ->getMock();
         $object->method("model")->willReturn(MockModel::class);
 
@@ -1090,21 +1090,21 @@ class BaseRepositoryTest extends TestCase
      */
     public function test_execute_2()
     {
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
 
         $uow = $this->getMockBuilder(MockUnitOfWork::class)
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["commit", "setAutoCommit", "isAutoCommit"])
+            ->onlyMethods(["commit", "setAutoCommit", "isAutoCommit"])
             ->getMock();
         $uow->expects($this->exactly(0))->method("commit");
         $uow->expects($this->exactly(3))->method("setAutoCommit");
         $uow->method("isAutoCommit")->willReturn(false);
 
         $called = '';
-        $this->app->extend(IRepositoryConnector::class, function() use (&$called) {
-            $object = $this->getMockBuilder(MockRepositoryConnector::class)
+        $this->app->extend(IRepositoryAdapter::class, function() use (&$called) {
+            $object = $this->getMockBuilder(MockRepositoryAdapter::class)
                 ->disableOriginalConstructor()
                 ->disableOriginalClone()
                 ->disableArgumentCloning()
@@ -1155,7 +1155,7 @@ class BaseRepositoryTest extends TestCase
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
             ->setConstructorArgs([$uow])
-            ->setMethods(["model"])
+            ->onlyMethods(["model"])
             ->getMock();
         $object->method("model")->willReturn(MockModel::class);
 
@@ -1193,19 +1193,19 @@ class BaseRepositoryTest extends TestCase
      */
     public function test_execute_3()
     {
-        $this->app->bind(IRepositoryConnector::class, MockRepositoryConnector::class);
+        $this->app->bind(IRepositoryAdapter::class, MockRepositoryAdapter::class);
 
         $uow = $this->getMockBuilder(MockUnitOfWork::class)
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["rollback", "isAutoCommit"])
+            ->onlyMethods(["rollback", "isAutoCommit"])
             ->getMock();
         $uow->expects($this->exactly(1))->method("rollback");
         $uow->method("isAutoCommit")->willReturn(false);
 
-        $this->app->extend(IRepositoryConnector::class, function() {
-            $object = $this->getMockBuilder(MockRepositoryConnector::class)
+        $this->app->extend(IRepositoryAdapter::class, function() {
+            $object = $this->getMockBuilder(MockRepositoryAdapter::class)
                 ->disableOriginalConstructor()
                 ->disableOriginalClone()
                 ->disableArgumentCloning()
@@ -1229,7 +1229,7 @@ class BaseRepositoryTest extends TestCase
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
             ->setConstructorArgs([$uow])
-            ->setMethods(["model"])
+            ->onlyMethods(["model"])
             ->getMock();
         $object->method("model")->willThrowException(new Exception("Test"));
 
@@ -1255,7 +1255,7 @@ class BaseRepositoryTest extends TestCase
             ->disableArgumentCloning()
             ->disableOriginalConstructor()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["model"])
+            ->onlyMethods(["model"])
             ->getMock();
 
         $object->method("model")->willReturn(MockModel::class);

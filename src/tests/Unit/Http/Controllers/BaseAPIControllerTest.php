@@ -6,14 +6,14 @@ use ReflectionException;
 use Illuminate\Support\Facades\Route;
 use LToolkit\Interfaces\IUnitOfWork;
 use LToolkit\Test\Environment\TestCase;
-use LToolkit\Connectors\ValidatorResolver;
+use LToolkit\Adapters\ValidatorResolver;
 use LToolkit\Interfaces\IGenericRepository;
 use LToolkit\Interfaces\IValidatorResolver;
 use LToolkit\Test\Environment\DynamicClass;
 use LToolkit\Test\Environment\Models\MockModel;
 use LToolkit\Http\Controllers\BaseAPIController;
 use LToolkit\Http\Validators\BasicUpdateValidator;
-use LToolkit\Test\Environment\Connectors\MockUnitOfWork;
+use LToolkit\Test\Environment\Adapters\MockUnitOfWork;
 use LToolkit\Test\Environment\Models\MockEloquentModel;
 use LToolkit\Test\Environment\Serializer\MockSerializer;
 
@@ -67,7 +67,7 @@ class BaseAPIControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['getEntity', 'getSerializer'])
+            ->onlyMethods(['getEntity', 'getSerializer'])
             ->getMock();
 
         $object->method('getSerializer')->willReturn(null);
@@ -95,7 +95,7 @@ class BaseAPIControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['getEntity', 'getSerializer'])
+            ->onlyMethods(['getEntity', 'getSerializer'])
             ->getMock();
 
         $object->method('getSerializer')->willReturn(null);
@@ -124,7 +124,7 @@ class BaseAPIControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['getEntity', 'getSerializer'])
+            ->onlyMethods(['getEntity', 'getSerializer'])
             ->getMock();
 
         $object->method('getSerializer')->willReturn(new MockSerializer());
@@ -153,7 +153,7 @@ class BaseAPIControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['getEntity', 'getSerializer'])
+            ->onlyMethods(['getEntity', 'getSerializer'])
             ->getMock();
 
         $object->method('getSerializer')->willReturn(null);
@@ -178,7 +178,7 @@ class BaseAPIControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["getRepository"])
+            ->onlyMethods(["getRepository"])
             ->getMock();
         $uow->expects(self::once())->method("getRepository")->willReturnCallback(function() {
             return $this->app->make(IGenericRepository::class, ["modelClass" => MockEloquentModel::class]);
@@ -189,7 +189,7 @@ class BaseAPIControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(['getUnitOfWork', "getEntity"])
+            ->onlyMethods(['getUnitOfWork', "getEntity"])
             ->getMock();
 
         $object->method('getUnitOfWork')->willReturn($uow);
@@ -211,7 +211,7 @@ class BaseAPIControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["get"])
+            ->onlyMethods(["get"])
             ->getMock();
 
         $validateCalled = false;
@@ -220,7 +220,7 @@ class BaseAPIControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["validate"])
+            ->onlyMethods(["validate"])
             ->getMock();
         $validate->method('validate')->willReturnCallback(function () use (&$validateCalled) {
             $validateCalled = true;
@@ -233,7 +233,7 @@ class BaseAPIControllerTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->setMethods(["getEntity"])
+            ->onlyMethods(["getEntity"])
             ->getMock();
 
         $object->method('getEntity')->willReturn("");

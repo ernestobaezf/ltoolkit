@@ -3,14 +3,14 @@
  * @author Ernesto Baez 
  */
 
-namespace LToolkit\Test\Environment\Connectors;
+namespace LToolkit\Test\Environment\Adapters;
 
 
-use LToolkit\Interfaces\IRepositoryFinder;
+use LToolkit\Interfaces\IRepositoryResolver;
 use LToolkit\Interfaces\IUnitOfWork;
 use LToolkit\Test\Environment\Repositories\MockRepository;
 
-class MockRepositoryFinder implements IRepositoryFinder
+class MockRepositoryResolver implements IRepositoryResolver
 {
     private $unitOfWork;
 

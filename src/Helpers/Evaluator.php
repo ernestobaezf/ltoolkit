@@ -147,6 +147,8 @@ final class Evaluator implements IEvaluator
      * Run closures defined in preCondition, postCondition and method
      *
      * @return JsonResponse
+     *
+     * @throws ValidationException
      */
     public function evaluate()
     {
@@ -163,12 +165,8 @@ final class Evaluator implements IEvaluator
 
                 Log::error("Pre-condition failed", ["response" => $message]);
 
-                return ResponseFacade::json(
-                    [
-                        'message' => trans('validation.error.generic_message'),
-                        'error' => $message,
-                    ], 400
-                );
+                // Handle this exception in the laravel exception Handler
+                throw $exception;
             }
         }
 
@@ -183,12 +181,8 @@ final class Evaluator implements IEvaluator
 
                 Log::error("Post-condition failed", ["response" => $message]);
 
-                return ResponseFacade::json(
-                    [
-                        'message' => trans('validation.error.generic_message'),
-                        'error' => $message,
-                    ], 400
-                );
+                // Handle this exception in the laravel exception Handler
+                throw $exception;
             }
         }
 

@@ -6,45 +6,39 @@
 namespace LToolkit;
 
 
-use GuzzleHttp\Client;
-use GuzzleHttp\ClientInterface;
 use LToolkit\Helpers\Evaluator;
-use LToolkit\Connectors\UnitOfWork;
+use LToolkit\Adapters\UnitOfWork;
 use LToolkit\Helpers\MathFunctions;
 use LToolkit\Interfaces\IEvaluator;
-use LToolkit\Interfaces\IHttpClient;
 use LToolkit\Interfaces\IUnitOfWork;
 use LToolkit\Interfaces\IStoreValidator;
-use LToolkit\Connectors\CriteriaIterator;
-use LToolkit\Connectors\RepositoryFinder;
+use LToolkit\Adapters\CriteriaIterator;
+use LToolkit\Adapters\RepositoryResolver;
 use LToolkit\Interfaces\IUpdateValidator;
-use LToolkit\Connectors\ValidatorResolver;
+use LToolkit\Adapters\ValidatorResolver;
 use LToolkit\Interfaces\ICriteriaIterator;
-use LToolkit\Interfaces\IRepositoryFinder;
+use LToolkit\Interfaces\IRepositoryResolver;
 use LToolkit\Interfaces\IGenericRepository;
 use LToolkit\Interfaces\IValidatorResolver;
 use LToolkit\Providers\BaseServiceProvider;
-use LToolkit\Connectors\HttpClientConnector;
 use LToolkit\Repositories\GenericRepository;
-use LToolkit\Interfaces\IRepositoryConnector;
+use LToolkit\Interfaces\IRepositoryAdapter;
 use Prettus\Repository\Criteria\RequestCriteria;
 use LToolkit\Http\Validators\BasicStoreValidator;
 use LToolkit\Http\Validators\BasicUpdateValidator;
-use LToolkit\Connectors\BasePrettusConnectorRepository;
+use LToolkit\Adapters\BasePrettusConnectorRepository;
 
 class ServiceProvider extends BaseServiceProvider
 {
     public $bindings = [
-        IRepositoryFinder::class => RepositoryFinder::class,
+        IRepositoryResolver::class => RepositoryResolver::class,
         IGenericRepository::class => GenericRepository::class,
-        IRepositoryConnector::class => BasePrettusConnectorRepository::class,
+        IRepositoryAdapter::class => BasePrettusConnectorRepository::class,
         IUnitOfWork::class => UnitOfWork::class,
-        IHttpClient::class => HttpClientConnector::class,
         IStoreValidator::class => BasicStoreValidator::class,
         IUpdateValidator::class => BasicUpdateValidator::class,
         IEvaluator::class => Evaluator::class,
-        IValidatorResolver::class => ValidatorResolver::class,
-        ClientInterface::class => Client::class,
+        IValidatorResolver::class => ValidatorResolver::class
     ];
 
     /**

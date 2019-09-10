@@ -3,7 +3,7 @@
  * @author Ernesto Baez 
  */
 
-namespace LToolkit\Connectors;
+namespace LToolkit\Adapters;
 
 
 use Illuminate\Support\Str;
@@ -18,7 +18,7 @@ use LToolkit\Interfaces\IValidatorResolver;
  * Class to find the validators given the class name and the method being executed
  *
  * Class ValidatorResolver
- * @package LToolkit\Connectors
+ * @package LToolkit\Adapters
  */
 final class ValidatorResolver implements IValidatorResolver
 {
