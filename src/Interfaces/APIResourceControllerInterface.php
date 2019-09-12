@@ -9,7 +9,7 @@ namespace LToolkit\Interfaces;
 use Illuminate\Http\Request;
 
 
-interface IAPIResourceController
+interface APIResourceControllerInterface
 {
     /**
      * Get the list of entities

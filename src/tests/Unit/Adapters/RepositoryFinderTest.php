@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use LToolkit\Adapters\RepositoryResolver;
 use LToolkit\Adapters\UnitOfWork;
-use LToolkit\Interfaces\IGenericRepository;
-use LToolkit\Interfaces\IRemoteRepository;
+use LToolkit\Interfaces\GenericRepositoryInterface;
+use LToolkit\Interfaces\RemoteRepositoryInterface;
 use LToolkit\Test\Environment\Repositories\GenericMockRepository;
 use LToolkit\Test\Environment\Repositories\MockRemoteRepository;
 use LToolkit\Test\Environment\Repositories\MockRepository;
@@ -19,7 +19,7 @@ use ReflectionException;
 class RepositoryFinderTest extends TestCase
 {
     /**
-     * Get IGenericRepository when does not exist the repository for the given model
+     * Get GenericRepositoryInterface when does not exist the repository for the given model
      *
      * @return void
      */
@@ -32,7 +32,7 @@ class RepositoryFinderTest extends TestCase
         $method = self::getMethod("findRepositoryClass", RepositoryResolver::class);
         $repository =  $method->invokeArgs($finder, ["entityClass" => $entityClass]);
 
-        $this->assertTrue($repository == IGenericRepository::class);
+        $this->assertTrue($repository == GenericRepositoryInterface::class);
     }
 
     /**
@@ -136,11 +136,11 @@ class RepositoryFinderTest extends TestCase
 
         $method = self::getMethod("findRepositoryClass", RepositoryResolver::class);
         $repository = $method->invokeArgs($finder, ["entityClass" => $entityClass]);
-        $this->assertTrue($repository == IGenericRepository::class);
+        $this->assertTrue($repository == GenericRepositoryInterface::class);
     }
 
     /**
-     * Get IGeneric repository instance when exists the repository for the given model and is IGenericRepository
+     * Get IGeneric repository instance when exists the repository for the given model and is GenericRepositoryInterface
      *
      * @return void
      */
@@ -151,20 +151,20 @@ class RepositoryFinderTest extends TestCase
         Cache::shouldReceive('rememberForever')
             ->once()
             ->with(RepositoryResolver::class."::getRepository($entityClass)", Closure::class)
-            ->andReturn(IGenericRepository::class);
+            ->andReturn(GenericRepositoryInterface::class);
 
-        app()->bind(IGenericRepository::class, GenericMockRepository::class);
+        app()->bind(GenericRepositoryInterface::class, GenericMockRepository::class);
 
         $finder = new RepositoryResolver(new UnitOfWork(false));
 
         $method = self::getMethod("getRepository", RepositoryResolver::class);
         $repository =  $method->invokeArgs($finder, ["entityClass" => $entityClass]);
 
-        $this->assertTrue($repository instanceof IGenericRepository);
+        $this->assertTrue($repository instanceof GenericRepositoryInterface);
     }
 
     /**
-     * Get IGeneric repository instance when exists the repository for the given model and is not IGenericRepository
+     * Get IGeneric repository instance when exists the repository for the given model and is not GenericRepositoryInterface
      *
      * @return void
      */
@@ -181,7 +181,7 @@ class RepositoryFinderTest extends TestCase
     }
 
     /**
-     * Get IRemoteRepository instance
+     * Get RemoteRepositoryInterface instance
      *
      * @return void
      */
@@ -195,6 +195,6 @@ class RepositoryFinderTest extends TestCase
         $method = self::getMethod("getRepository", RepositoryResolver::class);
         $repository =  $method->invokeArgs($finder, ["entityClass" => $entityClass]);
 
-        $this->assertTrue($repository instanceof IRemoteRepository);
+        $this->assertTrue($repository instanceof RemoteRepositoryInterface);
     }
 }

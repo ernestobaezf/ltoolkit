@@ -6,15 +6,15 @@
 namespace LToolkit\Test\Environment\Adapters;
 
 
-use LToolkit\Interfaces\IRepositoryResolver;
-use LToolkit\Interfaces\IUnitOfWork;
+use LToolkit\Interfaces\RepositoryResolverInterface;
+use LToolkit\Interfaces\UnitOfWorkInterface;
 use LToolkit\Test\Environment\Repositories\MockRepository;
 
-class MockRepositoryResolver implements IRepositoryResolver
+class MockRepositoryResolver implements RepositoryResolverInterface
 {
     private $unitOfWork;
 
-    public function __construct(IUnitOfWork $unitOfWork)
+    public function __construct(UnitOfWorkInterface $unitOfWork)
     {
         $this->unitOfWork = $unitOfWork;
     }

@@ -6,7 +6,6 @@
 namespace LToolkit\Interfaces;
 
 
-interface ILogstashFormatter
+interface LogstashFormatterInterface
 {
-
 }

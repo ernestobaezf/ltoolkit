@@ -7,10 +7,10 @@ namespace LToolkit\Log\Formatters;
 
 
 use Illuminate\Support\Facades\Config;
-use LToolkit\Interfaces\ILogstashFormatter;
+use LToolkit\Interfaces\LogstashFormatterInterface;
 use Monolog\Formatter\LogstashFormatter as ParentFormatter;
 
-class LogstashFormatter extends ParentFormatter implements ILogstashFormatter
+class LogstashFormatter extends ParentFormatter implements LogstashFormatterInterface
 {
     public function __construct($applicationName,
                                 $systemName = null,

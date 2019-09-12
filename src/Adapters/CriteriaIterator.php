@@ -7,9 +7,9 @@ namespace LToolkit\Adapters;
 
 
 use ArrayIterator;
-use LToolkit\Interfaces\ICriteriaIterator;
+use LToolkit\Interfaces\CriteriaIteratorInterface;
 
-class CriteriaIterator extends ArrayIterator implements ICriteriaIterator
+class CriteriaIterator extends ArrayIterator implements CriteriaIteratorInterface
 {
     public function __construct(array $array = array())
     {

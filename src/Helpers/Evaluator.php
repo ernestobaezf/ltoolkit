@@ -9,14 +9,14 @@ namespace LToolkit\Helpers;
 use Closure;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
-use LToolkit\Interfaces\IEvaluator;
+use LToolkit\Interfaces\EvaluatorInterface;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response;
 use LToolkit\Log\Formatters\CustomLogFormatter;
 use Illuminate\Support\Facades\Response as ResponseFacade;
 
-final class Evaluator implements IEvaluator
+final class Evaluator implements EvaluatorInterface
 {
     private $preCondition;
 
@@ -35,9 +35,9 @@ final class Evaluator implements IEvaluator
      * Condition to evaluate before the method execution
      *
      * @param  Closure    $closure
-     * @return IEvaluator
+     * @return EvaluatorInterface
      */
-    public function preCondition(Closure $closure): IEvaluator
+    public function preCondition(Closure $closure): EvaluatorInterface
     {
         $this->preCondition = $closure;
 
@@ -58,9 +58,9 @@ final class Evaluator implements IEvaluator
      * Logic to run
      *
      * @param  Closure $closure
-     * @return IEvaluator
+     * @return EvaluatorInterface
      */
-    public function mainMethod(Closure $closure): IEvaluator
+    public function mainMethod(Closure $closure): EvaluatorInterface
     {
         $this->method = function () use ($closure) {
             if ($this->logInfo) {
@@ -124,9 +124,9 @@ final class Evaluator implements IEvaluator
      * Condition to evaluate after the method execution
      *
      * @param  Closure $closure
-     * @return IEvaluator
+     * @return EvaluatorInterface
      */
-    public function postCondition(Closure $closure): IEvaluator
+    public function postCondition(Closure $closure): EvaluatorInterface
     {
         $this->postCondition = $closure;
 

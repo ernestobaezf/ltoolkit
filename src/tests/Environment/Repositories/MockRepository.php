@@ -7,18 +7,18 @@ namespace LToolkit\Test\Environment\Repositories;
 
 
 use Exception;
-use LToolkit\Interfaces\IEntity;
+use LToolkit\Interfaces\EntityInterface;
 use Illuminate\Support\Collection;
-use LToolkit\Interfaces\IUnitOfWork;
-use LToolkit\Interfaces\IBaseRepository;
+use LToolkit\Interfaces\UnitOfWorkInterface;
+use LToolkit\Interfaces\BaseRepositoryInterface;
 use LToolkit\Test\Environment\Models\MockModel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class MockRepository implements IBaseRepository
+class MockRepository implements BaseRepositoryInterface
 {
     private $unitOfWork;
 
-    public function __construct(IUnitOfWork $unitOfWork)
+    public function __construct(UnitOfWorkInterface $unitOfWork)
     {
         $this->unitOfWork = $unitOfWork;
     }
@@ -38,7 +38,7 @@ class MockRepository implements IBaseRepository
         return new Collection(["paginate"]);
     }
 
-    public function find($id, $columns = ['*']): ?IEntity
+    public function find($id, $columns = ['*']): ?EntityInterface
     {
         if($id==0){
             throw new ModelNotFoundException();
@@ -50,7 +50,7 @@ class MockRepository implements IBaseRepository
         return $data;
     }
 
-    public function create(array $attributes): IEntity
+    public function create(array $attributes): EntityInterface
     {
         $data = new MockModel();
         $data->id = 1;
@@ -62,7 +62,7 @@ class MockRepository implements IBaseRepository
         return $data;
     }
 
-    public function update($id, array $attributes): ?IEntity
+    public function update($id, array $attributes): ?EntityInterface
     {
         if($id==0){
             throw new ModelNotFoundException();
@@ -120,10 +120,10 @@ class MockRepository implements IBaseRepository
      * @param array $attributes
      * @param array $values
      *
-     * @return IEntity
+     * @return EntityInterface
      * @throws Exception
      */
-    public function updateOrCreate(array $attributes, array $values = []): IEntity
+    public function updateOrCreate(array $attributes, array $values = []): EntityInterface
     {
         return new MockModel();
     }

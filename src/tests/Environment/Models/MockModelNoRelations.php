@@ -6,9 +6,9 @@
 namespace LToolkit\Test\Environment\Models;
 
 
-use LToolkit\Interfaces\IEntity;
+use LToolkit\Interfaces\EntityInterface;
 
-class MockModelNoRelations implements IEntity
+class MockModelNoRelations implements EntityInterface
 {
     /**
      * Whether a offset exists
@@ -115,7 +115,7 @@ class MockModelNoRelations implements IEntity
      * @param \stdClass $std
      * @return $this
      */
-    public function fromStdClass(\stdClass $std): IEntity
+    public function fromStdClass(\stdClass $std): EntityInterface
     {
         // TODO: Implement fromStdClass() method.
     }

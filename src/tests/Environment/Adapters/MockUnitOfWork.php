@@ -6,10 +6,10 @@
 namespace LToolkit\Test\Environment\Adapters;
 
 
-use LToolkit\Interfaces\IBaseRepository;
-use LToolkit\Interfaces\IUnitOfWork;
+use LToolkit\Interfaces\BaseRepositoryInterface;
+use LToolkit\Interfaces\UnitOfWorkInterface;
 
-class MockUnitOfWork implements IUnitOfWork
+class MockUnitOfWork implements UnitOfWorkInterface
 {
 
     /**
@@ -38,7 +38,7 @@ class MockUnitOfWork implements IUnitOfWork
      * Get a repository corresponding the given entity
      *
      * @param string $entityClass
-     * @return IBaseRepository
+     * @return BaseRepositoryInterface
      */
     function getRepository(string $entityClass)
     {

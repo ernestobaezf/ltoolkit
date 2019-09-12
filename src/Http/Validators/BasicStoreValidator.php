@@ -7,12 +7,12 @@
 namespace LToolkit\Http\Validators;
 
 
-use LToolkit\Interfaces\IStoreValidator;
+use LToolkit\Interfaces\StoreValidatorInterface;
 
 /**
  * Class BasicStoreValidator
  */
-class BasicStoreValidator extends SimpleValidator implements IStoreValidator
+class BasicStoreValidator extends SimpleValidator implements StoreValidatorInterface
 {
     protected $rules = [
         'email' => 'sometimes|required|email'

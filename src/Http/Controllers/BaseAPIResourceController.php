@@ -9,28 +9,28 @@ namespace LToolkit\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use LToolkit\Interfaces\IUnitOfWork;
-use LToolkit\Interfaces\ICriteriaIterator;
-use LToolkit\Interfaces\IValidatorResolver;
-use LToolkit\Interfaces\IAPIResourceController;
+use LToolkit\Interfaces\UnitOfWorkInterface;
+use LToolkit\Interfaces\CriteriaIteratorInterface;
+use LToolkit\Interfaces\ValidatorResolverInterface;
+use LToolkit\Interfaces\APIResourceControllerInterface;
 
-abstract class BaseAPIResourceController extends BaseAPIController implements IAPIResourceController
+abstract class BaseAPIResourceController extends BaseAPIController implements APIResourceControllerInterface
 {
     /**
-     * @var ICriteriaIterator
+     * @var CriteriaIteratorInterface
      */
     private $criteria;
 
     /**
      * BaseAPIResourceController constructor.
      *
-     * @param IUnitOfWork        $unitOfWork
-     * @param IValidatorResolver $validatorResolver
-     * @param ICriteriaIterator  $criteria          Used to filter content in index method
+     * @param UnitOfWorkInterface        $unitOfWork
+     * @param ValidatorResolverInterface $validatorResolver
+     * @param CriteriaIteratorInterface  $criteria          Used to filter content in index method
      */
-    public function __construct(IUnitOfWork $unitOfWork,
-                                IValidatorResolver $validatorResolver,
-                                ICriteriaIterator $criteria
+    public function __construct(UnitOfWorkInterface $unitOfWork,
+                                ValidatorResolverInterface $validatorResolver,
+                                CriteriaIteratorInterface $criteria
     ) {
         $this->criteria = $criteria;
 

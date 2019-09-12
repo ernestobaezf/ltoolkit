@@ -4,8 +4,8 @@ namespace LToolkit\Test\Unit\Adapters;
 
 use Illuminate\Support\Facades\DB;
 use LToolkit\Adapters\UnitOfWork;
-use LToolkit\Interfaces\IRepositoryResolver;
-use LToolkit\Interfaces\IUnitOfWork;
+use LToolkit\Interfaces\RepositoryResolverInterface;
+use LToolkit\Interfaces\UnitOfWorkInterface;
 use LToolkit\Test\Environment\Repositories\MockRepository;
 use LToolkit\Test\Environment\Adapters\MockRepositoryResolver;
 use LToolkit\Test\Environment\TestCase;
@@ -89,7 +89,7 @@ class UnitOfWorkTest extends TestCase
         DB::shouldReceive('beginTransaction')
             ->once();
 
-        $uow = app(IUnitOfWork::class, ["autoCommit" => true]);
+        $uow = app(UnitOfWorkInterface::class, ["autoCommit" => true]);
 
         $class = new \ReflectionObject($uow);
         $property = $class->getProperty('inTransaction');
@@ -100,7 +100,7 @@ class UnitOfWorkTest extends TestCase
         $this->assertFalse($called);
         $this->assertFalse($inTransaction);
 
-        $uow = app(IUnitOfWork::class, ["autoCommit" => false]);
+        $uow = app(UnitOfWorkInterface::class, ["autoCommit" => false]);
 
         $uow->commit();
         $this->assertFalse($called);
@@ -146,7 +146,7 @@ class UnitOfWorkTest extends TestCase
 
         DB::shouldReceive('beginTransaction')->once();
 
-        $uow = app(IUnitOfWork::class, ["autoCommit" => true]);
+        $uow = app(UnitOfWorkInterface::class, ["autoCommit" => true]);
 
         $uow->rollback();
 
@@ -158,7 +158,7 @@ class UnitOfWorkTest extends TestCase
         $this->assertFalse($called);
         $this->assertFalse($inTransaction);
 
-        $uow = app(IUnitOfWork::class, ["autoCommit" => false]);
+        $uow = app(UnitOfWorkInterface::class, ["autoCommit" => false]);
 
         $uow->rollback();
 
@@ -185,18 +185,18 @@ class UnitOfWorkTest extends TestCase
     }
 
     /**
-     * Get IGeneric repository instance when exists the repository for the given model and is IGenericRepository
+     * Get IGeneric repository instance when exists the repository for the given model and is GenericRepositoryInterface
      *
      * @return void
      */
     public function test_isAutocommit()
     {
-        app()->bind(IRepositoryResolver::class, MockRepositoryResolver::class);
+        app()->bind(RepositoryResolverInterface::class, MockRepositoryResolver::class);
 
-        $uow = app(IUnitOfWork::class);
+        $uow = app(UnitOfWorkInterface::class);
         $this->assertTrue($uow->isAutocommit());
 
-        $uow = app(IUnitOfWork::class, ["autoCommit" => false]);
+        $uow = app(UnitOfWorkInterface::class, ["autoCommit" => false]);
         $this->assertFalse($uow->isAutocommit());
 
         $uow->setAutoCommit(true);
@@ -204,7 +204,7 @@ class UnitOfWorkTest extends TestCase
     }
 
     /**
-     * Get IGeneric repository instance when exists the repository for the given model and is IGenericRepository
+     * Get IGeneric repository instance when exists the repository for the given model and is GenericRepositoryInterface
      *
      * @return void
      */
@@ -212,9 +212,9 @@ class UnitOfWorkTest extends TestCase
     {
         $entityClass = "LToolkit\Test\Environment\Models\Mock";
 
-        app()->bind(IRepositoryResolver::class, MockRepositoryResolver::class);
+        app()->bind(RepositoryResolverInterface::class, MockRepositoryResolver::class);
 
-        $uow = app(IUnitOfWork::class);
+        $uow = app(UnitOfWorkInterface::class);
         $repository = $uow->getRepository($entityClass);
 
         $this->assertTrue($repository instanceof MockRepository);

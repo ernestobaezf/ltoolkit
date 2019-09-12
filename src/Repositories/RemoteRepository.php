@@ -10,9 +10,9 @@ use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Psr\Http\Client\ClientInterface;
-use LToolkit\Interfaces\IRemoteRepository;
+use LToolkit\Interfaces\RemoteRepositoryInterface;
 
-abstract class RemoteRepository implements IRemoteRepository
+abstract class RemoteRepository implements RemoteRepositoryInterface
 {
     /**
      * @var Collection $criteria

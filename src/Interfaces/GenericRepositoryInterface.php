@@ -6,6 +6,6 @@
 namespace LToolkit\Interfaces;
 
 
-interface IUpdateValidator extends IValidator
+interface GenericRepositoryInterface
 {
 }

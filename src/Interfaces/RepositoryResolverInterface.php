@@ -6,13 +6,13 @@
 namespace LToolkit\Interfaces;
 
 
-interface IRepositoryResolver
+interface RepositoryResolverInterface
 {
     /**
      * Get repository associated to an entity
      *
      * @param  string $entityClass
-     * @return IBaseRepository|IRemoteRepository
+     * @return BaseRepositoryInterface|RemoteRepositoryInterface
      */
     public function getRepository(string $entityClass);
 }

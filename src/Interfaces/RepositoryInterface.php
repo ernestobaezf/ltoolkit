@@ -6,11 +6,11 @@ use Exception;
 use Illuminate\Support\Collection;
 
 /**
- * Interface IRepository
+ * Interface RepositoryInterface
  *
  * @package LToolkit\Interfaces
  */
-interface IRepository
+interface RepositoryInterface
 {
     /**
      * Retrieve all data of repository
@@ -47,11 +47,11 @@ interface IRepository
      * @param int   $id
      * @param array $columns
      *
-     * @return null|IEntity
+     * @return null|EntityInterface
      *
      * @throws Exception Not found exception
      */
-    public function find($id, $columns = ['*']): ?IEntity;
+    public function find($id, $columns = ['*']): ?EntityInterface;
 
     /**
      * Find entity by id. Returns null if not found
@@ -71,11 +71,11 @@ interface IRepository
      *
      * @param array $attributes
      *
-     * @return IEntity
+     * @return EntityInterface
      *
      * @throws Exception
      */
-    public function create(array $attributes): IEntity;
+    public function create(array $attributes): EntityInterface;
 
     /**
      * Update a entity in repository by id
@@ -83,11 +83,11 @@ interface IRepository
      * @param int   $id
      * @param array $attributes
      *
-     * @return IEntity|null
+     * @return EntityInterface|null
      *
      * @throws Exception
      */
-    public function update($id, array $attributes): ?IEntity;
+    public function update($id, array $attributes): ?EntityInterface;
 
     /**
      * Update or Create an entity in repository
@@ -95,11 +95,11 @@ interface IRepository
      * @param array $attributes
      * @param array $values
      *
-     * @return IEntity
+     * @return EntityInterface
      *
      * @throws Exception
      */
-    public function updateOrCreate(array $attributes, array $values = []): IEntity;
+    public function updateOrCreate(array $attributes, array $values = []): EntityInterface;
 
     /**
      * Delete a entity in repository by id

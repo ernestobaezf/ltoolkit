@@ -4,11 +4,11 @@ namespace LToolkit\Interfaces;
 use Illuminate\Support\Collection;
 
 /**
- * Interface IRepositoryCriteria
+ * Interface RepositoryCriteriaInterface
  *
  * @package LToolkit\Interfaces
  */
-interface IRepositoryCriteria
+interface RepositoryCriteriaInterface
 {
     /**
      * Push Criteria for filter the query

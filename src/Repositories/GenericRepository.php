@@ -6,14 +6,14 @@
 namespace LToolkit\Repositories;
 
 
-use LToolkit\Interfaces\IUnitOfWork;
-use LToolkit\Interfaces\IGenericRepository;
+use LToolkit\Interfaces\UnitOfWorkInterface;
+use LToolkit\Interfaces\GenericRepositoryInterface;
 
-class GenericRepository extends BaseRepository implements IGenericRepository
+class GenericRepository extends BaseRepository implements GenericRepositoryInterface
 {
     private $modelClass;
 
-    public function __construct(IUnitOfWork $unitOfWork, string $modelClass)
+    public function __construct(UnitOfWorkInterface $unitOfWork, string $modelClass)
     {
         $this->modelClass = $modelClass;
         parent::__construct($unitOfWork);

@@ -7,7 +7,7 @@ namespace LToolkit\Interfaces;
 
 
 
-interface ISerializer
+interface SerializerInterface
 {
 
     /**

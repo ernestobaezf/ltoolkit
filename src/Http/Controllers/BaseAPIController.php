@@ -11,31 +11,31 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use \Illuminate\Support\Facades\Response;
-use LToolkit\Interfaces\IEntity;
-use LToolkit\Interfaces\ISerializer;
-use LToolkit\Interfaces\IUnitOfWork;
-use LToolkit\Interfaces\IBaseRepository;
-use LToolkit\Interfaces\IValidatorResolver;
+use LToolkit\Interfaces\EntityInterface;
+use LToolkit\Interfaces\SerializerInterface;
+use LToolkit\Interfaces\UnitOfWorkInterface;
+use LToolkit\Interfaces\BaseRepositoryInterface;
+use LToolkit\Interfaces\ValidatorResolverInterface;
 
 abstract class BaseAPIController extends Controller
 {
     /**
-     * @var IUnitOfWork $unitOfWork
+     * @var UnitOfWorkInterface $unitOfWork
      */
     private $unitOfWork;
 
     /**
-     * @var ISerializer
+     * @var SerializerInterface
      */
     private $serializer;
 
     /**
      * BaseAPIController constructor.
      *
-     * @param IUnitOfWork        $unitOfWork
-     * @param IValidatorResolver $validatorResolver
+     * @param UnitOfWorkInterface        $unitOfWork
+     * @param ValidatorResolverInterface $validatorResolver
      */
-    public function __construct(IUnitOfWork $unitOfWork, IValidatorResolver $validatorResolver)
+    public function __construct(UnitOfWorkInterface $unitOfWork, ValidatorResolverInterface $validatorResolver)
     {
         $this->unitOfWork = $unitOfWork;
 
@@ -45,9 +45,9 @@ abstract class BaseAPIController extends Controller
     /**
      * Set the serializer used to modify the data in the response
      *
-     * @param ISerializer $serializer
+     * @param SerializerInterface $serializer
      */
-    public final function setSerializer(ISerializer $serializer)
+    public final function setSerializer(SerializerInterface $serializer)
     {
         $this->serializer = $serializer;
     }
@@ -55,7 +55,7 @@ abstract class BaseAPIController extends Controller
     /**
      * Get the serializer used to modify the data in the response
      *
-     * @return null|ISerializer
+     * @return null|SerializerInterface
      */
     protected final function getSerializer()
     {
@@ -72,7 +72,7 @@ abstract class BaseAPIController extends Controller
     /**
      * @param string $entityClass
      *
-     * @return IBaseRepository
+     * @return BaseRepositoryInterface
      */
     protected function getRepository(string $entityClass=null)
     {
@@ -83,9 +83,9 @@ abstract class BaseAPIController extends Controller
     /**
      * Get Unit of work to control operations that alter database
      *
-     * @return IUnitOfWork
+     * @return UnitOfWorkInterface
      */
-    protected function getUnitOfWork(): IUnitOfWork
+    protected function getUnitOfWork(): UnitOfWorkInterface
     {
         return $this->unitOfWork;
     }
@@ -94,7 +94,7 @@ abstract class BaseAPIController extends Controller
      * Format the response in a standardized json. If the message param is passed then the body has the following
      * structure: ['data' => data, 'message' => message].
      *
-     * @param  IEntity|int|mixed $data
+     * @param  EntityInterface|int|mixed $data
      * @param  string|null       $message
      * @param  int               $status
      * @param  array             $headers
@@ -107,7 +107,7 @@ abstract class BaseAPIController extends Controller
         $serializer = $this->getSerializer();
         if ($serializer) {
             $data = $serializer->serialize($data);
-        } elseif ($data instanceof IEntity) {
+        } elseif ($data instanceof EntityInterface) {
             $data = $data->toArray();
         }
 
@@ -121,10 +121,10 @@ abstract class BaseAPIController extends Controller
     /**
      * Internal function to get validations
      *
-     * @param IValidatorResolver $validatorResolver
+     * @param ValidatorResolverInterface $validatorResolver
      * @return Closure
      */
-    protected function validationsClause(IValidatorResolver $validatorResolver): Closure
+    protected function validationsClause(ValidatorResolverInterface $validatorResolver): Closure
     {
         return function ($request, $next) use ($validatorResolver) {
             return evaluator()->preCondition(

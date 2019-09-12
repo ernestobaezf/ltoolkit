@@ -6,7 +6,7 @@
 namespace LToolkit\Interfaces;
 
 
-interface IUnitOfWork
+interface UnitOfWorkInterface
 {
     /**
      * Set behaviour to determine if the actions to modify the database
@@ -28,7 +28,7 @@ interface IUnitOfWork
      * Get a repository corresponding the given entity
      *
      * @param  string $entityClass
-     * @return IBaseRepository
+     * @return BaseRepositoryInterface
      */
     function getRepository(string $entityClass);
 

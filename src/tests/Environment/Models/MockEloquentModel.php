@@ -7,10 +7,10 @@ namespace LToolkit\Test\Environment\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
-use LToolkit\Interfaces\IEntity;
+use LToolkit\Interfaces\EntityInterface;
 use LToolkit\Test\Environment\DynamicClass;
 
-class MockEloquentModel extends Model implements IEntity
+class MockEloquentModel extends Model implements EntityInterface
 {
     public const RELATIONS = ["relation1:id,name", "relation2.concatenated", "relation3"];
 
@@ -46,7 +46,7 @@ class MockEloquentModel extends Model implements IEntity
      * @param  \stdClass $std
      * @return $this
      */
-    public function fromStdClass(\stdClass $std): IEntity
+    public function fromStdClass(\stdClass $std): EntityInterface
     {
         // TODO: Implement fromStdClass() method.
     }

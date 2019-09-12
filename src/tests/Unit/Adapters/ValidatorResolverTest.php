@@ -8,10 +8,10 @@ namespace LToolkit\Test\Unit\Adapters;
 
 use ReflectionException;
 use LToolkit\Test\Environment\TestCase;
-use LToolkit\Interfaces\IStoreValidator;
-use LToolkit\Interfaces\IUpdateValidator;
+use LToolkit\Interfaces\StoreValidatorInterface;
+use LToolkit\Interfaces\UpdateValidatorInterface;
 use LToolkit\Adapters\ValidatorResolver;
-use LToolkit\Interfaces\IValidatorResolver;
+use LToolkit\Interfaces\ValidatorResolverInterface;
 use LToolkit\Test\Environment\Http\Controllers\MockAPIController;
 use LToolkit\Test\Environment\Http\Validators\Mock\TestValidator;
 
@@ -48,7 +48,7 @@ class ValidatorResolverTest extends TestCase
         self::assertArrayHasKey("test", $value);
         self::assertInstanceOf(TestValidator::class, $value["test"]);
 
-        self::assertInstanceOf(IValidatorResolver::class, $result);
+        self::assertInstanceOf(ValidatorResolverInterface::class, $result);
     }
 
     /**
@@ -101,7 +101,7 @@ class ValidatorResolverTest extends TestCase
         $method = self::getMethod("get", ValidatorResolver::class);
         $result = $method->invokeArgs($validatorResolver, ["store"]);
 
-        self::assertInstanceOf(IStoreValidator::class, $result);
+        self::assertInstanceOf(StoreValidatorInterface::class, $result);
     }
 
     /**
@@ -122,6 +122,6 @@ class ValidatorResolverTest extends TestCase
         $method = self::getMethod("get", ValidatorResolver::class);
         $result = $method->invokeArgs($validatorResolver, ["update"]);
 
-        self::assertInstanceOf(IUpdateValidator::class, $result);
+        self::assertInstanceOf(UpdateValidatorInterface::class, $result);
     }
 }

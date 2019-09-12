@@ -99,7 +99,7 @@ configured by default to auto-commit the changes and persist the data.
 But to tackle the previous cases we need to bind a different instance of the unit of work, for instance:
 
     $this->app->when(SampleAPIController::class)
-                ->needs(IUnitOfWork::class)
+                ->needs(UnitOfWorkInterface::class)
                 ->give(function() {
                     return $this->app->make(UnitOfWork::class, ["autoCommit" => false]);
                 });
@@ -166,10 +166,10 @@ no matter where it comes from.
 
 ## API controllers
 
-There is a BaseAPIResourceController which implements IAPIResourceController interface that defines the minimum and commons set 
+There is a BaseAPIResourceController which implements APIResourceControllerInterface that defines the minimum and commons set 
  of methods (index, show, store, update, destroy) to handle CRUD. This BaseAPIResourceController 
  has injected a *Unit of Work* that allows to get the repositories according the requiring entity class. In this
- controller, the method index has an ICriteriaIterator as parameter, which is linked to CriteriaIterator that has as a default
+ controller, the method index has an CriteriaIteratorInterface as parameter, which is linked to CriteriaIterator that has as a default
  param, a RequestCriteria, to filter the results with a criteria [defined in l5-repository package](https://github.com/andersao/l5-repository#using-the-requestcriteria).
  This association can be adapted to different needs in the bindings (see **Service Provider** section).
  
@@ -199,11 +199,11 @@ If you want to declare the validators yourself and not follow the convention, yo
 
     class SampleController extends BaseAPIController
     {
-        public function __construct(IUnitOfWork $unitOfWork)
+        public function __construct(UnitOfWorkInterface $unitOfWork)
         {
             parent::__construct(
                 $unitOfWork, app(
-                    IValidatorResolver::class, [
+                    ValidatorResolverInterface::class, [
                         "className" => static::class,
                         "validations" => [
                             "action" => new ActionValidator()
@@ -268,7 +268,7 @@ To enable these logs is required to set the environment variable `LOG_ACTIONS=tr
     /**
      * @method logAll($columns = ['*']): Collection
      */
-    Class SomeLoggableClass implements ILoggable
+    Class SomeLoggableClass implements LoggableInterface
     {
         use TLoggable;  
         

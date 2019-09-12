@@ -3,15 +3,15 @@
  * @author Ernesto Baez
  */
 
-namespace LToolkit\Traits;
+namespace LToolkit\Interfaces;
 
 /**
  * Use this interface to mark classes extending LToolkit\Traits\TLoggable trait
  *
- * Interface ILoggable
- * @package LToolkit\Traits;
+ * Interface LoggableInterface
+ * @package LToolkit\Interfaces;
  */
-interface ILoggable
+interface LoggableInterface
 {
     /**
      * Allow to automatically log a function by calling it with the prefix log

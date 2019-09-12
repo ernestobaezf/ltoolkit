@@ -3,11 +3,11 @@ namespace LToolkit\Interfaces;
 
 
 /**
- * Interface IRemoteRepository
+ * Interface RemoteRepositoryInterface
  *
  * @package LToolkit\Interfaces
  */
-interface IRemoteRepository extends IRepositoryCriteria
+interface RemoteRepositoryInterface extends RepositoryCriteriaInterface
 {
     /**
      * Retrieve all data of repository

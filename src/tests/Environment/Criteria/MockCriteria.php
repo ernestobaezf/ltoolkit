@@ -4,10 +4,10 @@
 namespace LToolkit\Test\Environment\Criteria;
 
 
-use LToolkit\Interfaces\ICriteriaIterator;
+use LToolkit\Interfaces\CriteriaIteratorInterface;
 
 
-class MockCriteria implements ICriteriaIterator
+class MockCriteria implements CriteriaIteratorInterface
 {
 
 

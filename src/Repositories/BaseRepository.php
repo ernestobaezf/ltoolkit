@@ -9,27 +9,27 @@ use Closure;
 use Exception;
 use Illuminate\Support\Str;
 use LToolkit\Traits\TLogAction;
-use LToolkit\Interfaces\IEntity;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use LToolkit\Interfaces\IUnitOfWork;
-use LToolkit\Interfaces\IBaseRepository;
-use LToolkit\Interfaces\IRepositoryAdapter;
+use LToolkit\Interfaces\EntityInterface;
+use LToolkit\Interfaces\RepositoryAdapterInterface;
+use LToolkit\Interfaces\UnitOfWorkInterface;
+use LToolkit\Interfaces\BaseRepositoryInterface;
 
-abstract class BaseRepository implements IBaseRepository
+abstract class BaseRepository implements BaseRepositoryInterface
 {
     use TLogAction;
 
     /**
-     * @var IRepositoryAdapter
+     * @var RepositoryAdapterInterface
      */
     private $innerRepository;
 
     private $unitOfWork;
 
-    public function __construct(IUnitOfWork $unitOfWork)
+    public function __construct(UnitOfWorkInterface $unitOfWork)
     {
-        $this->innerRepository = app()->make(IRepositoryAdapter::class, ["modelClass" => $this->model()]);
+        $this->innerRepository = app()->make(RepositoryAdapterInterface::class, ["modelClass" => $this->model()]);
 
         $this->unitOfWork = $unitOfWork;
     }
@@ -42,7 +42,7 @@ abstract class BaseRepository implements IBaseRepository
     protected abstract function model(): string;
 
     /**
-     * @return IRepositoryAdapter
+     * @return RepositoryAdapterInterface
      */
     protected function getInternalRepository()
     {
@@ -50,7 +50,7 @@ abstract class BaseRepository implements IBaseRepository
     }
 
     /**
-     * @return IUnitOfWork
+     * @return UnitOfWorkInterface
      */
     protected function getUnitOfWork()
     {
@@ -118,9 +118,9 @@ abstract class BaseRepository implements IBaseRepository
      * @param int   $id
      * @param array $columns
      *
-     * @return null|IEntity
+     * @return null|EntityInterface
      */
-    public function find($id, $columns = ['*']): ?IEntity
+    public function find($id, $columns = ['*']): ?EntityInterface
     {
         return $this->evaluate(
             function () use ($id, $columns) {
@@ -160,10 +160,10 @@ abstract class BaseRepository implements IBaseRepository
      *
      * @param array $attributes
      *
-     * @return IEntity
+     * @return EntityInterface
      * @throws Exception
      */
-    public function create(array $attributes): IEntity
+    public function create(array $attributes): EntityInterface
     {
         return $this->evaluate(
             function () use ($attributes) {
@@ -182,10 +182,10 @@ abstract class BaseRepository implements IBaseRepository
      * @param int   $id
      * @param array $attributes
      *
-     * @return IEntity|null
+     * @return EntityInterface|null
      * @throws Exception
      */
-    public function update($id, array $attributes): ?IEntity
+    public function update($id, array $attributes): ?EntityInterface
     {
         return $this->evaluate(
             function () use ($attributes, $id) {
@@ -204,10 +204,10 @@ abstract class BaseRepository implements IBaseRepository
      * @param array $attributes
      * @param array $values
      *
-     * @return IEntity
+     * @return EntityInterface
      * @throws Exception
      */
-    public function updateOrCreate(array $attributes, array $values = []): IEntity
+    public function updateOrCreate(array $attributes, array $values = []): EntityInterface
     {
         return $this->evaluate(
             function () use ($attributes, $values) {
@@ -350,11 +350,11 @@ abstract class BaseRepository implements IBaseRepository
      * @param array     $attributes
      * @param int|array $values
      *
-     * @return IEntity|null
+     * @return EntityInterface|null
      *
      * @throws Exception
      */
-    protected final function execute(string $operation, array $attributes, $values=0): ?IEntity
+    protected final function execute(string $operation, array $attributes, $values=0): ?EntityInterface
     {
         try {
             list($autoCommit, $withRelations, $_attributes) = $this->checkRelation($attributes);

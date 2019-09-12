@@ -4,9 +4,9 @@
 namespace LToolkit\Test\Environment\Serializer;
 
 
-use LToolkit\Interfaces\ISerializer;
+use LToolkit\Interfaces\SerializerInterface;
 
-class MockSerializer implements ISerializer
+class MockSerializer implements SerializerInterface
 {
 
     /**

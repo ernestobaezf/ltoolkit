@@ -8,12 +8,12 @@ namespace LToolkit\Http\Validators;
 
 
 use Illuminate\Validation\Validator;
-use LToolkit\Interfaces\IValidator;
+use LToolkit\Interfaces\ValidatorInterface;
 
 /**
  * Class BaseValidator
  */
-class SimpleValidator extends Validator implements IValidator
+class SimpleValidator extends Validator implements ValidatorInterface
 {
     public function __construct()
     {

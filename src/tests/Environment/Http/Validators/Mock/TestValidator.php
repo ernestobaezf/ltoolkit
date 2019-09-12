@@ -6,9 +6,9 @@
 namespace LToolkit\Test\Environment\Http\Validators\Mock;
 
 
-use LToolkit\Interfaces\IValidator;
+use LToolkit\Interfaces\ValidatorInterface;
 
-class TestValidator implements IValidator
+class TestValidator implements ValidatorInterface
 {
 
     public function setData(array $data)

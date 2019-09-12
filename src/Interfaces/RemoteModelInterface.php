@@ -6,4 +6,4 @@
 namespace LToolkit\Interfaces;
 
 
-interface IRemoteModel {}
+interface RemoteModelInterface {}

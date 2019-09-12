@@ -7,16 +7,16 @@ namespace LToolkit\Adapters;
 
 
 use Exception;
-use LToolkit\Interfaces\IUnitOfWork;
+use LToolkit\Interfaces\UnitOfWorkInterface;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
-use LToolkit\Interfaces\IBaseRepository;
-use LToolkit\Interfaces\IRemoteRepository;
-use LToolkit\Interfaces\IGenericRepository;
-use LToolkit\Interfaces\IRepositoryResolver;
+use LToolkit\Interfaces\BaseRepositoryInterface;
+use LToolkit\Interfaces\RemoteRepositoryInterface;
+use LToolkit\Interfaces\GenericRepositoryInterface;
+use LToolkit\Interfaces\RepositoryResolverInterface;
 use Illuminate\Contracts\Container\BindingResolutionException;
 
-final class RepositoryResolver implements IRepositoryResolver
+final class RepositoryResolver implements RepositoryResolverInterface
 {
     private const REPOSITORIES_DIRNAME = "Repositories";
     private const REPOSITORY_POSTFIX = "Repository";
@@ -25,14 +25,14 @@ final class RepositoryResolver implements IRepositoryResolver
 
     private $unitOfWork;
 
-    public function __construct(IUnitOfWork $unitOfWork)
+    public function __construct(UnitOfWorkInterface $unitOfWork)
     {
         $this->unitOfWork = $unitOfWork;
     }
 
     /**
      * @param  string $entityClass
-     * @return IBaseRepository|IRemoteRepository
+     * @return BaseRepositoryInterface|RemoteRepositoryInterface
      *
      * @throws BindingResolutionException
      */
@@ -45,12 +45,12 @@ final class RepositoryResolver implements IRepositoryResolver
             }
         );
 
-        if (in_array(IRemoteRepository::class, class_implements($repository))) {
+        if (in_array(RemoteRepositoryInterface::class, class_implements($repository))) {
             return app()->make($repository);
         }
 
         $arguments = [self::ARGUMENT_UNIT_OF_WORK => $this->unitOfWork];
-        if ($repository == IGenericRepository::class) {
+        if ($repository == GenericRepositoryInterface::class) {
             $arguments = [self::ARGUMENT_UNIT_OF_WORK => $this->unitOfWork, self::ARGUMENT_MODEL_CLASS => $entityClass];
         }
 
@@ -99,7 +99,7 @@ final class RepositoryResolver implements IRepositoryResolver
                 return $repository;
             }
 
-            return IGenericRepository::class;
+            return GenericRepositoryInterface::class;
         }
 
         $repository = preg_replace("/\\\Models/", '\\'.self::REPOSITORIES_DIRNAME, $entityNamespace."\\$repositoryName");
@@ -108,7 +108,7 @@ final class RepositoryResolver implements IRepositoryResolver
             return $repository;
         }
 
-        return IGenericRepository::class;
+        return GenericRepositoryInterface::class;
     }
 
 }

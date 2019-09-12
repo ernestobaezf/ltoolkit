@@ -5,13 +5,13 @@
 
 namespace LToolkit\Adapters;
 
-use LToolkit\Interfaces\IRepositoryAdapter;
+use LToolkit\Interfaces\RepositoryAdapterInterface;
 use Illuminate\Container\Container as Application;
 use Prettus\Repository\Events\RepositoryEntityDeleted;
 use Prettus\Repository\Exceptions\RepositoryException;
 use Prettus\Repository\Eloquent\BaseRepository as PrettusRepositoryEloquent;
 
-class BasePrettusConnectorRepository extends PrettusRepositoryEloquent implements IRepositoryAdapter
+class BasePrettusConnectorRepository extends PrettusRepositoryEloquent implements RepositoryAdapterInterface
 {
     private $modelClass;
 

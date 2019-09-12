@@ -11,7 +11,7 @@ use Illuminate\Http\Response;
 use LToolkit\Helpers\Evaluator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
-use LToolkit\Interfaces\IEvaluator;
+use LToolkit\Interfaces\EvaluatorInterface;
 use Illuminate\Support\Facades\Config;
 use LToolkit\Test\Environment\TestCase;
 use Illuminate\Validation\ValidationException;
@@ -39,7 +39,7 @@ class EvaluatorTest extends TestCase
         $condition = $method->invoke($object);
 
         self::assertInstanceOf(Closure::class, $condition);
-        self::assertInstanceOf(IEvaluator::class, $result);
+        self::assertInstanceOf(EvaluatorInterface::class, $result);
     }
 
     /**
@@ -62,7 +62,7 @@ class EvaluatorTest extends TestCase
         $condition = $method->invoke($object);
 
         self::assertInstanceOf(Closure::class, $condition);
-        self::assertInstanceOf(IEvaluator::class, $result);
+        self::assertInstanceOf(EvaluatorInterface::class, $result);
     }
 
     /**
@@ -95,7 +95,7 @@ Process finished with exit code 0", 500);
         $method = $method->invoke($object);
 
         self::assertInstanceOf(Closure::class, $method);
-        self::assertInstanceOf(IEvaluator::class, $result);
+        self::assertInstanceOf(EvaluatorInterface::class, $result);
 
         Log::shouldReceive("log")->once();
         Log::shouldReceive("info")->once();
@@ -126,7 +126,7 @@ Process finished with exit code 0", 500);
         $method = $method->invoke($object);
 
         self::assertInstanceOf(Closure::class, $method);
-        self::assertInstanceOf(IEvaluator::class, $result);
+        self::assertInstanceOf(EvaluatorInterface::class, $result);
 
         Log::shouldReceive("log")->once();
         Log::shouldReceive("info")->once();
@@ -157,7 +157,7 @@ Process finished with exit code 0", 500);
         $method = $method->invoke($object);
 
         self::assertInstanceOf(Closure::class, $method);
-        self::assertInstanceOf(IEvaluator::class, $result);
+        self::assertInstanceOf(EvaluatorInterface::class, $result);
 
         Log::shouldReceive("log")->once();
         Log::shouldReceive("info")->once();
@@ -189,7 +189,7 @@ Process finished with exit code 0", 500);
         $method = $method->invoke($object);
 
         self::assertInstanceOf(Closure::class, $method);
-        self::assertInstanceOf(IEvaluator::class, $result);
+        self::assertInstanceOf(EvaluatorInterface::class, $result);
 
         Log::shouldReceive("log")->once();
         Log::shouldReceive("info")->once();
@@ -220,7 +220,7 @@ Process finished with exit code 0", 500);
         $method = $method->invoke($object);
 
         self::assertInstanceOf(Closure::class, $method);
-        self::assertInstanceOf(IEvaluator::class, $result);
+        self::assertInstanceOf(EvaluatorInterface::class, $result);
 
         Log::shouldReceive("log")->once();
         Log::shouldReceive("info")->once();
@@ -254,7 +254,7 @@ Process finished with exit code 0", 500);
         $method = $method->invoke($object);
 
         self::assertInstanceOf(Closure::class, $method);
-        self::assertInstanceOf(IEvaluator::class, $result);
+        self::assertInstanceOf(EvaluatorInterface::class, $result);
 
         Log::shouldReceive("log")->once();
         Log::shouldReceive("info")->once();

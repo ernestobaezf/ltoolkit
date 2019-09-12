@@ -9,10 +9,10 @@ namespace LToolkit\Adapters;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
-use LToolkit\Interfaces\IValidator;
-use LToolkit\Interfaces\IStoreValidator;
-use LToolkit\Interfaces\IUpdateValidator;
-use LToolkit\Interfaces\IValidatorResolver;
+use LToolkit\Interfaces\ValidatorInterface;
+use LToolkit\Interfaces\StoreValidatorInterface;
+use LToolkit\Interfaces\UpdateValidatorInterface;
+use LToolkit\Interfaces\ValidatorResolverInterface;
 
 /**
  * Class to find the validators given the class name and the method being executed
@@ -20,7 +20,7 @@ use LToolkit\Interfaces\IValidatorResolver;
  * Class ValidatorResolver
  * @package LToolkit\Adapters
  */
-final class ValidatorResolver implements IValidatorResolver
+final class ValidatorResolver implements ValidatorResolverInterface
 {
     const VALIDATORS_DIRNAME = 'Validators';
 
@@ -49,7 +49,7 @@ final class ValidatorResolver implements IValidatorResolver
     /**
      * @inheritdoc
      */
-    public function add(string $methodName, IValidator $validator): IValidatorResolver
+    public function add(string $methodName, ValidatorInterface $validator): ValidatorResolverInterface
     {
         $this->validations[$methodName] = $validator;
 
@@ -59,7 +59,7 @@ final class ValidatorResolver implements IValidatorResolver
     /**
      * @inheritdoc
      */
-    public function get(string $methodName): ?IValidator
+    public function get(string $methodName): ?ValidatorInterface
     {
         $validator = $this->validations[$methodName] ?? null;
 
@@ -78,10 +78,10 @@ final class ValidatorResolver implements IValidatorResolver
         if (!$result) {
             switch ($methodName) {
                 case "store":
-                    $result = app(IStoreValidator::class);
+                    $result = app(StoreValidatorInterface::class);
                     break;
                 case "update":
-                    $result = app(IUpdateValidator::class);
+                    $result = app(UpdateValidatorInterface::class);
                     break;
             }
         }

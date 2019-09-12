@@ -4,11 +4,11 @@ namespace LToolkit\Test\Unit\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
-use LToolkit\Interfaces\IUnitOfWork;
+use LToolkit\Interfaces\UnitOfWorkInterface;
 use LToolkit\Test\Environment\TestCase;
 use Illuminate\Support\Facades\Response;
-use LToolkit\Interfaces\ICriteriaIterator;
-use LToolkit\Interfaces\IValidatorResolver;
+use LToolkit\Interfaces\CriteriaIteratorInterface;
+use LToolkit\Interfaces\ValidatorResolverInterface;
 use Illuminate\Http\Response as HttpReponse;
 use LToolkit\Test\Environment\MockExceptionHandler;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -34,9 +34,9 @@ class BaseAPIResourceControllerTest extends TestCase
             ->onlyMethods(['getEntity', 'getRepository', 'respond'])
             ->setConstructorArgs(
                 [
-                'unitOfWork'          => app(IUnitOfWork::class),
-                'validatorCollection' => app(IValidatorResolver::class),
-                'criteria'            => app(ICriteriaIterator::class)]
+                'unitOfWork'          => app(UnitOfWorkInterface::class),
+                'validatorCollection' => app(ValidatorResolverInterface::class),
+                'criteria'            => app(CriteriaIteratorInterface::class)]
             )
             ->getMock();
 
@@ -52,7 +52,7 @@ class BaseAPIResourceControllerTest extends TestCase
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
             ->onlyMethods(['pushCriteria'])
-            ->setConstructorArgs(['unitOfWork' => app(IUnitOfWork::class)])
+            ->setConstructorArgs(['unitOfWork' => app(UnitOfWorkInterface::class)])
             ->getMock();
         $repository->expects(self::once())->method('pushCriteria')->willReturnCallback(
             function () use ($repository) {
@@ -85,9 +85,9 @@ class BaseAPIResourceControllerTest extends TestCase
             ->onlyMethods(['getEntity', 'getRepository', 'respond'])
             ->setConstructorArgs(
                 [
-                'unitOfWork'          => app(IUnitOfWork::class),
-                'validatorCollection' => app(IValidatorResolver::class),
-                'criteria'            => app(ICriteriaIterator::class)]
+                'unitOfWork'          => app(UnitOfWorkInterface::class),
+                'validatorCollection' => app(ValidatorResolverInterface::class),
+                'criteria'            => app(CriteriaIteratorInterface::class)]
             )
             ->getMock();
 
@@ -103,7 +103,7 @@ class BaseAPIResourceControllerTest extends TestCase
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
             ->onlyMethods(['pushCriteria'])
-            ->setConstructorArgs(['unitOfWork' => app(IUnitOfWork::class)])
+            ->setConstructorArgs(['unitOfWork' => app(UnitOfWorkInterface::class)])
             ->getMock();
         $repository->expects(self::once())->method('pushCriteria')->willReturnCallback(
             function () use ($repository) {
@@ -135,14 +135,14 @@ class BaseAPIResourceControllerTest extends TestCase
             ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
-                'unitOfWork'          => app(IUnitOfWork::class),
-                'validatorCollection' => app(IValidatorResolver::class),
-                'criteria'            => app(ICriteriaIterator::class)]
+                'unitOfWork'          => app(UnitOfWorkInterface::class),
+                'validatorCollection' => app(ValidatorResolverInterface::class),
+                'criteria'            => app(CriteriaIteratorInterface::class)]
             )
             ->getMock();
 
         $object->method('getEntity')->willReturn($entityClass);
-        $object->method('getRepository')->willReturn(new MockRepository(app(IUnitOfWork::class)));
+        $object->method('getRepository')->willReturn(new MockRepository(app(UnitOfWorkInterface::class)));
 
         $method   = self::getMethod('show', BaseAPIResourceController::class);
         $response = $method->invokeArgs($object, [$params]);
@@ -167,14 +167,14 @@ class BaseAPIResourceControllerTest extends TestCase
             ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
-                'unitOfWork'          => app(IUnitOfWork::class),
-                'validatorCollection' => app(IValidatorResolver::class),
-                'criteria'            => app(ICriteriaIterator::class)]
+                'unitOfWork'          => app(UnitOfWorkInterface::class),
+                'validatorCollection' => app(ValidatorResolverInterface::class),
+                'criteria'            => app(CriteriaIteratorInterface::class)]
             )
             ->getMock();
 
         $object->method('getEntity')->willReturn($entityClass);
-        $object->method('getRepository')->willReturn(new MockRepository(app(IUnitOfWork::class)));
+        $object->method('getRepository')->willReturn(new MockRepository(app(UnitOfWorkInterface::class)));
 
         self::expectException(ModelNotFoundException::class);
         $method   = self::getMethod('show', BaseAPIResourceController::class);
@@ -196,14 +196,14 @@ class BaseAPIResourceControllerTest extends TestCase
             ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
-                    'unitOfWork'          => app(IUnitOfWork::class),
-                    'validatorCollection' => app(IValidatorResolver::class),
-                    'criteria'            => app(ICriteriaIterator::class)]
+                    'unitOfWork'          => app(UnitOfWorkInterface::class),
+                    'validatorCollection' => app(ValidatorResolverInterface::class),
+                    'criteria'            => app(CriteriaIteratorInterface::class)]
             )
             ->getMock();
 
         $object->method('getEntity')->willReturn($entityClass);
-        $object->method('getRepository')->willReturn(new MockRepository(app(IUnitOfWork::class)));
+        $object->method('getRepository')->willReturn(new MockRepository(app(UnitOfWorkInterface::class)));
 
         $method   = self::getMethod('show', BaseAPIResourceController::class);
 
@@ -232,14 +232,14 @@ class BaseAPIResourceControllerTest extends TestCase
             ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
-                'unitOfWork'          => app(IUnitOfWork::class),
-                'validatorCollection' => app(IValidatorResolver::class),
-                'criteria'            => app(ICriteriaIterator::class)]
+                'unitOfWork'          => app(UnitOfWorkInterface::class),
+                'validatorCollection' => app(ValidatorResolverInterface::class),
+                'criteria'            => app(CriteriaIteratorInterface::class)]
             )
             ->getMock();
 
         $object->method('getEntity')->willReturn($entityClass);
-        $object->method('getRepository')->willReturn(new MockRepository(app(IUnitOfWork::class)));
+        $object->method('getRepository')->willReturn(new MockRepository(app(UnitOfWorkInterface::class)));
 
         $method   = self::getMethod('showWithRelationList', BaseAPIResourceController::class);
         $response = $method->invokeArgs($object, [$params, ["relation1"]]);
@@ -264,14 +264,14 @@ class BaseAPIResourceControllerTest extends TestCase
             ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
-                'unitOfWork'          => app(IUnitOfWork::class),
-                'validatorCollection' => app(IValidatorResolver::class),
-                'criteria'            => app(ICriteriaIterator::class)]
+                'unitOfWork'          => app(UnitOfWorkInterface::class),
+                'validatorCollection' => app(ValidatorResolverInterface::class),
+                'criteria'            => app(CriteriaIteratorInterface::class)]
             )
             ->getMock();
 
         $object->method('getEntity')->willReturn($entityClass);
-        $object->method('getRepository')->willReturn(new MockRepository(app(IUnitOfWork::class)));
+        $object->method('getRepository')->willReturn(new MockRepository(app(UnitOfWorkInterface::class)));
 
         self::expectException(ModelNotFoundException::class);
         $method   = self::getMethod('showWithRelationList', BaseAPIResourceController::class);
@@ -292,14 +292,14 @@ class BaseAPIResourceControllerTest extends TestCase
             ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
-                'unitOfWork'          => app(IUnitOfWork::class),
-                'validatorCollection' => app(IValidatorResolver::class),
-                'criteria'            => app(ICriteriaIterator::class)]
+                'unitOfWork'          => app(UnitOfWorkInterface::class),
+                'validatorCollection' => app(ValidatorResolverInterface::class),
+                'criteria'            => app(CriteriaIteratorInterface::class)]
             )
             ->getMock();
 
         $object->method('getEntity')->willReturn($entityClass);
-        $object->method('getRepository')->willReturn(new MockRepository(app(IUnitOfWork::class)));
+        $object->method('getRepository')->willReturn(new MockRepository(app(UnitOfWorkInterface::class)));
 
         $params   = ['test' => 1];
         $request  = Request::create('www.test.com', 'GET', $params);
@@ -336,9 +336,9 @@ class BaseAPIResourceControllerTest extends TestCase
             ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
-                'unitOfWork'          => app(IUnitOfWork::class),
-                'validatorCollection' => app(IValidatorResolver::class),
-                'criteria'            => app(ICriteriaIterator::class)]
+                'unitOfWork'          => app(UnitOfWorkInterface::class),
+                'validatorCollection' => app(ValidatorResolverInterface::class),
+                'criteria'            => app(CriteriaIteratorInterface::class)]
             )
             ->getMock();
 
@@ -368,14 +368,14 @@ class BaseAPIResourceControllerTest extends TestCase
             ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
-                'unitOfWork'          => app(IUnitOfWork::class),
-                'validatorCollection' => app(IValidatorResolver::class),
-                'criteria'            => app(ICriteriaIterator::class)]
+                'unitOfWork'          => app(UnitOfWorkInterface::class),
+                'validatorCollection' => app(ValidatorResolverInterface::class),
+                'criteria'            => app(CriteriaIteratorInterface::class)]
             )
             ->getMock();
 
         $object->method('getEntity')->willReturn($entityClass);
-        $object->method('getRepository')->willReturn(new MockRepository(app(IUnitOfWork::class)));
+        $object->method('getRepository')->willReturn(new MockRepository(app(UnitOfWorkInterface::class)));
 
         $params   = ['test' => 1];
         $request  = Request::create('www.test.com', 'GET', $params);
@@ -401,14 +401,14 @@ class BaseAPIResourceControllerTest extends TestCase
             ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
-                'unitOfWork'          => app(IUnitOfWork::class),
-                'validatorCollection' => app(IValidatorResolver::class),
-                'criteria'            => app(ICriteriaIterator::class)]
+                'unitOfWork'          => app(UnitOfWorkInterface::class),
+                'validatorCollection' => app(ValidatorResolverInterface::class),
+                'criteria'            => app(CriteriaIteratorInterface::class)]
             )
             ->getMock();
 
         $object->method('getEntity')->willReturn($entityClass);
-        $object->method('getRepository')->willReturn(new MockRepository(app(IUnitOfWork::class)));
+        $object->method('getRepository')->willReturn(new MockRepository(app(UnitOfWorkInterface::class)));
 
         $params   = ['test' => 1];
         $request  = Request::create('www.test.com', 'GET', $params);
@@ -442,9 +442,9 @@ class BaseAPIResourceControllerTest extends TestCase
             ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
-                'unitOfWork'          => app(IUnitOfWork::class),
-                'validatorCollection' => app(IValidatorResolver::class),
-                'criteria'            => app(ICriteriaIterator::class)]
+                'unitOfWork'          => app(UnitOfWorkInterface::class),
+                'validatorCollection' => app(ValidatorResolverInterface::class),
+                'criteria'            => app(CriteriaIteratorInterface::class)]
             )
             ->getMock();
 
@@ -473,14 +473,14 @@ class BaseAPIResourceControllerTest extends TestCase
             ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
-                'unitOfWork'          => app(IUnitOfWork::class),
-                'validatorCollection' => app(IValidatorResolver::class),
-                'criteria'            => app(ICriteriaIterator::class)]
+                'unitOfWork'          => app(UnitOfWorkInterface::class),
+                'validatorCollection' => app(ValidatorResolverInterface::class),
+                'criteria'            => app(CriteriaIteratorInterface::class)]
             )
             ->getMock();
 
         $object->method('getEntity')->willReturn($entityClass);
-        $object->method('getRepository')->willReturn(new MockRepository(app(IUnitOfWork::class)));
+        $object->method('getRepository')->willReturn(new MockRepository(app(UnitOfWorkInterface::class)));
 
         $method   = self::getMethod('destroy', BaseAPIResourceController::class);
         $response = $method->invokeArgs($object, [1]);
@@ -503,14 +503,14 @@ class BaseAPIResourceControllerTest extends TestCase
             ->onlyMethods(['getEntity', 'getRepository'])
             ->setConstructorArgs(
                 [
-                'unitOfWork'          => app(IUnitOfWork::class),
-                'validatorCollection' => app(IValidatorResolver::class),
-                'criteria'            => app(ICriteriaIterator::class)]
+                'unitOfWork'          => app(UnitOfWorkInterface::class),
+                'validatorCollection' => app(ValidatorResolverInterface::class),
+                'criteria'            => app(CriteriaIteratorInterface::class)]
             )
             ->getMock();
 
         $object->method('getEntity')->willReturn($entityClass);
-        $object->method('getRepository')->willReturn(new MockRepository(app(IUnitOfWork::class)));
+        $object->method('getRepository')->willReturn(new MockRepository(app(UnitOfWorkInterface::class)));
 
         $method   = self::getMethod('destroy', BaseAPIResourceController::class);
         self::expectException(ModelNotFoundException::class);

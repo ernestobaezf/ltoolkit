@@ -6,7 +6,7 @@
 namespace LToolkit\Interfaces;
 
 
-interface ICriteriaIterator extends \Iterator
+interface PolicyInterface
 {
 
 }

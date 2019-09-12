@@ -7,9 +7,9 @@ namespace LToolkit\Test\Environment\Repositories;
 
 
 use Illuminate\Support\Collection;
-use LToolkit\Interfaces\IRemoteRepository;
+use LToolkit\Interfaces\RemoteRepositoryInterface;
 
-class MockRemoteRepository implements IRemoteRepository
+class MockRemoteRepository implements RemoteRepositoryInterface
 {
     public function pushCriteria($instance)
     {

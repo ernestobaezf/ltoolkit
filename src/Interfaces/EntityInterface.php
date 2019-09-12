@@ -11,7 +11,7 @@ use Illuminate\Contracts\Routing\UrlRoutable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
-interface IEntity extends \ArrayAccess, Arrayable, Jsonable, QueueableEntity, UrlRoutable
+interface EntityInterface extends \ArrayAccess, Arrayable, Jsonable, QueueableEntity, UrlRoutable
 {
     /**
      * Get the entity key
@@ -44,5 +44,5 @@ interface IEntity extends \ArrayAccess, Arrayable, Jsonable, QueueableEntity, Ur
      * @param  \stdClass $std
      * @return $this
      */
-    public function fromStdClass(\stdClass $std): IEntity;
+    public function fromStdClass(\stdClass $std): EntityInterface;
 }

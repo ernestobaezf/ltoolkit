@@ -7,9 +7,9 @@ namespace LToolkit\Serializers;
 
 
 use Illuminate\Support\Collection;
-use LToolkit\Interfaces\ISerializer;
+use LToolkit\Interfaces\SerializerInterface;
 
-abstract class BaseSerializer implements ISerializer
+abstract class BaseSerializer implements SerializerInterface
 {
 
     /**

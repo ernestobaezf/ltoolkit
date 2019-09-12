@@ -7,12 +7,12 @@ namespace LToolkit\Adapters;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
-use LToolkit\Interfaces\IUnitOfWork;
-use LToolkit\Interfaces\IBaseRepository;
-use LToolkit\Interfaces\IRemoteRepository;
-use LToolkit\Interfaces\IRepositoryResolver;
+use LToolkit\Interfaces\UnitOfWorkInterface;
+use LToolkit\Interfaces\BaseRepositoryInterface;
+use LToolkit\Interfaces\RemoteRepositoryInterface;
+use LToolkit\Interfaces\RepositoryResolverInterface;
 
-final class UnitOfWork implements IUnitOfWork
+final class UnitOfWork implements UnitOfWorkInterface
 {
     /**
      * @var bool
@@ -22,21 +22,21 @@ final class UnitOfWork implements IUnitOfWork
     private $inTransaction = false;
 
     /**
-     * @var IRepositoryResolver
+     * @var RepositoryResolverInterface
      */
     private $repositoryFinder;
 
     public function __construct(bool $autoCommit=true)
     {
         $this->setAutoCommit($autoCommit);
-        $this->repositoryFinder = App::make(IRepositoryResolver::class, ["unitOfWork" => $this]);
+        $this->repositoryFinder = App::make(RepositoryResolverInterface::class, ["unitOfWork" => $this]);
     }
 
     /**
      * Get a repository corresponding the given entity
      *
      * @param  string $entityClass
-     * @return IBaseRepository|IRemoteRepository
+     * @return BaseRepositoryInterface|RemoteRepositoryInterface
      */
     public function getRepository(string $entityClass)
     {

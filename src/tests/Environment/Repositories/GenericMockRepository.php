@@ -6,15 +6,15 @@
 namespace LToolkit\Test\Environment\Repositories;
 
 
-use LToolkit\Interfaces\IGenericRepository;
-use LToolkit\Interfaces\IUnitOfWork;
+use LToolkit\Interfaces\GenericRepositoryInterface;
+use LToolkit\Interfaces\UnitOfWorkInterface;
 
-class GenericMockRepository implements IGenericRepository
+class GenericMockRepository implements GenericRepositoryInterface
 {
     private $modelClass;
     private $unitOfWork;
 
-    public function __construct(IUnitOfWork $unitOfWork, string $modelClass)
+    public function __construct(UnitOfWorkInterface $unitOfWork, string $modelClass)
     {
         $this->modelClass = $modelClass;
         $this->unitOfWork = $unitOfWork;

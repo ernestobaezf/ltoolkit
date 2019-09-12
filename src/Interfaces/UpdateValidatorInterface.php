@@ -6,4 +6,6 @@
 namespace LToolkit\Interfaces;
 
 
-interface IStoreValidator extends IValidator {}
+interface UpdateValidatorInterface extends ValidatorInterface
+{
+}

@@ -7,9 +7,9 @@ namespace LToolkit\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
-use LToolkit\Interfaces\IEntity;
+use LToolkit\Interfaces\EntityInterface;
 
-class BaseModel extends Model implements IEntity
+class BaseModel extends Model implements EntityInterface
 {
     public const RELATIONS = [];
 
@@ -42,7 +42,7 @@ class BaseModel extends Model implements IEntity
      * @param  \stdClass $std
      * @return $this
      */
-    public function fromStdClass(\stdClass $std): IEntity
+    public function fromStdClass(\stdClass $std): EntityInterface
     {
         // backup fillable
         $fillable = $this->getFillable();

@@ -6,6 +6,7 @@
 namespace LToolkit\Interfaces;
 
 
-interface IGenericRepository
+interface CriteriaIteratorInterface extends \Iterator
 {
+
 }

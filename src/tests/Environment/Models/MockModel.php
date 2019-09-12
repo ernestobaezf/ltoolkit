@@ -6,10 +6,10 @@
 namespace LToolkit\Test\Environment\Models;
 
 
-use LToolkit\Interfaces\IEntity;
+use LToolkit\Interfaces\EntityInterface;
 use LToolkit\Test\Environment\DynamicClass;
 
-class MockModel implements IEntity
+class MockModel implements EntityInterface
 {
     public const RELATIONS = ["relation1:id,name", "relation2.concatenated", "relation3"];
 
@@ -118,7 +118,7 @@ class MockModel implements IEntity
      * @param \stdClass $std
      * @return $this
      */
-    public function fromStdClass(\stdClass $std): IEntity
+    public function fromStdClass(\stdClass $std): EntityInterface
     {
         // TODO: Implement fromStdClass() method.
     }

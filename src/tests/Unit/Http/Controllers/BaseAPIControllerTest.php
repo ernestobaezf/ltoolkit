@@ -4,11 +4,11 @@ namespace LToolkit\Test\Unit\Http\Controllers;
 
 use ReflectionException;
 use Illuminate\Support\Facades\Route;
-use LToolkit\Interfaces\IUnitOfWork;
+use LToolkit\Interfaces\UnitOfWorkInterface;
 use LToolkit\Test\Environment\TestCase;
 use LToolkit\Adapters\ValidatorResolver;
-use LToolkit\Interfaces\IGenericRepository;
-use LToolkit\Interfaces\IValidatorResolver;
+use LToolkit\Interfaces\GenericRepositoryInterface;
+use LToolkit\Interfaces\ValidatorResolverInterface;
 use LToolkit\Test\Environment\DynamicClass;
 use LToolkit\Test\Environment\Models\MockModel;
 use LToolkit\Http\Controllers\BaseAPIController;
@@ -43,8 +43,8 @@ class BaseAPIControllerTest extends TestCase
      */
     public function test_getUnitOfWork()
     {
-        $uow = app(IUnitOfWork::class);
-        $validator = app(IValidatorResolver::class);
+        $uow = app(UnitOfWorkInterface::class);
+        $validator = app(ValidatorResolverInterface::class);
         $object = $this->getMockBuilder(BaseAPIController::class)
             ->setConstructorArgs(["unitOfWork" => $uow, "validatorResolver" => $validator])
             ->getMock();
@@ -56,7 +56,7 @@ class BaseAPIControllerTest extends TestCase
 
     /**
      * Test for formatting the response in controllers.
-     * Context: Serializer is null, the data in the response is not an IEntity and the message is null
+     * Context: Serializer is null, the data in the response is not an EntityInterface and the message is null
      */
     public function test_respond_1()
     {
@@ -83,7 +83,7 @@ class BaseAPIControllerTest extends TestCase
 
     /**
      * Test for formatting the response in controllers.
-     * Context: Serializer is null, the data in the response is not an IEntity and the message is a string
+     * Context: Serializer is null, the data in the response is not an EntityInterface and the message is a string
      */
     public function test_respond_2()
     {
@@ -112,7 +112,7 @@ class BaseAPIControllerTest extends TestCase
 
     /**
      * Test for formatting the response in controllers.
-     * Context: Use serializer, the data in the response is not an IEntity and the message is a string
+     * Context: Use serializer, the data in the response is not an EntityInterface and the message is a string
      */
     public function test_respond_3()
     {
@@ -141,7 +141,7 @@ class BaseAPIControllerTest extends TestCase
 
     /**
      * Test for formatting the response in controllers.
-     * Context: Serializer is null, the data in the response is an IEntity and the message is a string
+     * Context: Serializer is null, the data in the response is an EntityInterface and the message is a string
      */
     public function test_respond_4()
     {
@@ -170,7 +170,7 @@ class BaseAPIControllerTest extends TestCase
 
     /**
      * Test for formatting the response in controllers.
-     * Context: Serializer is null, the data in the response is an IEntity and the message is a string
+     * Context: Serializer is null, the data in the response is an EntityInterface and the message is a string
      */
     public function test_getRepository()
     {
@@ -181,7 +181,7 @@ class BaseAPIControllerTest extends TestCase
             ->onlyMethods(["getRepository"])
             ->getMock();
         $uow->expects(self::once())->method("getRepository")->willReturnCallback(function() {
-            return $this->app->make(IGenericRepository::class, ["modelClass" => MockEloquentModel::class]);
+            return $this->app->make(GenericRepositoryInterface::class, ["modelClass" => MockEloquentModel::class]);
         });
 
         $object = $this->getMockBuilder(BaseAPIController::class)
@@ -198,7 +198,7 @@ class BaseAPIControllerTest extends TestCase
         $method = self::getMethod('getRepository', BaseAPIController::class);
         $response = $method->invoke($object);
 
-        $this->assertInstanceOf(IGenericRepository::class, $response);
+        $this->assertInstanceOf(GenericRepositoryInterface::class, $response);
     }
 
     /**

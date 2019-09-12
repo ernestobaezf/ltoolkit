@@ -6,7 +6,4 @@
 namespace LToolkit\Interfaces;
 
 
-interface IPolicy
-{
-
-}
+interface StoreValidatorInterface extends ValidatorInterface {}

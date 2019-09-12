@@ -6,7 +6,7 @@
 namespace LToolkit\Interfaces;
 
 
-interface IValidatorResolver
+interface ValidatorResolverInterface
 {
     /**
      * IValidatorCollection constructor.
@@ -18,14 +18,14 @@ interface IValidatorResolver
 
     /**
      * @param  string     $methodName
-     * @param  IValidator $validator
-     * @return IValidatorResolver
+     * @param  ValidatorInterface $validator
+     * @return ValidatorResolverInterface
      */
-    function add(string $methodName, IValidator $validator): IValidatorResolver;
+    function add(string $methodName, ValidatorInterface $validator): ValidatorResolverInterface;
 
     /**
      * @param  string $methodName
-     * @return null|IValidator
+     * @return null|ValidatorInterface
      */
-    function get(string $methodName): ?IValidator;
+    function get(string $methodName): ?ValidatorInterface;
 }

@@ -7,7 +7,7 @@ namespace LToolkit\Test\Unit\Models;
 
 
 use LToolkit\Models\BaseModel;
-use LToolkit\Interfaces\IEntity;
+use LToolkit\Interfaces\EntityInterface;
 use LToolkit\Test\Environment\TestCase;
 
 class BaseModelTest extends TestCase
@@ -56,9 +56,9 @@ class BaseModelTest extends TestCase
 
         $method = self::getMethod("fromStdClass", BaseModel::class);
 
-        /** @var IEntity $result */
+        /** @var EntityInterface $result */
         $result = $method->invokeArgs($object, [$stdClass]);
 
-        self::assertInstanceOf(IEntity::class, $result);
+        self::assertInstanceOf(EntityInterface::class, $result);
     }
 }

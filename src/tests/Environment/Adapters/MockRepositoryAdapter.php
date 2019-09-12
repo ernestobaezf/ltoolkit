@@ -10,9 +10,9 @@ use Closure;
 use Exception;
 use Illuminate\Foundation\Application;
 use Illuminate\Database\Eloquent\Collection;
-use LToolkit\Interfaces\IRepositoryAdapter;
+use LToolkit\Interfaces\RepositoryAdapterInterface;
 
-class MockRepositoryAdapter implements IRepositoryAdapter
+class MockRepositoryAdapter implements RepositoryAdapterInterface
 {
     public function __construct(Application $app, string $modelClass)
     {
