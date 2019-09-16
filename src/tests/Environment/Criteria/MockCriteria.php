@@ -4,6 +4,7 @@
 namespace LToolkit\Test\Environment\Criteria;
 
 
+use Iterator;
 use LToolkit\Interfaces\CriteriaResolverInterface;
 
 
@@ -11,58 +12,39 @@ class MockCriteria implements CriteriaResolverInterface
 {
 
     /**
-     * Return the current element
-     * @link https://php.net/manual/en/iterator.current.php
-     * @return mixed Can return any type.
-     * @since 5.0.0
+     * Assign the criteria set associated to a repository
+     *
+     * @param string $key repository interface or class name
+     * @param array $criteria set of criteria instances to be applied to the repository
+     *
+     * @return void
      */
-    public function current()
+    public function set(string $key, array $criteria)
     {
-        // TODO: Implement current() method.
+        // TODO: Implement set() method.
     }
 
     /**
-     * Move forward to next element
-     * @link https://php.net/manual/en/iterator.next.php
-     * @return void Any returned value is ignored.
-     * @since 5.0.0
+     * Return the iterator of criteria associated to the key
+     *
+     * @param string $key repository interface or class name
+     *
+     * @return Iterator
      */
-    public function next()
+    public function get(string $key): Iterator
     {
-        // TODO: Implement next() method.
+        // TODO: Implement get() method.
     }
 
     /**
-     * Return the key of the current element
-     * @link https://php.net/manual/en/iterator.key.php
-     * @return mixed scalar on success, or null on failure.
-     * @since 5.0.0
+     * Returns true if there is a set of criteria for the given key
+     *
+     * @param string $key repository interface or class name
+     *
+     * @return bool
      */
-    public function key()
+    public function has(string $key): bool
     {
-        // TODO: Implement key() method.
-    }
-
-    /**
-     * Checks if current position is valid
-     * @link https://php.net/manual/en/iterator.valid.php
-     * @return boolean The return value will be casted to boolean and then evaluated.
-     * Returns true on success or false on failure.
-     * @since 5.0.0
-     */
-    public function valid()
-    {
-        // TODO: Implement valid() method.
-    }
-
-    /**
-     * Rewind the Iterator to the first element
-     * @link https://php.net/manual/en/iterator.rewind.php
-     * @return void Any returned value is ignored.
-     * @since 5.0.0
-     */
-    public function rewind()
-    {
-        // TODO: Implement rewind() method.
+        // TODO: Implement has() method.
     }
 }

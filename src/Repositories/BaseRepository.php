@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 use LToolkit\Traits\TLogAction;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
-use LToolkit\Interfaces\EntityInterface;
+use Psr\Repository\EntityInterface;
 use LToolkit\Interfaces\RepositoryAdapterInterface;
 use LToolkit\Interfaces\UnitOfWorkInterface;
 use LToolkit\Interfaces\BaseRepositoryInterface;

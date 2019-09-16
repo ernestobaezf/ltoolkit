@@ -4,17 +4,17 @@ namespace LToolkit\Test\Unit\Adapters;
 
 use Closure;
 use Exception;
+use ReflectionException;
+use LToolkit\Adapters\UnitOfWork;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
+use LToolkit\Test\Environment\TestCase;
 use LToolkit\Adapters\RepositoryResolver;
-use LToolkit\Adapters\UnitOfWork;
+use Psr\Repository\RemoteRepositoryInterface;
 use LToolkit\Interfaces\GenericRepositoryInterface;
-use LToolkit\Interfaces\RemoteRepositoryInterface;
+use LToolkit\Test\Environment\Repositories\MockRepository;
 use LToolkit\Test\Environment\Repositories\GenericMockRepository;
 use LToolkit\Test\Environment\Repositories\MockRemoteRepository;
-use LToolkit\Test\Environment\Repositories\MockRepository;
-use LToolkit\Test\Environment\TestCase;
-use ReflectionException;
 
 class RepositoryFinderTest extends TestCase
 {

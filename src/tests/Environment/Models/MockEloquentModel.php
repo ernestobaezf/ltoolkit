@@ -7,7 +7,7 @@ namespace LToolkit\Test\Environment\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
-use LToolkit\Interfaces\EntityInterface;
+use Psr\Repository\EntityInterface;
 use LToolkit\Test\Environment\DynamicClass;
 
 class MockEloquentModel extends Model implements EntityInterface

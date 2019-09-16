@@ -8,10 +8,10 @@ namespace LToolkit\Http\Controllers;
 
 use Closure;
 use Illuminate\Http\JsonResponse;
+use Psr\Repository\EntityInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
-use LToolkit\Interfaces\EntityInterface;
-use \Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Response;
 use LToolkit\Interfaces\SerializerInterface;
 use LToolkit\Interfaces\UnitOfWorkInterface;
 use LToolkit\Interfaces\BaseRepositoryInterface;

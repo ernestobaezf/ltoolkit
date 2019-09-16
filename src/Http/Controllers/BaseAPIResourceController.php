@@ -69,6 +69,8 @@ abstract class BaseAPIResourceController extends BaseAPIController implements AP
 
     /**
      * @inheritdoc
+     *
+     * @throws Exception
      */
     public function show(int $id): JsonResponse
     {

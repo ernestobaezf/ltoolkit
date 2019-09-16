@@ -1,6 +1,6 @@
 <?php
 /**
- * @author Ernesto Baez 
+ * @author Ernesto Baez
  */
 
 namespace LToolkit\Repositories;
@@ -9,9 +9,14 @@ namespace LToolkit\Repositories;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Client\ClientInterface;
-use LToolkit\Interfaces\RemoteRepositoryInterface;
+use Psr\Repository\RemoteRepositoryInterface;
 
+/**
+ * Class RemoteRepository
+ * @package LToolkit\Repositories
+ */
 abstract class RemoteRepository implements RemoteRepositoryInterface
 {
     /**
@@ -19,26 +24,24 @@ abstract class RemoteRepository implements RemoteRepositoryInterface
      */
     private $criteria;
 
+    /**
+     * @var ClientInterface;
+     */
     private $client = null;
 
-    public function __construct()
+    public function __construct(ContainerInterface $container)
     {
         $this->criteria = collect();
+        $this->client = $container->get(ClientInterface::class);
     }
 
     /**
      * Return http client to call remote services
      *
-     * @param  array $options
-     *
      * @return ClientInterface
      */
-    protected function getHttpClient(array $options=[]): ClientInterface
+    protected function getHttpClient(): ClientInterface
     {
-        if (!$this->client) {
-            return $this->client = app(ClientInterface::class, ["options" => $options]);
-        }
-
         return $this->client;
     }
 

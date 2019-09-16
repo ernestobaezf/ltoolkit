@@ -1,5 +1,9 @@
 <?php
-namespace LToolkit\Interfaces;
+/**
+ * @author Ernesto Baez
+ */
+
+namespace Psr\Repository;
 
 
 /**

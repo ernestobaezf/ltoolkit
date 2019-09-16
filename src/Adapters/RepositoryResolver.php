@@ -7,11 +7,11 @@ namespace LToolkit\Adapters;
 
 
 use Exception;
-use LToolkit\Interfaces\UnitOfWorkInterface;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
+use LToolkit\Interfaces\UnitOfWorkInterface;
+use Psr\Repository\RemoteRepositoryInterface;
 use LToolkit\Interfaces\BaseRepositoryInterface;
-use LToolkit\Interfaces\RemoteRepositoryInterface;
 use LToolkit\Interfaces\GenericRepositoryInterface;
 use LToolkit\Interfaces\RepositoryResolverInterface;
 use Illuminate\Contracts\Container\BindingResolutionException;

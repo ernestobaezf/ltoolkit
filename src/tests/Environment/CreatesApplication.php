@@ -17,7 +17,7 @@ trait CreatesApplication
     {
         $app = require __DIR__.'/../../../../../../bootstrap/app.php';
 
-        $app->make(Kernel::class)->bootstrap();
+        $app->get(Kernel::class)->bootstrap();
         $app->bind("translator", MockTranslator::class);
 
         return $app;

@@ -1,5 +1,5 @@
 <?php
-namespace LToolkit\Interfaces;
+namespace Psr\Repository;
 
 
 use Exception;

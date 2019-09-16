@@ -7,8 +7,8 @@ namespace LToolkit\Adapters;
 
 use Illuminate\Support\Facades\DB;
 use LToolkit\Interfaces\UnitOfWorkInterface;
+use Psr\Repository\RemoteRepositoryInterface;
 use LToolkit\Interfaces\BaseRepositoryInterface;
-use LToolkit\Interfaces\RemoteRepositoryInterface;
 use LToolkit\Interfaces\RepositoryResolverInterface;
 use Illuminate\Contracts\Container\BindingResolutionException;
 

@@ -3,7 +3,7 @@
  * @author Ernesto Baez 
  */
 
-namespace LToolkit\Interfaces;
+namespace Psr\Repository;
 
 
 use Illuminate\Contracts\Queue\QueueableEntity;

@@ -7,7 +7,7 @@ namespace LToolkit\Test\Environment\Repositories;
 
 
 use Exception;
-use LToolkit\Interfaces\EntityInterface;
+use Psr\Repository\EntityInterface;
 use Illuminate\Support\Collection;
 use LToolkit\Interfaces\UnitOfWorkInterface;
 use LToolkit\Interfaces\BaseRepositoryInterface;

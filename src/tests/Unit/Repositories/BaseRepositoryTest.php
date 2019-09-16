@@ -8,7 +8,7 @@ namespace LToolkit\Test\Unit\Repositories;
 
 use Exception;
 use Illuminate\Support\Facades\Log;
-use LToolkit\Interfaces\EntityInterface;
+use Psr\Repository\EntityInterface;
 use LToolkit\Interfaces\RepositoryAdapterInterface;
 use LToolkit\Interfaces\UnitOfWorkInterface;
 use LToolkit\Repositories\BaseRepository;
