@@ -46,7 +46,7 @@ final class RepositoryResolver implements RepositoryResolverInterface
         );
 
         if (in_array(RemoteRepositoryInterface::class, class_implements($repository))) {
-            return app()->make($repository);
+            return app()->get($repository);
         }
 
         $arguments = [self::ARGUMENT_UNIT_OF_WORK => $this->unitOfWork];

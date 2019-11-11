@@ -10,14 +10,14 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use LToolkit\Interfaces\UnitOfWorkInterface;
-use LToolkit\Interfaces\CriteriaIteratorInterface;
+use LToolkit\Interfaces\CriteriaResolverInterface;
 use LToolkit\Interfaces\ValidatorResolverInterface;
 use LToolkit\Interfaces\APIResourceControllerInterface;
 
 abstract class BaseAPIResourceController extends BaseAPIController implements APIResourceControllerInterface
 {
     /**
-     * @var CriteriaIteratorInterface
+     * @var CriteriaResolverInterface
      */
     private $criteria;
 
@@ -26,11 +26,11 @@ abstract class BaseAPIResourceController extends BaseAPIController implements AP
      *
      * @param UnitOfWorkInterface        $unitOfWork
      * @param ValidatorResolverInterface $validatorResolver
-     * @param CriteriaIteratorInterface  $criteria          Used to filter content in index method
+     * @param CriteriaResolverInterface  $criteria          Used to filter content in index method
      */
     public function __construct(UnitOfWorkInterface $unitOfWork,
                                 ValidatorResolverInterface $validatorResolver,
-                                CriteriaIteratorInterface $criteria
+                                CriteriaResolverInterface $criteria
     ) {
         $this->criteria = $criteria;
 
@@ -123,10 +123,6 @@ abstract class BaseAPIResourceController extends BaseAPIController implements AP
 
         $repository = $this->getRepository();
         $entity = $repository->update($id, $input);
-
-        if (!$entity) {
-            return $this->respond(null, trans('ltoolkit::messages.entity.not_found'), 404);
-        }
 
         return $this->respond($entity, trans('ltoolkit::messages.entity.updated'));
     }

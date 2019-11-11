@@ -9,31 +9,31 @@ namespace LToolkit;
 use LToolkit\Helpers\Evaluator;
 use LToolkit\Adapters\UnitOfWork;
 use LToolkit\Helpers\MathFunctions;
+use LToolkit\Adapters\CriteriaResolver;
+use LToolkit\Adapters\ValidatorResolver;
+use LToolkit\Adapters\RepositoryResolver;
+use LToolkit\Providers\BaseServiceProvider;
 use LToolkit\Interfaces\EvaluatorInterface;
+use LToolkit\Repositories\GenericRepository;
 use LToolkit\Interfaces\UnitOfWorkInterface;
 use LToolkit\Interfaces\StoreValidatorInterface;
-use LToolkit\Adapters\CriteriaIterator;
-use LToolkit\Adapters\RepositoryResolver;
+use Prettus\Repository\Criteria\RequestCriteria;
 use LToolkit\Interfaces\UpdateValidatorInterface;
-use LToolkit\Adapters\ValidatorResolver;
-use LToolkit\Interfaces\CriteriaIteratorInterface;
-use LToolkit\Interfaces\RepositoryResolverInterface;
+use LToolkit\Http\Validators\BasicStoreValidator;
+use LToolkit\Interfaces\CriteriaResolverInterface;
+use LToolkit\Http\Validators\BasicUpdateValidator;
+use LToolkit\Adapters\BasePrettusRepositoryAdapter;
 use LToolkit\Interfaces\GenericRepositoryInterface;
 use LToolkit\Interfaces\ValidatorResolverInterface;
-use LToolkit\Providers\BaseServiceProvider;
-use LToolkit\Repositories\GenericRepository;
 use LToolkit\Interfaces\RepositoryAdapterInterface;
-use Prettus\Repository\Criteria\RequestCriteria;
-use LToolkit\Http\Validators\BasicStoreValidator;
-use LToolkit\Http\Validators\BasicUpdateValidator;
-use LToolkit\Adapters\BasePrettusConnectorRepository;
+use LToolkit\Interfaces\RepositoryResolverInterface;
 
 class ServiceProvider extends BaseServiceProvider
 {
     public $bindings = [
         RepositoryResolverInterface::class => RepositoryResolver::class,
         GenericRepositoryInterface::class => GenericRepository::class,
-        RepositoryAdapterInterface::class => BasePrettusConnectorRepository::class,
+        RepositoryAdapterInterface::class => BasePrettusRepositoryAdapter::class,
         UnitOfWorkInterface::class => UnitOfWork::class,
         StoreValidatorInterface::class => BasicStoreValidator::class,
         UpdateValidatorInterface::class => BasicUpdateValidator::class,
@@ -82,8 +82,7 @@ class ServiceProvider extends BaseServiceProvider
 
         $this->publishes(
             [
-                $this->getPath("Config".DIRECTORY_SEPARATOR."$packageName.php") =>
-                    config_path("$packageName.php"),
+                $this->getPath("Config".DIRECTORY_SEPARATOR."$packageName.php") => config_path("$packageName.php"),
             ], 'config'
         );
     }
@@ -96,9 +95,9 @@ class ServiceProvider extends BaseServiceProvider
     public function register()
     {
         $this->app->bind(
-            CriteriaIteratorInterface::class, function () {
-            $requestCriteria = $this->app->make(RequestCriteria::class);
-            return $this->app->make(CriteriaIterator::class, ["array" => [$requestCriteria]]);
+            CriteriaResolverInterface::class, function () {
+            $requestCriteria = $this->app->get(RequestCriteria::class);
+            return $this->app->make(CriteriaResolver::class, ["array" => [$requestCriteria]]);
         });
 
         $this->app->singleton("math", MathFunctions::class);

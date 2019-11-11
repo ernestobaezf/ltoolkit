@@ -4,12 +4,11 @@
 namespace LToolkit\Test\Environment\Criteria;
 
 
-use LToolkit\Interfaces\CriteriaIteratorInterface;
+use LToolkit\Interfaces\CriteriaResolverInterface;
 
 
-class MockCriteria implements CriteriaIteratorInterface
+class MockCriteria implements CriteriaResolverInterface
 {
-
 
     /**
      * Return the current element

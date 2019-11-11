@@ -4,12 +4,12 @@ namespace LToolkit\Test\Unit\Http\Controllers;
 
 use Exception;
 use Illuminate\Http\Request;
-use LToolkit\Interfaces\UnitOfWorkInterface;
 use LToolkit\Test\Environment\TestCase;
 use Illuminate\Support\Facades\Response;
-use LToolkit\Interfaces\CriteriaIteratorInterface;
-use LToolkit\Interfaces\ValidatorResolverInterface;
+use LToolkit\Interfaces\UnitOfWorkInterface;
 use Illuminate\Http\Response as HttpReponse;
+use LToolkit\Interfaces\CriteriaResolverInterface;
+use LToolkit\Interfaces\ValidatorResolverInterface;
 use LToolkit\Test\Environment\MockExceptionHandler;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use LToolkit\Http\Controllers\BaseAPIResourceController;
@@ -36,7 +36,7 @@ class BaseAPIResourceControllerTest extends TestCase
                 [
                 'unitOfWork'          => app(UnitOfWorkInterface::class),
                 'validatorCollection' => app(ValidatorResolverInterface::class),
-                'criteria'            => app(CriteriaIteratorInterface::class)]
+                'criteria'            => app(CriteriaResolverInterface::class)]
             )
             ->getMock();
 
@@ -87,7 +87,7 @@ class BaseAPIResourceControllerTest extends TestCase
                 [
                 'unitOfWork'          => app(UnitOfWorkInterface::class),
                 'validatorCollection' => app(ValidatorResolverInterface::class),
-                'criteria'            => app(CriteriaIteratorInterface::class)]
+                'criteria'            => app(CriteriaResolverInterface::class)]
             )
             ->getMock();
 
@@ -137,7 +137,7 @@ class BaseAPIResourceControllerTest extends TestCase
                 [
                 'unitOfWork'          => app(UnitOfWorkInterface::class),
                 'validatorCollection' => app(ValidatorResolverInterface::class),
-                'criteria'            => app(CriteriaIteratorInterface::class)]
+                'criteria'            => app(CriteriaResolverInterface::class)]
             )
             ->getMock();
 
@@ -169,7 +169,7 @@ class BaseAPIResourceControllerTest extends TestCase
                 [
                 'unitOfWork'          => app(UnitOfWorkInterface::class),
                 'validatorCollection' => app(ValidatorResolverInterface::class),
-                'criteria'            => app(CriteriaIteratorInterface::class)]
+                'criteria'            => app(CriteriaResolverInterface::class)]
             )
             ->getMock();
 
@@ -198,7 +198,7 @@ class BaseAPIResourceControllerTest extends TestCase
                 [
                     'unitOfWork'          => app(UnitOfWorkInterface::class),
                     'validatorCollection' => app(ValidatorResolverInterface::class),
-                    'criteria'            => app(CriteriaIteratorInterface::class)]
+                    'criteria'            => app(CriteriaResolverInterface::class)]
             )
             ->getMock();
 
@@ -234,7 +234,7 @@ class BaseAPIResourceControllerTest extends TestCase
                 [
                 'unitOfWork'          => app(UnitOfWorkInterface::class),
                 'validatorCollection' => app(ValidatorResolverInterface::class),
-                'criteria'            => app(CriteriaIteratorInterface::class)]
+                'criteria'            => app(CriteriaResolverInterface::class)]
             )
             ->getMock();
 
@@ -266,7 +266,7 @@ class BaseAPIResourceControllerTest extends TestCase
                 [
                 'unitOfWork'          => app(UnitOfWorkInterface::class),
                 'validatorCollection' => app(ValidatorResolverInterface::class),
-                'criteria'            => app(CriteriaIteratorInterface::class)]
+                'criteria'            => app(CriteriaResolverInterface::class)]
             )
             ->getMock();
 
@@ -294,7 +294,7 @@ class BaseAPIResourceControllerTest extends TestCase
                 [
                 'unitOfWork'          => app(UnitOfWorkInterface::class),
                 'validatorCollection' => app(ValidatorResolverInterface::class),
-                'criteria'            => app(CriteriaIteratorInterface::class)]
+                'criteria'            => app(CriteriaResolverInterface::class)]
             )
             ->getMock();
 
@@ -338,7 +338,7 @@ class BaseAPIResourceControllerTest extends TestCase
                 [
                 'unitOfWork'          => app(UnitOfWorkInterface::class),
                 'validatorCollection' => app(ValidatorResolverInterface::class),
-                'criteria'            => app(CriteriaIteratorInterface::class)]
+                'criteria'            => app(CriteriaResolverInterface::class)]
             )
             ->getMock();
 
@@ -370,7 +370,7 @@ class BaseAPIResourceControllerTest extends TestCase
                 [
                 'unitOfWork'          => app(UnitOfWorkInterface::class),
                 'validatorCollection' => app(ValidatorResolverInterface::class),
-                'criteria'            => app(CriteriaIteratorInterface::class)]
+                'criteria'            => app(CriteriaResolverInterface::class)]
             )
             ->getMock();
 
@@ -403,7 +403,7 @@ class BaseAPIResourceControllerTest extends TestCase
                 [
                 'unitOfWork'          => app(UnitOfWorkInterface::class),
                 'validatorCollection' => app(ValidatorResolverInterface::class),
-                'criteria'            => app(CriteriaIteratorInterface::class)]
+                'criteria'            => app(CriteriaResolverInterface::class)]
             )
             ->getMock();
 
@@ -444,7 +444,7 @@ class BaseAPIResourceControllerTest extends TestCase
                 [
                 'unitOfWork'          => app(UnitOfWorkInterface::class),
                 'validatorCollection' => app(ValidatorResolverInterface::class),
-                'criteria'            => app(CriteriaIteratorInterface::class)]
+                'criteria'            => app(CriteriaResolverInterface::class)]
             )
             ->getMock();
 
@@ -475,7 +475,7 @@ class BaseAPIResourceControllerTest extends TestCase
                 [
                 'unitOfWork'          => app(UnitOfWorkInterface::class),
                 'validatorCollection' => app(ValidatorResolverInterface::class),
-                'criteria'            => app(CriteriaIteratorInterface::class)]
+                'criteria'            => app(CriteriaResolverInterface::class)]
             )
             ->getMock();
 
@@ -505,7 +505,7 @@ class BaseAPIResourceControllerTest extends TestCase
                 [
                 'unitOfWork'          => app(UnitOfWorkInterface::class),
                 'validatorCollection' => app(ValidatorResolverInterface::class),
-                'criteria'            => app(CriteriaIteratorInterface::class)]
+                'criteria'            => app(CriteriaResolverInterface::class)]
             )
             ->getMock();
 

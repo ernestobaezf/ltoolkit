@@ -6,7 +6,7 @@
 namespace LToolkit\Interfaces;
 
 
-interface CriteriaIteratorInterface extends \Iterator
+interface CriteriaResolverInterface extends \Iterator
 {
 
 }

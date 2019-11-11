@@ -5,13 +5,13 @@
 
 namespace LToolkit\Adapters;
 
-use LToolkit\Interfaces\RepositoryAdapterInterface;
 use Illuminate\Container\Container as Application;
+use LToolkit\Interfaces\RepositoryAdapterInterface;
 use Prettus\Repository\Events\RepositoryEntityDeleted;
 use Prettus\Repository\Exceptions\RepositoryException;
 use Prettus\Repository\Eloquent\BaseRepository as PrettusRepositoryEloquent;
 
-class BasePrettusConnectorRepository extends PrettusRepositoryEloquent implements RepositoryAdapterInterface
+class BasePrettusRepositoryAdapter extends PrettusRepositoryEloquent implements RepositoryAdapterInterface
 {
     private $modelClass;
 
@@ -31,6 +31,9 @@ class BasePrettusConnectorRepository extends PrettusRepositoryEloquent implement
         return $this->modelClass;
     }
 
+    /**
+     * @return array
+     */
     public function getFieldsSearchable()
     {
         return $this->model->getFillable();

@@ -6,11 +6,11 @@
 namespace LToolkit\Adapters;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\App;
 use LToolkit\Interfaces\UnitOfWorkInterface;
 use LToolkit\Interfaces\BaseRepositoryInterface;
 use LToolkit\Interfaces\RemoteRepositoryInterface;
 use LToolkit\Interfaces\RepositoryResolverInterface;
+use Illuminate\Contracts\Container\BindingResolutionException;
 
 final class UnitOfWork implements UnitOfWorkInterface
 {
@@ -26,10 +26,15 @@ final class UnitOfWork implements UnitOfWorkInterface
      */
     private $repositoryFinder;
 
+    /**
+     * UnitOfWork constructor.
+     * @param bool $autoCommit
+     * @throws BindingResolutionException
+     */
     public function __construct(bool $autoCommit=true)
     {
         $this->setAutoCommit($autoCommit);
-        $this->repositoryFinder = App::make(RepositoryResolverInterface::class, ["unitOfWork" => $this]);
+        $this->repositoryFinder = app()->make(RepositoryResolverInterface::class, ["unitOfWork" => $this]);
     }
 
     /**

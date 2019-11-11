@@ -1,6 +1,6 @@
 # Laravel Toolkit
 
-This is a laravel package to save time by implementing a lot of common action when creating (mainly) and API 
+This is a laravel package to save time by implementing a lot of common action when creating (mainly) an API 
 oriented application following different design patterns. Here you can find the basics for:
 
 * Service providers 
@@ -49,13 +49,13 @@ Of course, is not mandatory to structure the project as explained. You can do us
 
 Install via composer:
 
-    composer require ernestobaezf/l5toolkit
+    composer require ernestobaezf/ltoolkit
     
 Then in your `config/app.php` add the following provider to the list:
     
     'providers' => [
          ...
-         l5toolkit\ServiceProvider::class,
+         LToolkit\ServiceProvider::class,
     ]
 
 ## Service provider
@@ -141,7 +141,7 @@ before or a variation that requires to control the data persistence.
 The *Unit of Work* as the entry point to use the repository has a method `UnitOfWork::getRepository($entityClass)`. This is 
 based in a repository finder that discovers repositories related to an entity following the rules below:
 
-1. Returns the repository mapped to the entity in the `config.packages.core.repository_map`. If there is a mapping declared 
+1. Returns the repository mapped to the entity in the `config.LToolkit.repository_map`. If there is a mapping declared 
 and the associated repository does not exist then an exception is thrown.
 
 2. If there is not mapping like in the first step then it returns the associated repository (following the naming convention)
@@ -149,7 +149,7 @@ and the associated repository does not exist then an exception is thrown.
  base GenericRepository is returned.
  
 3. If there is no mapping specified then the repository returned is the result of following the step 2 with the default 
-mapping (Packages\<package_name>\Models => Packages\<package_name>\Repositories)
+mapping (`Packages\<package_name>\Models => Packages\<package_name>\Repositories`)
 
 **Naming convention:** The repositories are places always inside the directory *Repositories* and the name starts with the 
                    corresponding model name and ends by *Repository*. For instance: `SampleRepository` for the name of 
@@ -162,7 +162,12 @@ and add the specific methods.
 
 * RemoteRepository: This is the repository used to handle data from remote services. Instead of calling any http client 
 (like guzzle) directly and handle the response differently each time, this structure tries to unify the access to data, 
-no matter where it comes from.
+no matter where it comes from. To use RemoteRepository is require install a package that [implements 
+HttpClient](http://docs.php-http.org/en/latest/clients.html) and declare a binding to it in your service provider. 
+We recommend the use of php-http/guzzle6-adapter:
+
+>
+    $this->app->singleton("Http\Client\HttpClient", Http\Adapter\Guzzle6\Client::class);
 
 ## API controllers
 
@@ -227,7 +232,7 @@ Also is recommended to use CustomLogFormatter to get an easy to parse log record
     'daily' => [
                 'driver' => 'daily',
                 'path' => storage_path('logs/laravel.log'),
-                'formatter' => \l5toolkit\Formatters\CustomLogFormatter::class,
+                'formatter' => \LToolkit\Formatters\CustomLogFormatter::class,
                 'formatter_with' => [
                     "format" => "[%datetime%] %channel%.%level_name% %context% %extra% %message%\n",
                     "dateFormat" => null,
@@ -301,7 +306,7 @@ To set the middleware, in the file `app\Http\Kernel.php` set:
 
     protected $routeMiddleware = [
         ...
-        'l18n' => \l5toolkit\Http\Middleware\Localization::class,
+        'l18n' => \LToolkit\Http\Middleware\Localization::class,
     ];
 
 ## Use case
