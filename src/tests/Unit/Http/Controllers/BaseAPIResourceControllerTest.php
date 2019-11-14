@@ -208,7 +208,7 @@ class BaseAPIResourceControllerTest extends TestCase
         $method   = self::getMethod('show', BaseAPIResourceController::class);
 
         $this->app->bind("request", function () {
-            return new Request(["with" => "relation1"]);
+            return new Request(["with" => "relation1", "columns" => "column1;column2"]);
         });
         $response = $method->invokeArgs($object, [$params]);
 

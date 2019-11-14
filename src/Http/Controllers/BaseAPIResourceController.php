@@ -157,7 +157,7 @@ abstract class BaseAPIResourceController extends BaseAPIController implements AP
      */
     private function extractColumns(string $columns): array
     {
-        $_columns = explode(";", $columns);
+        $_columns = array_filter(explode(";", $columns));
         $columns = ["*"];
         if ($_columns) {
             $columns = $_columns;
