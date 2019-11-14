@@ -1,6 +1,6 @@
 <?php
 /**
- * @author Ernesto Baez 
+ * @author Ernesto Baez
  */
 
 namespace LToolkit\Repositories;
@@ -360,12 +360,12 @@ abstract class BaseRepository implements BaseRepositoryInterface
             list($autoCommit, $withRelations, $_attributes) = $this->checkRelation($attributes);
 
             switch ($operation) {
-            case 'updateOrCreate':
-            case 'update':
-                $entity = $this->getInternalRepository()->{$operation}($_attributes, $values);
-                break;
-            default:
-                $entity = $this->getInternalRepository()->create($_attributes);
+                case 'updateOrCreate':
+                case 'update':
+                    $entity = $this->getInternalRepository()->{$operation}($_attributes, $values);
+                    break;
+                default:
+                    $entity = $this->getInternalRepository()->create($_attributes);
             }
 
             foreach ($withRelations as $relation => $value) {
@@ -379,9 +379,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
                 Log::info(
                     "Sync relation: $relation", [
-                    "class" => static::class,
-                    "method" => $operation,
-                    "payload" => $relation
+                        "class" => static::class,
+                        "method" => $operation,
+                        "payload" => $relation
                     ]
                 );
             }

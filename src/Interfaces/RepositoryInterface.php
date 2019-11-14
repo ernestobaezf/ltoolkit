@@ -24,7 +24,7 @@ interface RepositoryInterface
     /**
      * Retrieve all data of repository, paginated
      *
-     * @param null  $limit
+     * @param ?int  $limit
      * @param array $columns
      *
      * @return mixed
@@ -34,7 +34,7 @@ interface RepositoryInterface
     /**
      * Retrieve all data of repository, simple paginated
      *
-     * @param null  $limit
+     * @param ?int  $limit
      * @param array $columns
      *
      * @return mixed

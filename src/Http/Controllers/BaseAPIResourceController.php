@@ -56,10 +56,12 @@ abstract class BaseAPIResourceController extends BaseAPIController implements AP
             }
         }
 
+        $columns = $this->extractColumns($request->get("columns", "") ?? "");
+
         if ($limit = $request->get('limit')) {
-            $entities = $repository->paginate($limit);
+            $entities = $repository->paginate($limit, $columns);
         } else {
-            $entities = $repository->all();
+            $entities = $repository->all($columns);
         }
 
         return $this->respond($entities, trans_choice('ltoolkit::messages.entity.retrieved', $entities->count()));
@@ -78,22 +80,29 @@ abstract class BaseAPIResourceController extends BaseAPIController implements AP
             $relations = explode(';', $with);
         }
 
-        return $this->showWithRelationList($id, $relations);
+        $columns = $this->extractColumns($request->get("columns", "") ?? "");
+
+        if ($relations) {
+            $columns += ['relations' => $relations];
+        }
+
+        return $this->showWithRelationList($id, $columns);
     }
 
     /**
      * Get the entity detail with relations is requested
      *
-     * @param int   $id
-     * @param array $relations
+     * @param int $id
+     * @param array $columns
      *
      * @return JsonResponse
+     * @throws Exception
      */
-    protected function showWithRelationList(int $id, array $relations): JsonResponse
+    protected function showWithRelationList(int $id, array $columns=["*"]): JsonResponse
     {
         $repository = $this->getRepository();
-        $entity = $repository->find($id, ['*', 'relations' => $relations]);
 
+        $entity = $repository->find($id, $columns);
         return $this->respond($entity, trans_choice('ltoolkit::messages.entity.retrieved', 1));
     }
 
@@ -137,5 +146,22 @@ abstract class BaseAPIResourceController extends BaseAPIController implements AP
         $this->getRepository()->delete($id);
 
         return $this->respond($id, trans('ltoolkit::messages.entity.deleted'));
+    }
+
+    /**
+     * Get columns from request
+     *
+     * @param string $columns
+     *
+     * @return array
+     */
+    private function extractColumns(string $columns): array
+    {
+        $_columns = explode(";", $columns);
+        $columns = ["*"];
+        if ($_columns) {
+            $columns = $_columns;
+        }
+        return $columns;
     }
 }
