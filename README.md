@@ -171,12 +171,13 @@ We recommend the use of php-http/guzzle6-adapter:
 
 ## API controllers
 
-There is a BaseAPIResourceController which implements APIResourceControllerInterface that defines the minimum and commons set 
- of methods (index, show, store, update, destroy) to handle CRUD. This BaseAPIResourceController 
- has injected a *Unit of Work* that allows to get the repositories according the requiring entity class. In this
- controller, the method index has an CriteriaIteratorInterface as parameter, which is linked to CriteriaIterator that has as a default
+There is a BaseAPIResourceController which implements APIResourceControllerInterface that defines the minimum and a 
+ common set of methods (index, show, store, update, destroy) to handle CRUD. This BaseAPIResourceController 
+ has injected a *Unit of Work* that allows to get the repositories according the requiring entity class, together with a 
+ ValidatorResolver and a CriteriaResolverInterface as parameter in the constructor. CriteriaResolver has as a default
  param, a RequestCriteria, to filter the results with a criteria [defined in l5-repository package](https://github.com/andersao/l5-repository#using-the-requestcriteria).
- This association can be adapted to different needs in the bindings (see **Service Provider** section).
+ This association can be adapted to different needs in the bindings (see **Service Provider** section) or extending the 
+ controller and passing a new CriteriaResolver with the customized array of criteria for the specific case.
  
 To access remote data, the idea is to follow the same structure and pattern as the BaseAPIResourceController 
 by using the RemoteRepository to access remote data. So is needed to:
