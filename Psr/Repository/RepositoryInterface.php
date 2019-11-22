@@ -111,4 +111,13 @@ interface RepositoryInterface
      * @throws Exception Not found exception
      */
     public function delete($id): int;
+
+    /**
+     * Push Criteria for filter the query
+     *
+     * @param mixed $criteria
+     *
+     * @return $this
+     */
+    public function setCriteria($criteria);
 }

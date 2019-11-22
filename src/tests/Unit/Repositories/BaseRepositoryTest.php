@@ -8,16 +8,16 @@ namespace LToolkit\Test\Unit\Repositories;
 
 use Exception;
 use Illuminate\Support\Facades\Log;
+use LRepositoryAdapter\BaseRepository;
+use LRepositoryAdapter\Interfaces\RepositoryAdapterInterface;
 use Psr\Repository\EntityInterface;
-use LToolkit\Interfaces\RepositoryAdapterInterface;
-use LToolkit\Interfaces\UnitOfWorkInterface;
-use LToolkit\Repositories\BaseRepository;
 use LToolkit\Test\Environment\Adapters\MockRepositoryAdapter;
 use LToolkit\Test\Environment\Adapters\MockUnitOfWork;
 use LToolkit\Test\Environment\DynamicClass;
 use LToolkit\Test\Environment\Models\MockModel;
 use LToolkit\Test\Environment\Models\MockModelNoRelations;
 use LToolkit\Test\Environment\TestCase;
+use Psr\Repository\UnitOfWorkInterface;
 
 class BaseRepositoryTest extends TestCase
 {
@@ -344,13 +344,10 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->onlyMethods(["model", "evaluate"])
+            ->onlyMethods(["model"])
             ->setConstructorArgs([app(UnitOfWorkInterface::class)])
             ->getMock();
         $object->method("model")->willReturn("");
-        $object->method("evaluate")->willReturnCallback(function ($closure, $functionName, $payload) {
-            return $closure();
-        });
 
         $class = new \ReflectionObject($object);
         $method = $class->getMethod("all");
@@ -383,14 +380,10 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->onlyMethods(["model", "evaluate"])
+            ->onlyMethods(["model"])
             ->setConstructorArgs([app(UnitOfWorkInterface::class)])
             ->getMock();
         $object->method("model")->willReturn("");
-        $object->method("evaluate")->willReturnCallback(function ($closure, $functionName, $payload)
-        {
-            return $closure();
-        });
 
         $class = new \ReflectionObject($object);
         $method = $class->getMethod("paginate");
@@ -423,13 +416,10 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->onlyMethods(["model", "evaluate"])
+            ->onlyMethods(["model"])
             ->setConstructorArgs([app(UnitOfWorkInterface::class)])
             ->getMock();
         $object->method("model")->willReturn("");
-        $object->method("evaluate")->willReturnCallback(function ($closure, $functionName, $payload) {
-            return $closure();
-        });
 
         $class = new \ReflectionObject($object);
         $method = $class->getMethod("simplePaginate");
@@ -468,16 +458,13 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->onlyMethods(["model", "evaluate", "setScope"])
+            ->onlyMethods(["model", "setScope"])
             ->setConstructorArgs([app(UnitOfWorkInterface::class)])
             ->getMock();
         $object->method("setScope")->willReturnCallback(function ($arg) {
             return $arg;
         });
         $object->method("model")->willReturn("");
-        $object->method("evaluate")->willReturnCallback(function ($closure, $functionName, $payload) {
-            return $closure();
-        });
 
         $class = new \ReflectionObject($object);
         $method = $class->getMethod("find");
@@ -521,7 +508,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->onlyMethods(["model", "evaluate", "setScope"])
+            ->onlyMethods(["model", "setScope"])
             ->setConstructorArgs([app(UnitOfWorkInterface::class)])
             ->getMock();
         $object->method("setScope")->willReturnCallback(function ($arg)
@@ -529,10 +516,6 @@ class BaseRepositoryTest extends TestCase
             return $arg;
         });
         $object->method("model")->willReturn("");
-        $object->method("evaluate")->willReturnCallback(function ($closure, $functionName, $payload)
-        {
-            return $closure();
-        });
 
         $class = new \ReflectionObject($object);
         $method = $class->getMethod("findByField");
@@ -568,7 +551,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->onlyMethods(["model", "evaluate", "execute"])
+            ->onlyMethods(["model", "execute"])
             ->setConstructorArgs([$uow])
             ->getMock();
         $object->method("model")->willReturn("");
@@ -579,11 +562,6 @@ class BaseRepositoryTest extends TestCase
             self::assertTrue($attributes == $_attributes);
 
             return new MockModel();
-        });
-
-        $object->method("evaluate")->willReturnCallback(function ($closure, $functionName, $payload)
-        {
-            return $closure();
         });
 
         $class = new \ReflectionObject($object);
@@ -617,7 +595,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->onlyMethods(["model", "evaluate", "execute"])
+            ->onlyMethods(["model", "execute"])
             ->setConstructorArgs([$uow])
             ->getMock();
         $object->method("model")->willReturn("");
@@ -629,11 +607,6 @@ class BaseRepositoryTest extends TestCase
             self::assertTrue($attributes == $_attributes);
 
             return new MockModel();
-        });
-
-        $object->expects(self::once())->method("evaluate")->willReturnCallback(function ($closure, $functionName, $payload)
-        {
-            return $closure();
         });
 
         $class = new \ReflectionObject($object);
@@ -665,7 +638,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->onlyMethods(["model", "evaluate", "execute"])
+            ->onlyMethods(["model", "execute"])
             ->setConstructorArgs([$uow])
             ->getMock();
         $object->method("model")->willReturn("");
@@ -677,11 +650,6 @@ class BaseRepositoryTest extends TestCase
             self::assertTrue($attributes == $_attributes);
 
             return new MockModel();
-        });
-
-        $object->method("evaluate")->willReturnCallback(function ($closure, $functionName, $payload)
-        {
-            return $closure();
         });
 
         $class = new \ReflectionObject($object);
@@ -731,7 +699,7 @@ class BaseRepositoryTest extends TestCase
             ->disableOriginalClone()
             ->disableArgumentCloning()
             ->disallowMockingUnknownTypes()
-            ->onlyMethods(["model", "evaluate", "execute"])
+            ->onlyMethods(["model", "execute"])
             ->setConstructorArgs([$uow])
             ->getMock();
         $object->method("model")->willReturn("");
@@ -742,11 +710,6 @@ class BaseRepositoryTest extends TestCase
             self::assertTrue($id == $_id);
 
             return new MockModel();
-        });
-
-        $object->method("evaluate")->willReturnCallback(function ($closure, $functionName, $payload)
-        {
-            return $closure();
         });
 
         $class = new \ReflectionObject($object);

@@ -11,18 +11,19 @@ use Illuminate\Http\JsonResponse;
 use Psr\Repository\EntityInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
+use Psr\Repository\RepositoryInterface;
+use Psr\Repository\UnitOfWorkInterface;
 use Illuminate\Support\Facades\Response;
 use LToolkit\Interfaces\SerializerInterface;
-use LToolkit\Interfaces\UnitOfWorkInterface;
-use LToolkit\Interfaces\BaseRepositoryInterface;
 use LToolkit\Interfaces\ValidatorResolverInterface;
+use LToolkit\Interfaces\RepositoryResolverInterface;
 
 abstract class BaseAPIController extends Controller
 {
     /**
      * @var UnitOfWorkInterface $unitOfWork
      */
-    private $unitOfWork;
+    private $repositoryResolver;
 
     /**
      * @var SerializerInterface
@@ -32,12 +33,12 @@ abstract class BaseAPIController extends Controller
     /**
      * BaseAPIController constructor.
      *
-     * @param UnitOfWorkInterface        $unitOfWork
-     * @param ValidatorResolverInterface $validatorResolver
+     * @param RepositoryResolverInterface $repositoryResolver
+     * @param ValidatorResolverInterface  $validatorResolver
      */
-    public function __construct(UnitOfWorkInterface $unitOfWork, ValidatorResolverInterface $validatorResolver)
+    public function __construct(RepositoryResolverInterface $repositoryResolver, ValidatorResolverInterface $validatorResolver)
     {
-        $this->unitOfWork = $unitOfWork;
+        $this->repositoryResolver = $repositoryResolver;
 
         $this->middleware($this->validationsClause($validatorResolver));
     }
@@ -72,22 +73,22 @@ abstract class BaseAPIController extends Controller
     /**
      * @param string $entityClass
      *
-     * @return BaseRepositoryInterface
+     * @return RepositoryInterface
      */
-    protected function getRepository(string $entityClass=null)
+    protected function getRepository(string $entityClass=null): RepositoryInterface
     {
         $entityClass = $entityClass ?: $this->getEntity();
-        return $this->getUnitOfWork()->getRepository($entityClass);
+        return $this->getRepositoryResolver()->getRepository($entityClass);
     }
 
     /**
      * Get Unit of work to control operations that alter database
      *
-     * @return UnitOfWorkInterface
+     * @return RepositoryResolverInterface
      */
-    protected function getUnitOfWork(): UnitOfWorkInterface
+    protected final function getRepositoryResolver(): RepositoryResolverInterface
     {
-        return $this->unitOfWork;
+        return $this->repositoryResolver;
     }
 
     /**

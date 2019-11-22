@@ -9,9 +9,9 @@ namespace LToolkit\Adapters;
 use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
-use LToolkit\Interfaces\UnitOfWorkInterface;
+use Psr\Repository\RepositoryInterface;
+use Psr\Repository\UnitOfWorkInterface;
 use Psr\Repository\RemoteRepositoryInterface;
-use LToolkit\Interfaces\BaseRepositoryInterface;
 use LToolkit\Interfaces\GenericRepositoryInterface;
 use LToolkit\Interfaces\RepositoryResolverInterface;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -31,8 +31,12 @@ final class RepositoryResolver implements RepositoryResolverInterface
     }
 
     /**
+     * Find the corresponding repository according to the entity in $entityClass and following the naming convention
+     * and mapping configuration
+     *
      * @param  string $entityClass
-     * @return BaseRepositoryInterface|RemoteRepositoryInterface
+     *
+     * @return RepositoryInterface
      *
      * @throws BindingResolutionException
      */
@@ -61,6 +65,7 @@ final class RepositoryResolver implements RepositoryResolverInterface
      * Check if a class exists
      *
      * @param  string $class
+     *
      * @return bool
      */
     protected function classExists(string $class): bool
@@ -69,8 +74,13 @@ final class RepositoryResolver implements RepositoryResolverInterface
     }
 
     /**
+     * Helping method to find the corresponding repository according to the entity in $entityClass and
+     * following the naming convention and mapping configuration
+     *
      * @param  string $entityClass
+     *
      * @return string
+     *
      * @throws Exception
      */
     private function findRepositoryClass(string $entityClass): string

@@ -3,7 +3,7 @@
  * @author Ernesto Baez 
  */
 
-namespace LToolkit\Interfaces;
+namespace Psr\Repository;
 
 
 interface UnitOfWorkInterface
@@ -23,14 +23,6 @@ interface UnitOfWorkInterface
      * @return bool
      */
     function isAutoCommit(): bool;
-
-    /**
-     * Get a repository corresponding the given entity
-     *
-     * @param  string $entityClass
-     * @return BaseRepositoryInterface
-     */
-    function getRepository(string $entityClass);
 
     /**
      * Get configured behaviour to determine if the actions to modify the database

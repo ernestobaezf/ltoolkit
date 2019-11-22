@@ -6,8 +6,8 @@
 namespace LToolkit\Test\Environment\Adapters;
 
 
+use Psr\Repository\UnitOfWorkInterface;
 use LToolkit\Interfaces\RepositoryResolverInterface;
-use LToolkit\Interfaces\UnitOfWorkInterface;
 use LToolkit\Test\Environment\Repositories\MockRepository;
 
 class MockRepositoryResolver implements RepositoryResolverInterface

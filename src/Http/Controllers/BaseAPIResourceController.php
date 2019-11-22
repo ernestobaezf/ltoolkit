@@ -9,9 +9,9 @@ namespace LToolkit\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use LToolkit\Interfaces\UnitOfWorkInterface;
 use LToolkit\Interfaces\CriteriaResolverInterface;
 use LToolkit\Interfaces\ValidatorResolverInterface;
+use LToolkit\Interfaces\RepositoryResolverInterface;
 use LToolkit\Interfaces\APIResourceControllerInterface;
 
 abstract class BaseAPIResourceController extends BaseAPIController implements APIResourceControllerInterface
@@ -24,17 +24,15 @@ abstract class BaseAPIResourceController extends BaseAPIController implements AP
     /**
      * BaseAPIResourceController constructor.
      *
-     * @param UnitOfWorkInterface        $unitOfWork
      * @param ValidatorResolverInterface $validatorResolver
      * @param CriteriaResolverInterface  $criteria          Used to filter content in index method
      */
-    public function __construct(UnitOfWorkInterface $unitOfWork,
-                                ValidatorResolverInterface $validatorResolver,
+    public function __construct(ValidatorResolverInterface $validatorResolver,
                                 CriteriaResolverInterface $criteria
     ) {
         $this->criteria = $criteria;
 
-        parent::__construct($unitOfWork, $validatorResolver);
+        parent::__construct(app(RepositoryResolverInterface::class), $validatorResolver);
     }
 
     /**
@@ -52,7 +50,7 @@ abstract class BaseAPIResourceController extends BaseAPIController implements AP
 
         if ($request->all()) {
             foreach ($this->criteria as $instance) {
-                $repository = $repository->pushCriteria($instance);
+                $repository = $repository->setCriteria($instance);
             }
         }
 

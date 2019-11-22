@@ -52,7 +52,7 @@ abstract class RemoteRepository implements RemoteRepositoryInterface
      *
      * @return $this
      */
-    public function pushCriteria($criteria)
+    public function setCriteria($criteria)
     {
         $this->criteria = $this->criteria->merge($criteria);
 

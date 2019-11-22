@@ -3,23 +3,19 @@
  * @author Ernesto Baez
  */
 
-namespace LToolkit\Repositories;
+namespace LRepositoryAdapter;
 
-use Closure;
 use Exception;
 use Illuminate\Support\Str;
-use LToolkit\Traits\TLogAction;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Psr\Repository\EntityInterface;
-use LToolkit\Interfaces\RepositoryAdapterInterface;
-use LToolkit\Interfaces\UnitOfWorkInterface;
-use LToolkit\Interfaces\BaseRepositoryInterface;
+use Psr\Repository\RepositoryInterface;
+use Psr\Repository\UnitOfWorkInterface;
+use LRepositoryAdapter\Interfaces\RepositoryAdapterInterface;
 
-abstract class BaseRepository implements BaseRepositoryInterface
+abstract class BaseRepository implements RepositoryInterface
 {
-    use TLogAction;
-
     /**
      * @var RepositoryAdapterInterface
      */
@@ -66,12 +62,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
      */
     public function all($columns = ['*']): Collection
     {
-        return $this->evaluate(
-            function () use ($columns) {
-                return $this->getInternalRepository()->all($columns);
-            },
-            __FUNCTION__
-        );
+        return $this->getInternalRepository()->all($columns);
     }
 
     /**
@@ -84,13 +75,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
      */
     public function paginate($limit = null, $columns = ['*'])
     {
-        return $this->evaluate(
-            function () use ($limit, $columns) {
-                return $this->getInternalRepository()->paginate($limit, $columns);
-            },
-            __FUNCTION__,
-            ["limit" => $limit]
-        );
+        return $this->getInternalRepository()->paginate($limit, $columns);
     }
 
     /**
@@ -103,13 +88,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
      */
     public function simplePaginate($limit = null, $columns = ['*'])
     {
-        return $this->evaluate(
-            function () use ($limit, $columns) {
-                return $this->getInternalRepository()->simplePaginate($limit, $columns);
-            },
-            __FUNCTION__,
-            ["limit" => $limit]
-        );
+        return $this->getInternalRepository()->simplePaginate($limit, $columns);
     }
 
     /**
@@ -118,19 +97,12 @@ abstract class BaseRepository implements BaseRepositoryInterface
      * @param int   $id
      * @param array $columns
      *
-     * @return null|EntityInterface
+     * @return EntityInterface
      */
-    public function find($id, $columns = ['*']): ?EntityInterface
+    public function find($id, $columns = ['*']): EntityInterface
     {
-        return $this->evaluate(
-            function () use ($id, $columns) {
-                $columns = $this->setScope($columns);
+        return $this->getInternalRepository()->find($id, $columns);
 
-                return $this->getInternalRepository()->find($id, $columns);
-            },
-            __FUNCTION__,
-            ["id" => $id]
-        );
     }
 
     /**
@@ -144,15 +116,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
      */
     public function findByField($field, $value=null, $columns = ['*']): Collection
     {
-        return $this->evaluate(
-            function () use ($field, $value, $columns) {
-                $columns = $this->setScope($columns);
-
-                return $this->getInternalRepository()->findByField($field, $value, $columns);
-            },
-            __FUNCTION__,
-            ["field" => $field, "value" => $value]
-        );
+        return $this->getInternalRepository()->findByField($field, $value, $columns);
     }
 
     /**
@@ -165,15 +129,8 @@ abstract class BaseRepository implements BaseRepositoryInterface
      */
     public function create(array $attributes): EntityInterface
     {
-        return $this->evaluate(
-            function () use ($attributes) {
-                $this->getUnitOfWork()->beginTransaction();
-
-                return $this->execute('create', $attributes);
-            },
-            __FUNCTION__,
-            ["attributes" => $attributes]
-        );
+        $this->getUnitOfWork()->beginTransaction();
+        return $this->execute('create', $attributes);
     }
 
     /**
@@ -182,20 +139,13 @@ abstract class BaseRepository implements BaseRepositoryInterface
      * @param int   $id
      * @param array $attributes
      *
-     * @return EntityInterface|null
+     * @return EntityInterface
      * @throws Exception
      */
-    public function update($id, array $attributes): ?EntityInterface
+    public function update($id, array $attributes): EntityInterface
     {
-        return $this->evaluate(
-            function () use ($attributes, $id) {
-                $this->getUnitOfWork()->beginTransaction();
-
-                return $this->execute('update', $attributes, $id);
-            },
-            __FUNCTION__,
-            ["attributes" => $attributes, "id" => $id]
-        );
+        $this->getUnitOfWork()->beginTransaction();
+        return $this->execute('update', $attributes, $id);
     }
 
     /**
@@ -209,15 +159,8 @@ abstract class BaseRepository implements BaseRepositoryInterface
      */
     public function updateOrCreate(array $attributes, array $values = []): EntityInterface
     {
-        return $this->evaluate(
-            function () use ($attributes, $values) {
-                $this->getUnitOfWork()->beginTransaction();
-
-                return $this->execute('updateOrCreate', $attributes, $values);
-            },
-            __FUNCTION__,
-            ["attributes" => $attributes, "values" => $values]
-        );
+        $this->getUnitOfWork()->beginTransaction();
+        return $this->execute('updateOrCreate', $attributes, $values);
     }
 
     /**
@@ -230,15 +173,8 @@ abstract class BaseRepository implements BaseRepositoryInterface
      */
     public function delete($id): int
     {
-        return $this->evaluate(
-            function () use ($id) {
-                $this->getUnitOfWork()->beginTransaction();
-
-                return $this->getInternalRepository()->delete($id);
-            },
-            __FUNCTION__,
-            ["id" => $id]
-        );
+        $this->getUnitOfWork()->beginTransaction();
+        return $this->getInternalRepository()->delete($id);
     }
 
     /**
@@ -249,98 +185,11 @@ abstract class BaseRepository implements BaseRepositoryInterface
      * @return $this
      * @throws Exception
      */
-    public function pushCriteria($criteria)
+    public function setCriteria($criteria)
     {
-        try
-        {
-            $this->getInternalRepository()->pushCriteria($criteria);
-
-            return $this;
-        } catch (Exception $exception) {
-            throw $exception;
-        }
-    }
-
-    /**
-     * Pop Criteria
-     *
-     * @param mixed $criteria
-     *
-     * @return mixed
-     */
-    public function popCriteria($criteria)
-    {
-        return $this->getInternalRepository()->popCriteria($criteria);
-    }
-
-    /**
-     * Get Collection of Criteria
-     *
-     * @return Collection
-     */
-    public function getCriteria()
-    {
-        return $this->getInternalRepository()->getCriteria();
-    }
-
-    /**
-     * Skip Criteria
-     *
-     * @param bool $status
-     *
-     * @return $this
-     */
-    public function skipCriteria($status = true)
-    {
-        $this->getInternalRepository()->skipCriteria($status);
+        $this->getInternalRepository()->setCriteria($criteria);
 
         return $this;
-    }
-
-    /**
-     * Reset all Criteria
-     *
-     * @return $this
-     */
-    public function resetCriteria()
-    {
-        $this->getInternalRepository()->resetCriteria();
-
-        return $this;
-    }
-
-    /**
-     * Query Scope
-     *
-     * @param Closure $scope
-     *
-     * @return $this
-     */
-    protected final function scopeQuery(Closure $scope)
-    {
-        $this->getInternalRepository()->scopeQuery($scope);
-
-        return $this;
-    }
-
-    /**
-     * @param array $columns
-     *
-     * @return array
-     */
-    protected function setScope(array $columns): array
-    {
-        $relations = $columns['relations'] ?? null;
-
-        if ($relations) {
-            $this->scopeQuery(
-                $this->scope($relations)
-            );
-
-            unset($columns['relations']);
-        }
-
-        return $columns;
     }
 
     /**
@@ -350,11 +199,11 @@ abstract class BaseRepository implements BaseRepositoryInterface
      * @param array     $attributes
      * @param int|array $values
      *
-     * @return EntityInterface|null
+     * @return EntityInterface
      *
      * @throws Exception
      */
-    protected final function execute(string $operation, array $attributes, $values=0): ?EntityInterface
+    protected final function execute(string $operation, array $attributes, $values=0): EntityInterface
     {
         try {
             list($autoCommit, $withRelations, $_attributes) = $this->checkRelation($attributes);
@@ -401,8 +250,8 @@ abstract class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
-     * Verify whether the model relations are in the attributes and set autocommit to false if so to save the data for
-     * the model and the relation one transaction
+     * Verify whether the model relations are in the attributes and set autocommit to false if so, to save the data for
+     * the model and the relation on one transaction
      *
      * @param array $attributes
      *
@@ -475,22 +324,5 @@ abstract class BaseRepository implements BaseRepositoryInterface
         }
 
         return $relations;
-    }
-
-    /**
-     * Internal helper function
-     *
-     * @param  mixed    $relations
-     * @return Closure
-     */
-    protected function scope($relations): Closure
-    {
-        return function ($model) use ($relations) {
-            if ($relations) {
-                $model = $model->with($relations);
-            }
-
-            return $model;
-        };
     }
 }

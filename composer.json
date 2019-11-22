@@ -12,7 +12,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "Psr\\Repository\\": "src/Interfaces/Psr/Repository/",
+            "Psr\\Repository\\": "Psr/Repository/",
+            "LRepositoryAdapter\\": "lrepositoryadapter/src/",
             "LToolkit\\": "src/"
         },
         "files": [

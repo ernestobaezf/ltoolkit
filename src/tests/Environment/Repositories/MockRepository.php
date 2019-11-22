@@ -7,14 +7,14 @@ namespace LToolkit\Test\Environment\Repositories;
 
 
 use Exception;
-use Psr\Repository\EntityInterface;
 use Illuminate\Support\Collection;
-use LToolkit\Interfaces\UnitOfWorkInterface;
-use LToolkit\Interfaces\BaseRepositoryInterface;
+use Psr\Repository\EntityInterface;
+use Psr\Repository\RepositoryInterface;
+use Psr\Repository\UnitOfWorkInterface;
 use LToolkit\Test\Environment\Models\MockModel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class MockRepository implements BaseRepositoryInterface
+class MockRepository implements RepositoryInterface
 {
     private $unitOfWork;
 
@@ -23,7 +23,7 @@ class MockRepository implements BaseRepositoryInterface
         $this->unitOfWork = $unitOfWork;
     }
 
-    public function pushCriteria($instance)
+    public function setCriteria($instance)
     {
         return $this;
     }

@@ -11,7 +11,7 @@ namespace Psr\Repository;
  *
  * @package LToolkit\Interfaces
  */
-interface RemoteRepositoryInterface extends RepositoryCriteriaInterface
+interface RemoteRepositoryInterface
 {
     /**
      * Retrieve all data of repository
@@ -70,4 +70,13 @@ interface RemoteRepositoryInterface extends RepositoryCriteriaInterface
      * @return mixed
      */
     public function delete($id);
+
+    /**
+     * Push Criteria for filter the query
+     *
+     * @param mixed $criteria
+     *
+     * @return $this
+     */
+    public function setCriteria($criteria);
 }

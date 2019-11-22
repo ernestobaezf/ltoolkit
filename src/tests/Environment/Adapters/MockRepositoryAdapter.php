@@ -10,7 +10,7 @@ use Closure;
 use Exception;
 use Illuminate\Foundation\Application;
 use Illuminate\Database\Eloquent\Collection;
-use LToolkit\Interfaces\RepositoryAdapterInterface;
+use LRepositoryAdapter\Interfaces\RepositoryAdapterInterface;
 
 class MockRepositoryAdapter implements RepositoryAdapterInterface
 {
@@ -28,7 +28,7 @@ class MockRepositoryAdapter implements RepositoryAdapterInterface
      */
     public function all($columns = ['*'])
     {
-        return new Collection();
+        // TODO: Implement all() method.
     }
 
     /**
@@ -122,30 +122,6 @@ class MockRepositoryAdapter implements RepositoryAdapterInterface
     }
 
     /**
-     * Set Presenter
-     *
-     * @param mixed $presenter
-     *
-     * @return mixed
-     */
-    public function setPresenter($presenter)
-    {
-        // TODO: Implement setPresenter() method.
-    }
-
-    /**
-     * Skip Presenter Wrapper
-     *
-     * @param bool $status
-     *
-     * @return $this
-     */
-    public function skipPresenter($status = true)
-    {
-        // TODO: Implement skipPresenter() method.
-    }
-
-    /**
      * Push Criteria for filter the query
      *
      * @param mixed $criteria
@@ -153,53 +129,9 @@ class MockRepositoryAdapter implements RepositoryAdapterInterface
      * @return $this
      * @throws Exception
      */
-    public function pushCriteria($criteria)
+    public function setCriteria($criteria)
     {
-        // TODO: Implement pushCriteria() method.
-    }
-
-    /**
-     * Pop Criteria
-     *
-     * @param mixed $criteria
-     *
-     * @return $this
-     */
-    public function popCriteria($criteria)
-    {
-        // TODO: Implement popCriteria() method.
-    }
-
-    /**
-     * Get Collection of Criteria
-     *
-     * @return mixed
-     */
-    public function getCriteria()
-    {
-        // TODO: Implement getCriteria() method.
-    }
-
-    /**
-     * Skip Criteria
-     *
-     * @param bool $status
-     *
-     * @return $this
-     */
-    public function skipCriteria($status = true)
-    {
-        // TODO: Implement skipCriteria() method.
-    }
-
-    /**
-     * Reset all Criteria
-     *
-     * @return $this
-     */
-    public function resetCriteria()
-    {
-        // TODO: Implement resetCriteria() method.
+        // TODO: Implement setCriteria() method.
     }
 
     /**

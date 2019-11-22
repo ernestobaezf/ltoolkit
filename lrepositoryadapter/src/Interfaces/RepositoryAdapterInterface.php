@@ -1,5 +1,5 @@
 <?php
-namespace LToolkit\Interfaces;
+namespace LRepositoryAdapter\Interfaces;
 
 
 use Closure;
@@ -92,24 +92,6 @@ interface RepositoryAdapterInterface
     public function delete($id);
 
     /**
-     * Set Presenter
-     *
-     * @param mixed $presenter
-     *
-     * @return mixed
-     */
-    public function setPresenter($presenter);
-
-    /**
-     * Skip Presenter Wrapper
-     *
-     * @param bool $status
-     *
-     * @return $this
-     */
-    public function skipPresenter($status = true);
-
-    /**
      * Push Criteria for filter the query
      *
      * @param mixed $criteria
@@ -117,39 +99,7 @@ interface RepositoryAdapterInterface
      * @return $this
      * @throws Exception
      */
-    public function pushCriteria($criteria);
-
-    /**
-     * Pop Criteria
-     *
-     * @param mixed $criteria
-     *
-     * @return $this
-     */
-    public function popCriteria($criteria);
-
-    /**
-     * Get Collection of Criteria
-     *
-     * @return mixed
-     */
-    public function getCriteria();
-
-    /**
-     * Skip Criteria
-     *
-     * @param bool $status
-     *
-     * @return $this
-     */
-    public function skipCriteria($status = true);
-
-    /**
-     * Reset all Criteria
-     *
-     * @return $this
-     */
-    public function resetCriteria();
+    public function setCriteria($criteria);
 
     /**
      * Update or Create an entity in repository

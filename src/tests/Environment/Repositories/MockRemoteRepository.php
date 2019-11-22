@@ -11,7 +11,7 @@ use Psr\Repository\RemoteRepositoryInterface;
 
 class MockRemoteRepository implements RemoteRepositoryInterface
 {
-    public function pushCriteria($instance)
+    public function setCriteria($instance)
     {
         return $this;
     }

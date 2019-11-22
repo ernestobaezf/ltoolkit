@@ -4,15 +4,15 @@ namespace LToolkit\Test\Unit\Http\Controllers;
 
 use ReflectionException;
 use Illuminate\Support\Facades\Route;
-use LToolkit\Interfaces\UnitOfWorkInterface;
 use LToolkit\Test\Environment\TestCase;
+use Psr\Repository\UnitOfWorkInterface;
 use LToolkit\Adapters\ValidatorResolver;
-use LToolkit\Interfaces\GenericRepositoryInterface;
-use LToolkit\Interfaces\ValidatorResolverInterface;
 use LToolkit\Test\Environment\DynamicClass;
 use LToolkit\Test\Environment\Models\MockModel;
 use LToolkit\Http\Controllers\BaseAPIController;
 use LToolkit\Http\Validators\BasicUpdateValidator;
+use LToolkit\Interfaces\GenericRepositoryInterface;
+use LToolkit\Interfaces\ValidatorResolverInterface;
 use LToolkit\Test\Environment\Adapters\MockUnitOfWork;
 use LToolkit\Test\Environment\Models\MockEloquentModel;
 use LToolkit\Test\Environment\Serializer\MockSerializer;
