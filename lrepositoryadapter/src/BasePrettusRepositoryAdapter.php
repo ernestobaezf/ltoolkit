@@ -6,7 +6,7 @@
 namespace LRepositoryAdapter;
 
 use Illuminate\Container\Container as Application;
-use LToolkit\Interfaces\RepositoryAdapterInterface;
+use LRepositoryAdapter\Interfaces\RepositoryAdapterInterface;
 use Prettus\Repository\Eloquent\BaseRepository as PrettusBaseRepository;
 
 class BasePrettusRepositoryAdapter extends PrettusBaseRepository implements RepositoryAdapterInterface

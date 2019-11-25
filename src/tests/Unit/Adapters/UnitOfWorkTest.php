@@ -3,12 +3,12 @@
 namespace LToolkit\Test\Unit\Adapters;
 
 use Illuminate\Support\Facades\DB;
-use LToolkit\Adapters\UnitOfWork;
+use LRepositoryAdapter\UnitOfWork;
+use LToolkit\Test\Environment\TestCase;
+use Psr\Repository\UnitOfWorkInterface;
 use LToolkit\Interfaces\RepositoryResolverInterface;
-use LToolkit\Interfaces\UnitOfWorkInterface;
 use LToolkit\Test\Environment\Repositories\MockRepository;
 use LToolkit\Test\Environment\Adapters\MockRepositoryResolver;
-use LToolkit\Test\Environment\TestCase;
 
 class UnitOfWorkTest extends TestCase
 {

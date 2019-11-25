@@ -21,8 +21,6 @@ class BaseAPIControllerTest extends TestCase
 {
     /**
      * Test to get serializer
-     *
-     * @throws ReflectionException
      */
     public function test_getSerializer()
     {

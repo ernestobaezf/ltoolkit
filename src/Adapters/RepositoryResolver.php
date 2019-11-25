@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Psr\Repository\RepositoryInterface;
 use Psr\Repository\UnitOfWorkInterface;
-use Psr\Repository\RemoteRepositoryInterface;
 use LToolkit\Interfaces\GenericRepositoryInterface;
 use LToolkit\Interfaces\RepositoryResolverInterface;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -40,7 +39,7 @@ final class RepositoryResolver implements RepositoryResolverInterface
      *
      * @throws BindingResolutionException
      */
-    public function getRepository(string $entityClass)
+    public function getRepository(string $entityClass): RepositoryInterface
     {
         $repository = Cache::rememberForever(
             self::class."::getRepository($entityClass)",
@@ -48,10 +47,6 @@ final class RepositoryResolver implements RepositoryResolverInterface
                 return $this->findRepositoryClass($entityClass);
             }
         );
-
-        if (in_array(RemoteRepositoryInterface::class, class_implements($repository))) {
-            return app()->get($repository);
-        }
 
         $arguments = [self::ARGUMENT_UNIT_OF_WORK => $this->unitOfWork];
         if ($repository == GenericRepositoryInterface::class) {

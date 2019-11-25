@@ -36,7 +36,8 @@ abstract class BaseAPIController extends Controller
      * @param RepositoryResolverInterface $repositoryResolver
      * @param ValidatorResolverInterface  $validatorResolver
      */
-    public function __construct(RepositoryResolverInterface $repositoryResolver, ValidatorResolverInterface $validatorResolver)
+    public function __construct(RepositoryResolverInterface $repositoryResolver,
+                                ValidatorResolverInterface $validatorResolver)
     {
         $this->repositoryResolver = $repositoryResolver;
 

@@ -7,9 +7,7 @@ namespace LToolkit;
 
 
 use LToolkit\Helpers\Evaluator;
-use LToolkit\Adapters\UnitOfWork;
 use LToolkit\Helpers\MathFunctions;
-use Psr\Repository\UnitOfWorkInterface;
 use LToolkit\Adapters\CriteriaResolver;
 use LToolkit\Adapters\ValidatorResolver;
 use LToolkit\Adapters\RepositoryResolver;
@@ -25,6 +23,9 @@ use LToolkit\Http\Validators\BasicUpdateValidator;
 use LToolkit\Interfaces\GenericRepositoryInterface;
 use LToolkit\Interfaces\ValidatorResolverInterface;
 use LToolkit\Interfaces\RepositoryResolverInterface;
+
+use LRepositoryAdapter\UnitOfWork;
+use Psr\Repository\UnitOfWorkInterface;
 use LRepositoryAdapter\BasePrettusRepositoryAdapter;
 use LRepositoryAdapter\Interfaces\RepositoryAdapterInterface;
 
@@ -33,12 +34,13 @@ class ServiceProvider extends BaseServiceProvider
     public $bindings = [
         RepositoryResolverInterface::class => RepositoryResolver::class,
         GenericRepositoryInterface::class => GenericRepository::class,
-        UnitOfWorkInterface::class => UnitOfWork::class,
         StoreValidatorInterface::class => BasicStoreValidator::class,
         UpdateValidatorInterface::class => BasicUpdateValidator::class,
         EvaluatorInterface::class => Evaluator::class,
         ValidatorResolverInterface::class => ValidatorResolver::class,
+
         // todo move this to the repository adapter package
+        UnitOfWorkInterface::class => UnitOfWork::class,
         RepositoryAdapterInterface::class => BasePrettusRepositoryAdapter::class,
     ];
 

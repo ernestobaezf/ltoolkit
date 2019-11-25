@@ -9,10 +9,12 @@ namespace LToolkit\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Psr\Repository\UnitOfWorkInterface;
 use LToolkit\Interfaces\CriteriaResolverInterface;
 use LToolkit\Interfaces\ValidatorResolverInterface;
 use LToolkit\Interfaces\RepositoryResolverInterface;
 use LToolkit\Interfaces\APIResourceControllerInterface;
+use Illuminate\Contracts\Container\BindingResolutionException;
 
 abstract class BaseAPIResourceController extends BaseAPIController implements APIResourceControllerInterface
 {
@@ -24,15 +26,20 @@ abstract class BaseAPIResourceController extends BaseAPIController implements AP
     /**
      * BaseAPIResourceController constructor.
      *
+     * @param UnitOfWorkInterface $unitOfWork
      * @param ValidatorResolverInterface $validatorResolver
-     * @param CriteriaResolverInterface  $criteria          Used to filter content in index method
+     * @param CriteriaResolverInterface $criteria Used to filter content in index method
+     *
+     * @throws BindingResolutionException
      */
-    public function __construct(ValidatorResolverInterface $validatorResolver,
+    public function __construct(UnitOfWorkInterface $unitOfWork,
+                                ValidatorResolverInterface $validatorResolver,
                                 CriteriaResolverInterface $criteria
     ) {
         $this->criteria = $criteria;
+        $repositoryResolver = app()->make(RepositoryResolverInterface::class, ['unitOfWork' => $unitOfWork]);
 
-        parent::__construct(app(RepositoryResolverInterface::class), $validatorResolver);
+        parent::__construct($repositoryResolver, $validatorResolver);
     }
 
     /**

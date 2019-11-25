@@ -3,12 +3,10 @@
  * @author Ernesto Baez 
  */
 
-namespace LToolkit\Adapters;
+namespace LRepositoryAdapter;
 
 use Illuminate\Support\Facades\DB;
 use Psr\Repository\UnitOfWorkInterface;
-use LToolkit\Interfaces\RepositoryResolverInterface;
-use Illuminate\Contracts\Container\BindingResolutionException;
 
 final class UnitOfWork implements UnitOfWorkInterface
 {
@@ -20,21 +18,13 @@ final class UnitOfWork implements UnitOfWorkInterface
     private $inTransaction = false;
 
     /**
-     * @var RepositoryResolverInterface
-     */
-    private $repositoryFinder;
-
-    /**
      * UnitOfWork constructor.
      *
      * @param bool $autoCommit
-     *
-     * @throws BindingResolutionException
      */
     public function __construct(bool $autoCommit=true)
     {
         $this->setAutoCommit($autoCommit);
-        $this->repositoryFinder = app()->make(RepositoryResolverInterface::class, ["unitOfWork" => $this]);
     }
 
     /**
