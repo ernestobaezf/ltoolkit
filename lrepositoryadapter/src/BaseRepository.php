@@ -5,16 +5,17 @@
 
 namespace LRepositoryAdapter;
 
+
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Psr\Repository\EntityInterface;
-use Psr\Repository\RepositoryInterface;
 use Psr\Repository\UnitOfWorkInterface;
+use Psr\Repository\UoWRepositoryInterface;
 use LRepositoryAdapter\Interfaces\RepositoryAdapterInterface;
 
-abstract class BaseRepository implements RepositoryInterface
+abstract class BaseRepository implements UoWRepositoryInterface
 {
     /**
      * @var RepositoryAdapterInterface
@@ -48,7 +49,7 @@ abstract class BaseRepository implements RepositoryInterface
     /**
      * @return UnitOfWorkInterface
      */
-    protected function getUnitOfWork()
+    public function unitOfWork()
     {
         return $this->unitOfWork;
     }
@@ -129,7 +130,7 @@ abstract class BaseRepository implements RepositoryInterface
      */
     public function create(array $attributes): EntityInterface
     {
-        $this->getUnitOfWork()->beginTransaction();
+        $this->unitOfWork()->beginTransaction();
         return $this->execute('create', $attributes);
     }
 
@@ -144,7 +145,7 @@ abstract class BaseRepository implements RepositoryInterface
      */
     public function update($id, array $attributes): EntityInterface
     {
-        $this->getUnitOfWork()->beginTransaction();
+        $this->unitOfWork()->beginTransaction();
         return $this->execute('update', $attributes, $id);
     }
 
@@ -159,7 +160,7 @@ abstract class BaseRepository implements RepositoryInterface
      */
     public function updateOrCreate(array $attributes, array $values = []): EntityInterface
     {
-        $this->getUnitOfWork()->beginTransaction();
+        $this->unitOfWork()->beginTransaction();
         return $this->execute('updateOrCreate', $attributes, $values);
     }
 
@@ -173,8 +174,14 @@ abstract class BaseRepository implements RepositoryInterface
      */
     public function delete($id): int
     {
-        $this->getUnitOfWork()->beginTransaction();
-        return $this->getInternalRepository()->delete($id);
+        $this->unitOfWork()->beginTransaction();
+        try {
+            return $this->getInternalRepository()->delete($id);
+        } catch (Exception $exception) {
+            $this->unitOfWork()->rollback();
+
+            throw $exception;
+        }
     }
 
     /**
@@ -243,7 +250,7 @@ abstract class BaseRepository implements RepositoryInterface
 
             return $entity->load($this->getModelRelations(false));
         } catch (Exception $exception) {
-            $this->getUnitOfWork()->rollback();
+            $this->unitOfWork()->rollback();
 
             throw $exception;
         }
@@ -259,7 +266,7 @@ abstract class BaseRepository implements RepositoryInterface
      */
     private final function checkRelation(array $attributes): array
     {
-        $uow = $this->getUnitOfWork();
+        $uow = $this->unitOfWork();
         $autoCommit = $uow->isAutoCommit();
 
         $_attributes = $attributes;
@@ -293,7 +300,7 @@ abstract class BaseRepository implements RepositoryInterface
      */
     private final function commitAndResetUnitOfWork(bool $autoCommit): void
     {
-        $uow = $this->getUnitOfWork();
+        $uow = $this->unitOfWork();
 
         $uow->commit();
 

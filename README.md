@@ -96,50 +96,43 @@ In this two cases we need what is called the *Unit of Work*, which actually cont
 Normally this part of the logic is transparent since no additional configuration is required to use it because is 
 configured by default to auto-commit the changes and persist the data.
 
-But to tackle the previous cases we need to bind a different instance of the unit of work, for instance:
-
-    $this->app->when(SampleAPIController::class)
-                ->needs(UnitOfWorkInterface::class)
-                ->give(function() {
-                    return $this->app->make(UnitOfWork::class, ["autoCommit" => false]);
-                });
-                
-So the previous cases will be like:
+But to tackle the previous cases will be like:
 
 * Case 1: you need to alter several entities
  >
-    try {
-        $repository->update($transaction1->toArray(), $transaction1->getId())
-        $repository->update($transaction2->toArray(), $transaction2->getId())
-        
-        $unitOfWork->commit();
-    } catch(Exception) {
-        $unitOfWork->rollback();
-    }
+    $repository->unitOfWork()->setAutoCommit(false);
+    
+    $repository->update($transaction1->toArray(), $transaction1->getId())
+    $repository->update($transaction2->toArray(), $transaction2->getId())
+    
+    $repository->unitOfWork()->commit();
         
 * Case 2: you need an atomic operation
 >
-    try {
-        $repository->create($user->toArray())
-        $repository->create($userTransaction->toArray())
+    $repository->unitOfWork()->setAutoCommit(false);
         
-        $unitOfWork->commit();
-    } catch(Exception) {
-        $unitOfWork->rollback();
-    }
+    $repository->create($user->toArray())
+    $repository->create($userTransaction->toArray())
+    
+    $repository->unitOfWork()->commit();
 
-Notice two things from here:
+Notice three things from here:
 
 1. We advise to never user *DB::beginTransaction*, *DB::commit* nor *DB::rollback* directly in code. 
 Always use the *Unit of Work* instead.
 
-2. Manually commit or rollback by using the *Unit of Work* only if you are in presence of one of the cases exposed 
+2. Manually commit by using the *Unit of Work* only if you are in presence of one of the cases exposed 
 before or a variation that requires to control the data persistence.
+
+3. No need of rollback, since is handled by the base repository class once an exception is captured.
+
+Note: This is only possible when the repository is an UoWRepository, so depending on the repository providers you are 
+using may be required check the repository type (`$repository instaceof UoWRepositoryInterface`)
 
 ### Repository structure
 
-The *Unit of Work* as the entry point to use the repository has a method `UnitOfWork::getRepository($entityClass)`. This is 
-based in a repository finder that discovers repositories related to an entity following the rules below:
+The *RepositoryResolver* is the entry point to use the repository (`RepositoryResolver::getRepository($entityClass)`). 
+It discovers repositories related to an entity following the rules below:
 
 1. Returns the repository mapped to the entity in the `config.LToolkit.repository_map`. If there is a mapping declared 
 and the associated repository does not exist then an exception is thrown.
@@ -203,12 +196,11 @@ Every action from Controllers that extend BaseAPIController search for the match
 
 If you want to declare the validators yourself and not follow the convention, you can do it as below:
 
-    class SampleController extends BaseAPIController
+    class SampleController extends BaseAPIResourceController
     {
-        public function __construct(UnitOfWorkInterface $unitOfWork)
+        public function __construct()
         {
-            parent::__construct(
-                $unitOfWork, app(
+            parent::__construct(app(
                     ValidatorResolverInterface::class, [
                         "className" => static::class,
                         "validations" => [

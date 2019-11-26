@@ -9,7 +9,7 @@ namespace Psr\Repository;
 /**
  * Interface CriteriaInterface
  *
- * @package Psr\Repository]
+ * @package Psr\Repository
  */
 interface CriteriaInterface
 {

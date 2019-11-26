@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 /**
  * Interface RepositoryInterface
  *
- * @package LToolkit\Interfaces
+ * @package Psr\Repository
  */
 interface RepositoryInterface
 {

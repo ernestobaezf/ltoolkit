@@ -5,7 +5,11 @@
 
 namespace Psr\Repository;
 
-
+/**
+ * Interface UnitOfWorkInterface
+ *
+ * @package Psr\Repository
+ */
 interface UnitOfWorkInterface
 {
     /**

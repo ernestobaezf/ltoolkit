@@ -9,7 +9,7 @@ namespace Psr\Repository;
 /**
  * Interface RemoteRepositoryInterface
  *
- * @package LToolkit\Interfaces
+ * @package Psr\Repository
  */
 interface RemoteRepositoryInterface
 {

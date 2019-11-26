@@ -11,6 +11,10 @@ use Illuminate\Contracts\Routing\UrlRoutable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
+/**
+ * Interface EntityInterface
+ * @package Psr\Repository
+ */
 interface EntityInterface extends \ArrayAccess, Arrayable, Jsonable, QueueableEntity, UrlRoutable
 {
     /**
