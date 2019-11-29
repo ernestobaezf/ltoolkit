@@ -20,7 +20,7 @@ interface RemoteRepositoryInterface
      *
      * @return mixed
      */
-    public function all($columns = ['*']);
+    function all($columns = ['*']);
 
     /**
      * Find data by id
@@ -30,7 +30,7 @@ interface RemoteRepositoryInterface
      *
      * @return mixed
      */
-    public function find($id, $columns = ['*']);
+    function find($id, $columns = ['*']);
 
     /**
      * Find data by field
@@ -41,7 +41,7 @@ interface RemoteRepositoryInterface
      *
      * @return mixed
      */
-    public function findByField($field, $value, $columns = ['*']);
+    function findByField($field, $value, $columns = ['*']);
 
     /**
      * Save a new entity in repository
@@ -50,7 +50,7 @@ interface RemoteRepositoryInterface
      *
      * @return mixed
      */
-    public function create(array $attributes);
+    function create(array $attributes);
 
     /**
      * Update a entity in repository by id
@@ -60,7 +60,7 @@ interface RemoteRepositoryInterface
      *
      * @return mixed
      */
-    public function update($id, array $attributes);
+    function update($id, array $attributes);
 
     /**
      * Delete a entity in repository by id
@@ -69,7 +69,7 @@ interface RemoteRepositoryInterface
      *
      * @return mixed
      */
-    public function delete($id);
+    function delete($id);
 
     /**
      * Push Criteria for filter the query
@@ -78,5 +78,5 @@ interface RemoteRepositoryInterface
      *
      * @return $this
      */
-    public function setCriteria($criteria);
+    function setCriteria($criteria);
 }

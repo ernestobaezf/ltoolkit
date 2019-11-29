@@ -3,7 +3,7 @@ namespace Psr\Repository;
 
 
 use Exception;
-use Illuminate\Support\Collection;
+use Traversable;
 
 /**
  * Interface RepositoryInterface
@@ -13,45 +13,35 @@ use Illuminate\Support\Collection;
 interface RepositoryInterface
 {
     /**
-     * Retrieve all data of repository
+     * Retrieve all data based on the filter criteria (see setCriteria)
      *
      * @param array $columns
      *
-     * @return Collection
+     * @return Traversable
      */
-    public function all($columns = ['*']): Collection;
+    function all($columns = ['*']): Traversable;
 
     /**
-     * Retrieve all data of repository, paginated
+     * Retrieve paginated data based on the filter criteria (see setCriteria)
      *
-     * @param ?int  $limit
+     * @param int   $limit Amount of elements per page. By default 0 which is no limit
      * @param array $columns
      *
-     * @return mixed
+     * @return object
      */
-    public function paginate($limit = null, $columns = ['*']);
-
-    /**
-     * Retrieve all data of repository, simple paginated
-     *
-     * @param ?int  $limit
-     * @param array $columns
-     *
-     * @return mixed
-     */
-    public function simplePaginate($limit = null, $columns = ['*']);
+    function paginate($limit = 0, $columns = ['*']);
 
     /**
      * Find entity by id. Returns null if not found
      *
-     * @param int   $id
-     * @param array $columns
+     * @param string|int $id
+     * @param array      $columns
      *
-     * @return null|EntityInterface
+     * @return EntityInterface
      *
      * @throws Exception Not found exception
      */
-    public function find($id, $columns = ['*']): ?EntityInterface;
+    function find($id, $columns = ['*']): EntityInterface;
 
     /**
      * Find entity by id. Returns null if not found
@@ -60,11 +50,11 @@ interface RepositoryInterface
      * @param mixed  $value
      * @param array  $columns
      *
-     * @return Collection
+     * @return Traversable
      *
      * @throws Exception Not found exception
      */
-    public function findByField($field, $value, $columns = ['*']): Collection;
+    function findByField($field, $value, $columns = ['*']): Traversable;
 
     /**
      * Save a new entity in repository
@@ -75,19 +65,19 @@ interface RepositoryInterface
      *
      * @throws Exception
      */
-    public function create(array $attributes): EntityInterface;
+    function create(array $attributes): EntityInterface;
 
     /**
      * Update a entity in repository by id
      *
-     * @param int   $id
-     * @param array $attributes
+     * @param string|int $id
+     * @param array      $attributes
      *
-     * @return EntityInterface|null
+     * @return EntityInterface
      *
-     * @throws Exception
+     * @throws Exception Not found exception
      */
-    public function update($id, array $attributes): ?EntityInterface;
+    function update($id, array $attributes): EntityInterface;
 
     /**
      * Update or Create an entity in repository
@@ -99,25 +89,30 @@ interface RepositoryInterface
      *
      * @throws Exception
      */
-    public function updateOrCreate(array $attributes, array $values = []): EntityInterface;
+    function updateOrCreate(array $attributes, array $values = []): EntityInterface;
 
     /**
      * Delete a entity in repository by id
      *
-     * @param int $id
-     *
-     * @return int
+     * @param string|int $id
      *
      * @throws Exception Not found exception
      */
-    public function delete($id): int;
+    function delete($id): void;
 
     /**
-     * Push Criteria for filter the query
+     * Push Criteria to filter the query
      *
-     * @param mixed $criteria
+     * @param Traversable $criteria
      *
      * @return $this
      */
-    public function setCriteria($criteria);
+    function setCriteria(Traversable $criteria);
+
+    /**
+     * Get fields that can be used to search by using a criteria
+     *
+     * @return Traversable|array
+     */
+    function getSearchableFields();
 }

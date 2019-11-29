@@ -9,14 +9,14 @@ namespace LToolkit\Models;
 use Psr\Repository\EntityInterface;
 use Illuminate\Database\Eloquent\Model;
 
-class BaseModel extends Model implements EntityInterface
+abstract class BaseModel extends Model implements EntityInterface
 {
     public const RELATIONS = [];
 
     /**
      * Get model id
      *
-     * @return mixed
+     * @return string|int
      */
     public function getId()
     {
@@ -45,7 +45,7 @@ class BaseModel extends Model implements EntityInterface
     public function fromStdClass(\stdClass $std): EntityInterface
     {
         // backup fillable
-        $fillable = $this->getFillable();
+        $fillable = $this->getFillableFields();
 
         $exists = $std->id ?? 0;
         if ($exists) {

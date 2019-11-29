@@ -107,7 +107,7 @@ class MockModel implements EntityInterface
     /**
      * @return mixed
      */
-    public function getFillable()
+    public function getFillableFields()
     {
         // TODO: Implement getFillable() method.
     }

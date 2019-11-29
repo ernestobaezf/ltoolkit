@@ -6,47 +6,39 @@
 namespace Psr\Repository;
 
 
-use Illuminate\Contracts\Queue\QueueableEntity;
-use Illuminate\Contracts\Routing\UrlRoutable;
-use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Contracts\Support\Jsonable;
+use stdClass;
 
 /**
  * Interface EntityInterface
+ *
  * @package Psr\Repository
  */
-interface EntityInterface extends \ArrayAccess, Arrayable, Jsonable, QueueableEntity, UrlRoutable
+interface EntityInterface
 {
     /**
      * Get the entity key
+     *
+     * @return string|int
      */
-    public function getId();
+    function getId();
 
     /**
      * Convert the object to its array representation.
      *
      * return array
      */
-    public function toArray();
+    function toArray();
 
     /**
-     * Convert the object to its JSON representation.
-     *
-     * @param  int $options
-     * @return string
+     * @return array
      */
-    public function toJson($options = 0);
-
-    /**
-     * @return mixed
-     */
-    public function getFillable();
+    function getFillableFields(): array;
 
     /**
      * Fill the model data from an stdClass
      *
-     * @param  \stdClass $std
+     * @param  stdClass $std
      * @return $this
      */
-    public function fromStdClass(\stdClass $std): EntityInterface;
+    function fromStdClass(stdClass $std): EntityInterface;
 }

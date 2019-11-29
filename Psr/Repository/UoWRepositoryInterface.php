@@ -15,9 +15,9 @@ use Illuminate\Support\Collection;
 interface UoWRepositoryInterface extends RepositoryInterface
 {
     /**
-     * Set whether the repository is transaction or not
+     * Get the current Unit of Work used
      *
      * @return UnitOfWorkInterface
      */
-    public function unitOfWork();
+    function unitOfWork(): UnitOfWorkInterface;
 }
