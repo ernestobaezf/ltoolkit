@@ -15,6 +15,9 @@ final class UnitOfWork implements UnitOfWorkInterface
      */
     private $autoCommit = true;
 
+    /**
+     * @var bool
+     */
     private $inTransaction = false;
 
     /**

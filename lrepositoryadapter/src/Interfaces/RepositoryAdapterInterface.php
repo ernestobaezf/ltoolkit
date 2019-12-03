@@ -99,7 +99,7 @@ interface RepositoryAdapterInterface
      * @return $this
      * @throws Exception
      */
-    public function setCriteria($criteria);
+    public function pushCriteria($criteria);
 
     /**
      * Update or Create an entity in repository
@@ -120,4 +120,9 @@ interface RepositoryAdapterInterface
      * @return $this
      */
     public function scopeQuery(Closure $scope);
+
+    /**
+     * @return array
+     */
+    public function getFieldsSearchable();
 }

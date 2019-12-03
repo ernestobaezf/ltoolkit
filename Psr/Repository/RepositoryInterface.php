@@ -3,7 +3,6 @@ namespace Psr\Repository;
 
 
 use Exception;
-use Traversable;
 
 /**
  * Interface RepositoryInterface
@@ -17,9 +16,9 @@ interface RepositoryInterface
      *
      * @param array $columns
      *
-     * @return Traversable
+     * @return iterable
      */
-    function all($columns = ['*']): Traversable;
+    function all(array $columns = ['*']): iterable;
 
     /**
      * Retrieve paginated data based on the filter criteria (see setCriteria)
@@ -29,7 +28,7 @@ interface RepositoryInterface
      *
      * @return object
      */
-    function paginate($limit = 0, $columns = ['*']);
+    function paginate(int $limit = 0, array $columns = ['*']);
 
     /**
      * Find entity by id. Returns null if not found
@@ -41,7 +40,7 @@ interface RepositoryInterface
      *
      * @throws Exception Not found exception
      */
-    function find($id, $columns = ['*']): EntityInterface;
+    function find($id, array $columns = ['*']): EntityInterface;
 
     /**
      * Find entity by id. Returns null if not found
@@ -50,11 +49,11 @@ interface RepositoryInterface
      * @param mixed  $value
      * @param array  $columns
      *
-     * @return Traversable
+     * @return iterable
      *
      * @throws Exception Not found exception
      */
-    function findByField($field, $value, $columns = ['*']): Traversable;
+    function findByField($field, $value, $columns = ['*']): iterable;
 
     /**
      * Save a new entity in repository
@@ -103,16 +102,9 @@ interface RepositoryInterface
     /**
      * Push Criteria to filter the query
      *
-     * @param Traversable $criteria
+     * @param iterable<CriteriaInterface> $criteria
      *
      * @return $this
      */
-    function setCriteria(Traversable $criteria);
-
-    /**
-     * Get fields that can be used to search by using a criteria
-     *
-     * @return Traversable|array
-     */
-    function getSearchableFields();
+    function setCriteria(iterable $criteria);
 }

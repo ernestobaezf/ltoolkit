@@ -7,12 +7,14 @@ namespace LRepositoryAdapter;
 
 
 use Exception;
-use Traversable;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 use Psr\Repository\EntityInterface;
+use Psr\Repository\CriteriaInterface;
 use Psr\Repository\UnitOfWorkInterface;
 use Psr\Repository\UoWRepositoryInterface;
+use Prettus\Repository\Exceptions\RepositoryException;
+use LRepositoryAdapter\Interfaces\CriteriaAdapterInterface;
 use LRepositoryAdapter\Interfaces\RepositoryAdapterInterface;
 
 abstract class BaseRepository implements UoWRepositoryInterface
@@ -59,9 +61,9 @@ abstract class BaseRepository implements UoWRepositoryInterface
      *
      * @param array $columns
      *
-     * @return Traversable
+     * @return iterable
      */
-    public function all($columns = ['*']): Traversable
+    public function all(array $columns = ['*']): iterable
     {
         return $this->getInternalRepository()->all($columns);
     }
@@ -74,7 +76,7 @@ abstract class BaseRepository implements UoWRepositoryInterface
      *
      * @return object
      */
-    public function paginate($limit = null, $columns = ['*'])
+    public function paginate(int $limit = null, array $columns = ['*'])
     {
         return $this->getInternalRepository()->paginate($limit, $columns);
     }
@@ -87,10 +89,9 @@ abstract class BaseRepository implements UoWRepositoryInterface
      *
      * @return EntityInterface
      */
-    public function find($id, $columns = ['*']): EntityInterface
+    public function find($id, array $columns = ['*']): EntityInterface
     {
         return $this->getInternalRepository()->find($id, $columns);
-
     }
 
     /**
@@ -100,9 +101,9 @@ abstract class BaseRepository implements UoWRepositoryInterface
      * @param mixed  $value
      * @param array  $columns
      *
-     * @return Traversable
+     * @return iterable
      */
-    public function findByField($field, $value=null, $columns = ['*']): Traversable
+    public function findByField($field, $value=null, $columns = ['*']): iterable
     {
         return $this->getInternalRepository()->findByField($field, $value, $columns);
     }
@@ -171,16 +172,22 @@ abstract class BaseRepository implements UoWRepositoryInterface
     }
 
     /**
-     * Push Criteria for filter the query
+     * Push Criteria used to filter the query
      *
-     * @param Traversable $criteria
+     * @param iterable<CriteriaInterface> $criteria
      *
      * @return $this
      * @throws Exception
      */
-    public function setCriteria(Traversable $criteria)
+    public function setCriteria(iterable $criteria)
     {
-        $this->getInternalRepository()->setCriteria($criteria);
+        foreach ($criteria as $item) {
+            if (!$item instanceof CriteriaAdapterInterface) {
+                throw new RepositoryException("Class " . get_class($item) . " must be an instance of ".CriteriaAdapterInterface::class);
+            }
+
+            $this->getInternalRepository()->pushCriteria($item->cast());
+        }
 
         return $this;
     }

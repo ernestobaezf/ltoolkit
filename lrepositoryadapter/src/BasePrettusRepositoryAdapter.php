@@ -37,8 +37,8 @@ class BasePrettusRepositoryAdapter extends PrettusBaseRepository implements Repo
         return $this->model->getFillable();
     }
 
-    public function setCriteria($criteria)
+    public function pushCriteria($criteria)
     {
-        return $this->pushCriteria($criteria);
+        return parent::pushCriteria($criteria);
     }
 }
