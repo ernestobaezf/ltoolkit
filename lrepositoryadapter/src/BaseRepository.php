@@ -153,6 +153,14 @@ abstract class BaseRepository implements UoWRepositoryInterface
     }
 
     /**
+     * @return array
+     */
+    public function getSearchableFields(): array
+    {
+        return $this->getInternalRepository()->getFieldsSearchable();
+    }
+
+    /**
      * Delete a entity in repository by id
      *
      * @param int $id
@@ -283,7 +291,7 @@ abstract class BaseRepository implements UoWRepositoryInterface
             $uow->setAutoCommit(false);
         }
 
-        return array($autoCommit, $withRelations, $_attributes);
+        return [$autoCommit, $withRelations, $_attributes];
     }
 
     /**

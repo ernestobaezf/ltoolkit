@@ -15,6 +15,15 @@ use Prettus\Repository\Contracts\CriteriaInterface as PrettusCriteriaInterface;
 class RequestCriteriaAdapter implements CriteriaAdapterInterface
 {
     /**
+     * @inheritDoc
+     */
+    public function cast(): PrettusCriteriaInterface
+    {
+        $result = new RequestCriteria(request());
+        return $result;
+    }
+
+    /**
      * Apply criteria
      *
      * @param mixed $model
@@ -28,11 +37,26 @@ class RequestCriteriaAdapter implements CriteriaAdapterInterface
     }
 
     /**
-     * @inheritDoc
+     * Set list of fields that can be used to filter
+     *
+     * @param array $fields
+     *
+     * @throws Exception this function is not implemented on adapters
      */
-    public function cast(): PrettusCriteriaInterface
+    function setSearchableFields(array $fields)
     {
-        $result = new RequestCriteria(request());
-        return $result;
+        throw new Exception("Not implemented");
+    }
+
+    /**
+     * Get list of fields that can be used to filter
+     *
+     * @return array
+     *
+     * @throws Exception this function is not implemented on adapters
+     */
+    function getSearchableFields(): array
+    {
+        throw new Exception("Not implemented");
     }
 }

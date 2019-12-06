@@ -102,9 +102,16 @@ interface RepositoryInterface
     /**
      * Push Criteria to filter the query
      *
-     * @param iterable<CriteriaInterface> $criteria
+     * @param iterable iterable<CriteriaInterface> $criteria
      *
      * @return $this
      */
     function setCriteria(iterable $criteria);
+
+    /**
+     * Get fields that can be used to search by using a criteria
+     *
+     * @return array
+     */
+    function getSearchableFields(): array;
 }
