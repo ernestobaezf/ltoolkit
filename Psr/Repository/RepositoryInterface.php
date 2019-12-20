@@ -107,11 +107,4 @@ interface RepositoryInterface
      * @return $this
      */
     function setCriteria(iterable $criteria);
-
-    /**
-     * Get fields that can be used to search by using a criteria
-     *
-     * @return array
-     */
-    function getSearchableFields(): array;
 }

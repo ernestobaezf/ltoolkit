@@ -120,9 +120,4 @@ interface RepositoryAdapterInterface
      * @return $this
      */
     public function scopeQuery(Closure $scope);
-
-    /**
-     * @return array
-     */
-    public function getFieldsSearchable();
 }

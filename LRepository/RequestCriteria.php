@@ -9,16 +9,22 @@ namespace LRepositoryAdapter;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Psr\Repository\CriteriaInterface;
 use LRepositoryAdapter\Interfaces\CriteriaAdapterInterface;
 use LRepositoryAdapter\Interfaces\RequestCriteriaInterface;
 use Prettus\Repository\Contracts\CriteriaInterface as PrettusCriteriaInterface;
 
-class RequestCriteria extends Request implements RequestCriteriaInterface, CriteriaAdapterInterface
+class RequestCriteria implements RequestCriteriaInterface, CriteriaAdapterInterface
 {
     /**
      * @var Request|Collection
      */
     private $request;
+
+    public function __construct()
+    {
+        $this->request = request();
+    }
 
     /**
      * Get element to search
@@ -123,9 +129,9 @@ class RequestCriteria extends Request implements RequestCriteriaInterface, Crite
      *
      * @param mixed $model
      *
-     * @return mixed
+     * @return CriteriaInterface
      */
-    function apply($model)
+    function apply($model): CriteriaInterface
     {
         return $this;
     }
@@ -135,7 +141,7 @@ class RequestCriteria extends Request implements RequestCriteriaInterface, Crite
      */
     public function cast(): PrettusCriteriaInterface
     {
-        $result = new \Prettus\Repository\Criteria\RequestCriteria($this);
+        $result = new \Prettus\Repository\Criteria\RequestCriteria($this->request);
         return $result;
     }
 }

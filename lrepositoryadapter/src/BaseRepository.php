@@ -153,14 +153,6 @@ abstract class BaseRepository implements UoWRepositoryInterface
     }
 
     /**
-     * @return array
-     */
-    public function getSearchableFields(): array
-    {
-        return $this->getInternalRepository()->getFieldsSearchable();
-    }
-
-    /**
      * Delete a entity in repository by id
      *
      * @param int $id
@@ -225,23 +217,7 @@ abstract class BaseRepository implements UoWRepositoryInterface
                     $entity = $this->getInternalRepository()->create($_attributes);
             }
 
-            foreach ($withRelations as $relation => $value) {
-                // Ignore nested relation for the moment
-                // todo: implement operations with nested relations
-                if (Str::contains($relation, ".")) {
-                    continue;
-                }
-
-                $entity->{$relation}()->sync($value);
-
-                Log::info(
-                    "Sync relation: $relation", [
-                        "class" => static::class,
-                        "method" => $operation,
-                        "payload" => $relation
-                    ]
-                );
-            }
+            $this->handleRelationships($operation, $withRelations, $entity);
 
             // If the commit was not set to be automatic then it means the user will take care of commit, so do not
             // commit not reset since it was already false
@@ -332,5 +308,34 @@ abstract class BaseRepository implements UoWRepositoryInterface
         }
 
         return $relations;
+    }
+
+    /**
+     * Handle related objects
+     *
+     * @param string $operation
+     * @param $withRelations
+     * @param $entity
+     */
+    protected function handleRelationships(string $operation, $withRelations, $entity): void
+    {
+        // todo manage the relationship oneToMany and OneToOne
+        foreach ($withRelations as $relation => $value) {
+            // Ignore nested relation for the moment
+            // todo: implement operations with nested relations
+            if (Str::contains($relation, ".")) {
+                continue;
+            }
+
+            $entity->{$relation}()->sync($value);
+
+            Log::info(
+                "Sync relation: $relation", [
+                    "class" => static::class,
+                    "method" => $operation,
+                    "payload" => $relation
+                ]
+            );
+        }
     }
 }

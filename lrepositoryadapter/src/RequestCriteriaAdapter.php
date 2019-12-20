@@ -8,6 +8,7 @@ namespace LRepositoryAdapter;
 
 
 use Exception;
+use Psr\Repository\CriteriaInterface;
 use Prettus\Repository\Criteria\RequestCriteria;
 use LRepositoryAdapter\Interfaces\CriteriaAdapterInterface;
 use Prettus\Repository\Contracts\CriteriaInterface as PrettusCriteriaInterface;
@@ -28,10 +29,10 @@ class RequestCriteriaAdapter implements CriteriaAdapterInterface
      *
      * @param mixed $model
      *
-     * @return mixed
+     * @return CriteriaInterface
      * @throws Exception this function is not implemented on adapters
      */
-    function apply($model)
+    function apply($model): CriteriaInterface
     {
         throw new Exception("Not implemented");
     }

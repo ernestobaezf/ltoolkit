@@ -23,13 +23,6 @@ interface RequestCriteriaInterface extends CriteriaInterface
     function getSearch();
 
     /**
-     * Get fields to apply the search to and the comparison operation
-     *
-     * @return string[] Example: [<field1> => <op (like|=|!=)>, "name" => "like"]
-     */
-    function getSearchFields(): array;
-
-    /**
      * Get the fields with data from the source (columns in case of tables)
      *
      * @return string[]
