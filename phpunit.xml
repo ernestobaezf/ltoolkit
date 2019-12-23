@@ -29,7 +29,6 @@
                 <file>./src/Log/Handlers/LogstashHandler.php</file>
                 <file>./src/Helpers/MathFunctions.php</file>
                 <file>./src/Console/Commands/ExampleCommand.php</file>
-                <file>./src/Adapters/BasePrettusRepositoryAdapter.php</file>
                 <directory suffix=".php">./app/Http/Controllers/Auth/</directory>
                 <directory suffix=".php">./src/Http/Validators/</directory>
                 <directory suffix=".php">./src/Interfaces/</directory>

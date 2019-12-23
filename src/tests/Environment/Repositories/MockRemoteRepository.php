@@ -7,7 +7,7 @@ namespace LToolkit\Test\Environment\Repositories;
 
 
 use Illuminate\Support\Collection;
-use Psr\Repository\RemoteRepositoryInterface;
+use Psrx\Repository\RemoteRepositoryInterface;
 
 class MockRemoteRepository implements RemoteRepositoryInterface
 {

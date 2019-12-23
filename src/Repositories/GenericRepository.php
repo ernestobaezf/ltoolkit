@@ -7,7 +7,7 @@ namespace LToolkit\Repositories;
 
 
 use LRepositoryAdapter\BaseRepository;
-use Psr\Repository\UnitOfWorkInterface;
+use Psrx\Repository\UnitOfWorkInterface;
 use LToolkit\Interfaces\GenericRepositoryInterface;
 
 class GenericRepository extends BaseRepository implements GenericRepositoryInterface

@@ -6,7 +6,7 @@
 namespace LToolkit\Test\Environment\Models;
 
 
-use Psr\Repository\EntityInterface;
+use Psrx\Repository\EntityInterface;
 
 class MockModelNoRelations implements EntityInterface
 {

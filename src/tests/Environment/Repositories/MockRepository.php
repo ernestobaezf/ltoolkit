@@ -8,9 +8,9 @@ namespace LToolkit\Test\Environment\Repositories;
 
 use Exception;
 use Illuminate\Support\Collection;
-use Psr\Repository\EntityInterface;
-use Psr\Repository\RepositoryInterface;
-use Psr\Repository\UnitOfWorkInterface;
+use Psrx\Repository\EntityInterface;
+use Psrx\Repository\RepositoryInterface;
+use Psrx\Repository\UnitOfWorkInterface;
 use LToolkit\Test\Environment\Models\MockModel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 

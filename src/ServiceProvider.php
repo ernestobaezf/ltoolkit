@@ -24,8 +24,6 @@ use LToolkit\Interfaces\GenericRepositoryInterface;
 use LToolkit\Interfaces\ValidatorResolverInterface;
 use LToolkit\Interfaces\RepositoryResolverInterface;
 
-use LRepositoryAdapter\BasePrettusRepositoryAdapter;
-use LRepositoryAdapter\Interfaces\RepositoryAdapterInterface;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -36,9 +34,6 @@ class ServiceProvider extends BaseServiceProvider
         UpdateValidatorInterface::class => BasicUpdateValidator::class,
         EvaluatorInterface::class => Evaluator::class,
         ValidatorResolverInterface::class => ValidatorResolver::class,
-
-        // todo move this to the repository adapter package
-        RepositoryAdapterInterface::class => BasePrettusRepositoryAdapter::class,
     ];
 
     /**

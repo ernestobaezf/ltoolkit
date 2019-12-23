@@ -6,8 +6,8 @@
 namespace LToolkit\Test\Environment\Adapters;
 
 
-use Psr\Repository\RepositoryInterface;
-use Psr\Repository\UnitOfWorkInterface;
+use Psrx\Repository\RepositoryInterface;
+use Psrx\Repository\UnitOfWorkInterface;
 
 class MockUnitOfWork implements UnitOfWorkInterface
 {

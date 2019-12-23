@@ -6,7 +6,7 @@
 namespace LToolkit\Test\Environment\Repositories;
 
 
-use Psr\Repository\UnitOfWorkInterface;
+use Psrx\Repository\UnitOfWorkInterface;
 use LToolkit\Interfaces\GenericRepositoryInterface;
 
 class GenericMockRepository implements GenericRepositoryInterface

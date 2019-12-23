@@ -5,7 +5,7 @@ namespace LToolkit\Test\Unit\Http\Controllers;
 use Exception;
 use Illuminate\Http\Request;
 use LToolkit\Test\Environment\TestCase;
-use Psr\Repository\UnitOfWorkInterface;
+use Psrx\Repository\UnitOfWorkInterface;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Response as HttpReponse;
 use LToolkit\Interfaces\CriteriaResolverInterface;

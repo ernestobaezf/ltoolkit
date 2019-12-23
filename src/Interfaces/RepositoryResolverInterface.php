@@ -6,7 +6,7 @@
 namespace LToolkit\Interfaces;
 
 
-use Psr\Repository\RepositoryInterface;
+use Psrx\Repository\RepositoryInterface;
 
 interface RepositoryResolverInterface
 {

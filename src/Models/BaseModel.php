@@ -6,8 +6,8 @@
 namespace LToolkit\Models;
 
 
-use Psr\Repository\EntityInterface;
 use Illuminate\Database\Eloquent\Model;
+use Psrx\Repository\EntityInterface;
 
 abstract class BaseModel extends Model implements EntityInterface
 {

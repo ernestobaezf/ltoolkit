@@ -7,7 +7,7 @@ namespace LToolkit\Test\Unit\Models;
 
 
 use LToolkit\Models\BaseModel;
-use Psr\Repository\EntityInterface;
+use Psrx\Repository\EntityInterface;
 use LToolkit\Test\Environment\TestCase;
 
 class BaseModelTest extends TestCase

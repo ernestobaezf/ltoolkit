@@ -6,7 +6,7 @@
 namespace LToolkit\Test\Environment\Models;
 
 
-use Psr\Repository\EntityInterface;
+use Psrx\Repository\EntityInterface;
 use LToolkit\Test\Environment\DynamicClass;
 
 class MockModel implements EntityInterface

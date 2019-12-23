@@ -12,8 +12,6 @@
     ],
     "autoload": {
         "psr-4": {
-            "Psr\\Repository\\": "Psr/Repository/",
-            "LRepositoryAdapter\\": "lrepositoryadapter/src/",
             "LToolkit\\": "src/"
         },
         "files": [
@@ -28,7 +26,7 @@
     "require": {
         "php": "^7.1",
         "psr/http-client": "^1.0",
-        "prettus/l5-repository": "^2.6"
+        "psrx/repository": "^1.0"
     },
     "require-dev": {
         "nunomaduro/larastan": "^0.3.16",

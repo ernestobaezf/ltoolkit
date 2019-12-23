@@ -5,7 +5,7 @@ namespace LToolkit\Test\Unit\Http\Controllers;
 use ReflectionException;
 use Illuminate\Support\Facades\Route;
 use LToolkit\Test\Environment\TestCase;
-use Psr\Repository\UnitOfWorkInterface;
+use Psrx\Repository\UnitOfWorkInterface;
 use LToolkit\Adapters\ValidatorResolver;
 use LToolkit\Test\Environment\DynamicClass;
 use LToolkit\Test\Environment\Models\MockModel;
